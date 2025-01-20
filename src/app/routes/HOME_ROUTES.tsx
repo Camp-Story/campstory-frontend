@@ -1,6 +1,7 @@
+import "swiper/swiper-bundle.css";
+
 import { PATH } from "@constants/path";
 import Home from "@pages/Home";
-import "swiper/swiper.css";
 
 const HOME_ROUTES = [
   {
