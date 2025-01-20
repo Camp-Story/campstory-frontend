@@ -17,6 +17,7 @@
 - Tailwind Css
 - React Router Dom
 - swiper
+- full calendar
 - axios
 - prettier + esLint
 
