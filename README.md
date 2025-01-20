@@ -42,7 +42,7 @@
 └─putils
 ```
 
-# Run Lovcally
+# Run Locally
 
 1. Node.js 설치 (호환성을 위해 v18 또는 v20 권장)
 2. 프로젝트 클론
