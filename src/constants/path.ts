@@ -14,31 +14,31 @@ export const PATH = {
   // capming
   camping: "/camping",
   campingSearch: "/camping/search",
-  campingInfo: (id) => `/camping/information/${id}`,
-  campingReservation: (id) => `/camping/reservation/${id}`,
+  campingInfo: (id: string) => `/camping/information/${id}`,
+  campingReservation: (id: string) => `/camping/reservation/${id}`,
 
   // event
   evnet: "/evnet",
   evnetSearch: "/evnet/search",
-  evnetInfo: (id) => `/evnet/information/${id}`,
+  evnetInfo: (id: string) => `/evnet/information/${id}`,
 
   // restaurant
   restaurant: "/restaurant",
   restaurantSearch: "/restaurant/search",
-  restaurantInfo: (id) => `/restaurant/information/${id}`,
+  restaurantInfo: (id: string) => `/restaurant/information/${id}`,
 
   // shopping
   shopping: "/shopping",
   shoppingSearch: "/shopping/search",
-  shoppingInfo: (id) => `/shopping/information/${id}`,
+  shoppingInfo: (id: string) => `/shopping/information/${id}`,
 
   // community
   community: "/community",
-  communityPost: (id) => `/community/${id}`,
+  communityPost: (id: string) => `/community/${id}`,
   communityCreate: "/community/create",
-  communityModify: (id) => `/community/modify/${id}`,
+  communityModify: (id: string) => `/community/modify/${id}`,
   question: "/question",
-  questionPost: (id) => `/question/${id}`,
+  questionPost: (id: string) => `/question/${id}`,
   questionCreate: "/question/create",
-  questionModify: (id) => `/question/modify/${id}`,
+  questionModify: (id: string) => `/question/modify/${id}`,
 };

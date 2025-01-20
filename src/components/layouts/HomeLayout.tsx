@@ -4,7 +4,7 @@ export default function HomeLayout() {
   return (
     <div className="h-dvh">
       <div className="fixed top-0 w-full bg-green-200">header</div>
-      <div>
+      <div className="my-10">
         <Outlet />
         body
       </div>
