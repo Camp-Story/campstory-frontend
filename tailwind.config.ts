@@ -4,17 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary-orange": {
+        primary: {
+          500: "#1CA673",
+        },
+        secondary: {
           300: "#F29B30",
           500: "#F85900",
         },
-        "primary-green": {
-          500: "#1CA673",
-        },
-        "primary-blue": {
+        info: {
           500: "#1A9EFE",
         },
-        gray: {
+        "gray-scale": {
           0: "#FFFFFF",
           100: "#EAEAEA",
           200: "#B4B4B4",
@@ -39,7 +39,7 @@ export default {
         sm: "4px",
         DEFAULT: "8px",
         lg: "12px",
-        xg: "16px",
+        xl: "16px",
         full: "9999px",
       },
     },
