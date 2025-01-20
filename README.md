@@ -15,6 +15,9 @@
 - React + Typescript + Vite
 - Tailwind Css
 - React Router Dom
+- swiper
+- axios
+- prettier + esLint
 
 ## Structure
 
