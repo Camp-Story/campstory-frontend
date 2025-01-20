@@ -2,7 +2,8 @@
 
 ## Teamp Members
 
-| role | name |
+| role | name   |
+| ---- | ------ |
 | 팀장 | 전성우 |
 | 팀원 | 김태환 |
 | 팀원 | 박소영 |
@@ -26,17 +27,18 @@
 │  ├─routes
 │  │  └─[RouteName].tsx
 │  └─router.tsx
-|
+│
 ├─components
 │  ├─common
 │  ├─layouts
+│  │  └─[ComponentName].tsx
 │  └─[ComponentName].tsx
-|
+│
 ├─constants
-|
+│
 ├─pages
-|  └─[PageName].tsx
-|
+│  └─[PageName].tsx
+│
 └─putils
 ```
 
