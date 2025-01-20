@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import "swiper/css";
 
 export default function HomeLayout() {
   return (
