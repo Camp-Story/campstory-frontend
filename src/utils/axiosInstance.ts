@@ -7,6 +7,24 @@ const apiInstance = axios.create({
   },
 });
 
-// 공공 데이터 api instance 추가 예정정
+const goCampingInstance = axios.create({
+  baseURL: "http://apis.data.go.kr/B551011/GoCamping",
+  params: {
+    MobileOS: "ETC",
+    MobileApp: "campstory",
+    serviceKey: import.meta.env.VITE_GO_CAMPING_API_KEY,
+    _type: "json",
+  },
+});
 
-export { apiInstance };
+const tourApiInstance = axios.create({
+  baseURL: "http://apis.data.go.kr/B551011/KorService1",
+  params: {
+    MobileOS: "ETC",
+    MobileApp: "campstory",
+    serviceKey: import.meta.env.VITE_TOUR_API_KEY,
+    _type: "json",
+  },
+});
+
+export { apiInstance, goCampingInstance, tourApiInstance };
