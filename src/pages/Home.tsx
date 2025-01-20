@@ -1,4 +1,4 @@
-function App() {
+function Home() {
   return (
     <div>
       <div className="text-highlight">강조조</div>
@@ -11,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

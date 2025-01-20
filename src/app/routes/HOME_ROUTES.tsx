@@ -1,10 +1,10 @@
-import App from "../../App";
-import { PATH } from "../../constants/path";
+import { PATH } from "@constants/path";
+import Home from "@pages/Home";
 
 const HOME_ROUTES = [
   {
     path: PATH.home,
-    element: <App />,
+    element: <Home />,
   },
 ];
 
