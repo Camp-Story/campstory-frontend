@@ -23,6 +23,9 @@ export default {
           500: "#191919",
         },
       },
+      fontFamily: {
+        sans: ["Pretendard", "ui-sans-serif", "system-ui"],
+      },
       fontSize: {
         highlight: ["40px", { linHeight: "auto", fontWeight: 700 }],
         banner: ["32px", { linHeight: "auto", fontWeight: 400 }],
