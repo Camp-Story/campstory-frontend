@@ -1,9 +1,7 @@
-import { ReactNode } from "react";
-
 interface PopularCampCardProps {
   src: string;
   category: string;
-  children: ReactNode;
+  name: string;
 }
 
 export default PopularCampCardProps;
