@@ -3,10 +3,39 @@ import CategoryCard from "@components/camping/campingMain/CategoryCard";
 import PopularCampCard from "@components/camping/campingMain/PopularCampCard";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import Subtitle from "@components/camping/campingMain/Subtitle";
+import PopularCampCardProps from "types/PopularCampingCardProps";
 
 // Swiper 관련 모듈
-import { Navigation, Pagination, A11y } from "swiper/modules";
+import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+const PopularCampingData: PopularCampCardProps[] = [
+  {
+    src: "/images/camping/PopularCamping1.png",
+    category: "글램핑",
+    name: "스토리 캠핑장",
+  },
+  {
+    src: "/images/camping/PopularCamping2.png",
+    category: "카라반",
+    name: "스토리 캠핑장",
+  },
+  {
+    src: "/images/camping/PopularCamping3.png",
+    category: "오토캠핑",
+    name: "스토리 캠핑장",
+  },
+  {
+    src: "/images/camping/PopularCamping4.png",
+    category: "일반 야영장",
+    name: "스토리 캠핑장",
+  },
+  {
+    src: "/images/camping/PopularCamping5.png",
+    category: "글램핑",
+    name: "스토리 캠핑장",
+  },
+];
 
 export default function CampingMain() {
   return (
@@ -24,38 +53,18 @@ export default function CampingMain() {
       <div>
         <Subtitle>인기 캠핑장</Subtitle>
         <Swiper
-          // install Swiper modules
-          modules={[Navigation, Pagination, A11y]}
+          modules={[Navigation, Pagination, A11y, Autoplay]}
           spaceBetween={10}
           slidesPerView={4}
           navigation
           pagination={{ clickable: true }}
+          autoplay={{ delay: 2500 }}
         >
-          <SwiperSlide>
-            <PopularCampCard src="/images/camping/PopularCamping1.png" category="글램핑">
-              스토리 캠핑장
-            </PopularCampCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <PopularCampCard src="/images/camping/PopularCamping2.png" category="카라반">
-              스토리 캠핑장
-            </PopularCampCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <PopularCampCard src="/images/camping/PopularCamping3.png" category="오토캠핑">
-              스토리 캠핑장
-            </PopularCampCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <PopularCampCard src="/images/camping/PopularCamping4.png" category="일반아영장">
-              스토리 캠핑장
-            </PopularCampCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <PopularCampCard src="/images/camping/PopularCamping5.png" category="카라반">
-              스토리 캠핑장
-            </PopularCampCard>
-          </SwiperSlide>
+          {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
+            <SwiperSlide key={idx}>
+              <PopularCampCard src={item.src} category={item.category} name={item.name} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div>
