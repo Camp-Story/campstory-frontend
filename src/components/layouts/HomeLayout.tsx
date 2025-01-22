@@ -9,7 +9,7 @@ export default function HomeLayout() {
         <Outlet />
         redo the test1
       </div>
-      <div>footer</div>
+      <div className="font-impact text-highlight">footer</div>
     </div>
   );
 }
