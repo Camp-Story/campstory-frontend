@@ -9,6 +9,7 @@ import PopularCampCardProps from "types/PopularCampingCardProps";
 import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCardProps from "types/ReviewCardProps";
+import { PATH } from "@constants/path";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -90,10 +91,18 @@ export default function CampingMain() {
       <div>
         <Subtitle>카테고리별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
-          <CategoryCard src="/images/camping/camping-category-1.png">캠핑</CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-2.png">글램핑</CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-3.png">카라반</CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-4.png">오토캠핑</CategoryCard>
+          <CategoryCard src="/images/camping/camping-category-1.png" path={PATH.campingSearch}>
+            캠핑
+          </CategoryCard>
+          <CategoryCard src="/images/camping/camping-category-2.png" path={PATH.campingSearch}>
+            글램핑
+          </CategoryCard>
+          <CategoryCard src="/images/camping/camping-category-3.png" path={PATH.campingSearch}>
+            카라반
+          </CategoryCard>
+          <CategoryCard src="/images/camping/camping-category-4.png" path={PATH.campingSearch}>
+            오토캠핑
+          </CategoryCard>
         </div>
       </div>
       <div>
@@ -116,11 +125,21 @@ export default function CampingMain() {
       <div>
         <Subtitle>지역별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
-          <CategoryCard src="/images/camping/Seoul.png">서울</CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png">제주도</CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png">부산</CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png">강릉</CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png">인천</CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+            서울
+          </CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+            제주도
+          </CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+            부산
+          </CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+            강릉
+          </CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+            인천
+          </CategoryCard>
         </div>
       </div>
       <div>

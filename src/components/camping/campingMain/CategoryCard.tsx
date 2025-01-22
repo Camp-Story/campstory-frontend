@@ -1,13 +1,16 @@
 import { ReactNode } from "react";
+import { useNavigate } from "react-router";
 
 interface CategoryCardProps {
   src: string;
+  path: string;
   children: ReactNode;
 }
 
-export default function CategoryCard({ src, children }: CategoryCardProps) {
+export default function CategoryCard({ src, path, children }: CategoryCardProps) {
+  const navigate = useNavigate();
   return (
-    <div>
+    <div onClick={() => navigate(path)}>
       <img src={src} alt="Camping Image" className="hover:brightness-75" />
       <div className="text-[26px] text-gray-scale-400 font-bold my-4">{children}</div>
     </div>
