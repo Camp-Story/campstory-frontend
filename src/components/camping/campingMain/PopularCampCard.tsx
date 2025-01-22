@@ -1,10 +1,4 @@
-import { ReactNode } from "react";
-
-interface PopularCampCardProps {
-  src: string;
-  category: string;
-  children: ReactNode;
-}
+import PopularCampCardProps from "types/PopularCampingCardProps";
 
 export default function PopularCampCard({ src, category, children }: PopularCampCardProps) {
   return (
