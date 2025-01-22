@@ -13,31 +13,50 @@ import { PATH } from "@constants/path";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
-    src: "/images/camping/PopularCamping1.png",
+    rank: 1,
+    src: "/images/camping/camping-popular-dummy1.png",
     category: "글램핑",
     name: "스토리 캠핑장",
     path: PATH.campingInfoPath,
   },
   {
-    src: "/images/camping/PopularCamping2.png",
+    rank: 2,
+    src: "/images/camping/camping-popular-dummy2.png",
     category: "카라반",
     name: "스토리 캠핑장",
     path: PATH.campingInfoPath,
   },
   {
-    src: "/images/camping/PopularCamping3.png",
+    rank: 3,
+    src: "/images/camping/camping-popular-dummy3.png",
     category: "오토캠핑",
     name: "스토리 캠핑장",
     path: PATH.campingInfoPath,
   },
   {
-    src: "/images/camping/PopularCamping4.png",
+    rank: 4,
+    src: "/images/camping/camping-popular-dummy4.png",
     category: "일반 야영장",
     name: "스토리 캠핑장",
     path: PATH.campingInfoPath,
   },
   {
-    src: "/images/camping/PopularCamping5.png",
+    rank: 5,
+    src: "/images/camping/camping-popular-dummy2.png",
+    category: "글램핑",
+    name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
+  },
+  {
+    rank: 6,
+    src: "/images/camping/camping-popular-dummy1.png",
+    category: "글램핑",
+    name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
+  },
+  {
+    rank: 7,
+    src: "/images/camping/camping-popular-dummy3.png",
     category: "글램핑",
     name: "스토리 캠핑장",
     path: PATH.campingInfoPath,
@@ -129,6 +148,7 @@ export default function CampingMain() {
           {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
             <SwiperSlide key={idx}>
               <PopularCampCard
+                rank={item.rank}
                 src={item.src}
                 category={item.category}
                 name={item.name}
