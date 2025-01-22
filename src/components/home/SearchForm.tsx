@@ -1,4 +1,4 @@
-export default function CampingSearchForm() {
+export default function SearchForm() {
   return (
     <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-4/5 py-8 px-12 bg-white rounded-xl drop-shadow-custom flex items-end gap-4">
       <div className="flex flex-col gap-4 w-50">
