@@ -1,9 +1,4 @@
-interface ReviewCardProps {
-  src: string;
-  contents: string;
-  timestamp: string;
-  userId: string;
-}
+import ReviewCardProps from "types/ReviewCardProps";
 
 export default function ReviewCard({ src, contents, timestamp, userId }: ReviewCardProps) {
   return (
