@@ -46,6 +46,9 @@ export default {
       padding: {
         main: "92px",
       },
+      dropShadow: {
+        custom: "1px 1px 10px rgba(180, 180, 180, 0.5)",
+      },
     },
   },
   plugins: [],
