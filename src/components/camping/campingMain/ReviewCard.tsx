@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router";
 import ReviewCardProps from "types/ReviewCardProps";
 
-export default function ReviewCard({ src, contents, timestamp, userId }: ReviewCardProps) {
+export default function ReviewCard({ src, contents, timestamp, userId, path }: ReviewCardProps) {
+  const navigate = useNavigate();
   return (
-    <div className="flex gap-2">
+    <div onClick={() => navigate(path)} className="flex gap-2">
       <img src={src} alt="reviewImg" className="w-[200px] h-[200px]" />
       <div className="flex flex-col gap-2 border-2 border-slate-100 rounded-xl w-[400px] h-[200px] p-6 hover:border-primary-500">
         <div className="text-gray-scale-400 text-body1 leading-5">{contents}</div>
