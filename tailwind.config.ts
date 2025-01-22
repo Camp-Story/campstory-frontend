@@ -25,6 +25,7 @@ export default {
       },
       fontFamily: {
         sans: ["Pretendard", "ui-sans-serif", "system-ui"],
+        impact: ["Paperlogy-7Bold"],
       },
       fontSize: {
         highlight: ["40px", { linHeight: "auto", fontWeight: 700 }],
