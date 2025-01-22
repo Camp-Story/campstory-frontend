@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { GoSearch } from "react-icons/go";
 
-export default function SearchBar({ className, backgroundColor }) {
+type SearchBarProps = {
+  className?: string;
+  backgroundColor?: string;
+};
+
+export default function SearchBar({ className, backgroundColor }: SearchBarProps) {
   const [focus, setFocus] = useState(false);
 
   return (
@@ -19,9 +23,6 @@ export default function SearchBar({ className, backgroundColor }) {
               : "bg-white focus:outline-slate-200"
           }`}
         />
-        <button type="submit" className="p-2 rounded-full mx-2 absolute right-0">
-          <GoSearch className="size-[24px]" />
-        </button>
       </form>
     </div>
   );
