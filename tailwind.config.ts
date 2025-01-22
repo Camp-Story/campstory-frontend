@@ -43,6 +43,9 @@ export default {
         xl: "16px",
         full: "9999px",
       },
+      padding: {
+        main: "92px",
+      },
     },
   },
   plugins: [],
