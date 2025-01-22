@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import SearchBar from "./SearchBar";
 
 export default function Banner() {
@@ -9,15 +8,3 @@ export default function Banner() {
     </div>
   );
 }
-=======
-
-export default function Banner() {
-    return (
-      <>
-        <div>
-          <img src="/images/festival/festival-banner.png" alt="이미지" className="w-full object-cover mb-16" />
-        </div>
-      </>
-    );
-  }
->>>>>>> 6650190 (add: event_banner_componets add)
