@@ -46,7 +46,7 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-2 px-main">
+    <div className="flex flex-col gap-2">
       <div className="text-highlight">강조</div>
       <div className="text-banner">배너</div>
       <div className="text-title">제목</div>
