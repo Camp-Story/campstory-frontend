@@ -4,7 +4,9 @@ export default function MainNavigation() {
   return (
     <nav className="flex items-center justify-between">
       <h1>
-        <Link to="/">CAMPSTORY</Link>
+        <Link to="/">
+          <img src="/images/campstory-logo.png" />
+        </Link>
       </h1>
       <ul className="flex gap-[40px] text-body1">
         <li>
