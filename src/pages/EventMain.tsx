@@ -1,4 +1,5 @@
 import Banner from "@components/event_components/Banner"
+import CardButton from "@components/event_components/CardButton"
 import SubTitle from "@components/event_components/SubTitle"
 
 export default function EventMain() {
@@ -6,7 +7,15 @@ export default function EventMain() {
     return (
         <div>
             <Banner/>
+            <div>
             <SubTitle mainText="다양한 축제, 새로운 즐거움" subText="음식, 음악, 자연, 문화가 어우러진 축제의 세계를 만나보세요"/>
+                <div className="flex justify-between items-center">
+                    <CardButton src="/images/festival/event-category-1.png">일반</CardButton>
+                    <CardButton src="/images/festival/event-category-2.png">문화 관광</CardButton>
+                    <CardButton src="/images/festival/event-category-3.png">박람회</CardButton>
+                    <CardButton src="/images/festival/event-category-4.png">전시회</CardButton>
+                </div>
+            </div>
             <h1>안녕하세요!</h1>
             <h2>반갑습니다!</h2>
         </div>
