@@ -1,7 +1,7 @@
 import AreaCheckbox from "@components/common/search/AreaCheckbox";
 import CategoryCheckbox from "@components/common/search/CategoryCheckbox";
 import SearchCard from "@components/common/search/SearchCard";
-import SearchMap from "@components/common/search/searchMap";
+import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 
 import { AREA, CAMPING_CATEGORY } from "@constants/filters";
