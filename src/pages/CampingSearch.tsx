@@ -1,4 +1,5 @@
 import SearchCard from "@components/common/search/SearchCard";
+import SearchMap from "@components/common/search/searchMap";
 import SearchInput from "@components/common/SearchInput";
 
 import { AREA, CAMPING_CATEGORY } from "@constants/filters";
@@ -12,17 +13,8 @@ export default function CampingSearch() {
 
       <div className="flex gap-[34px] pb-5">
         <div className="flex flex-col gap-[30px]">
-          <div className="relative">
-            <img src="/images/map-small.png" alt="map small" />
-            <div
-              className="absolute top-0 w-full h-full flex items-center justify-center"
-              onClick={() => alert("see map")}
-            >
-              <div className="w-fit bg-info-500 text-gray-scale-100 rounded px-[23px] py-[13px]">
-                지도 보기
-              </div>
-            </div>
-          </div>
+          <SearchMap />
+
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>
             <h4 className="text-base font-bold">카테고리</h4>
