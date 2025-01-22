@@ -5,7 +5,7 @@ interface SubTitleProps {
 
 export default function SubTitle({ mainText, subText }: SubTitleProps) {
     return (
-        <div className="mb-4">
+        <div className="mb-4 mt-[60px]">
             <div className="text-highlight text-gray-scale-400 font-impact">
                 {mainText}
             </div>
