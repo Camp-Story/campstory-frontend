@@ -1,6 +1,7 @@
 import Banner from "@components/camping/campingMain/Banner";
 import CategoryCard from "@components/camping/campingMain/CategoryCard";
 import PopularCampCard from "@components/camping/campingMain/PopularCampCard";
+import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import Subtitle from "@components/camping/campingMain/Subtitle";
 
 // Swiper 관련 모듈
@@ -56,6 +57,47 @@ export default function CampingMain() {
             </PopularCampCard>
           </SwiperSlide>
         </Swiper>
+      </div>
+      <div>
+        <Subtitle>리뷰 모음</Subtitle>
+        <div className="grid grid-cols-2 justify-between items-center gap-4">
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+          <ReviewCard
+            src="/images/shpping/photo-review-dummy-1.png"
+            contents="2박3일 캠핑하는 동안 모든게 좋았습니다.(언덕은 운동하는기분으로) 깔끔하고, 힐링하는 분위기에, 정말 잘 쉬었습니다. 다른 캠핑장가봐도•••"
+            timestamp="24분전"
+            userId="사용자 이름"
+          />
+        </div>
       </div>
     </div>
   );
