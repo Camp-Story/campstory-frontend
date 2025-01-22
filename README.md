@@ -40,7 +40,7 @@
 ├─pages
 │  └─[PageName].tsx
 │
-└─putils
+└─utils
 ```
 
 # Run Locally
