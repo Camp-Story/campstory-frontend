@@ -59,6 +59,16 @@ export default function CampingMain() {
         </Swiper>
       </div>
       <div>
+        <Subtitle>지역별 캠핑장</Subtitle>
+        <div className="flex gap-2 justify-between items-center">
+          <CategoryCard src="/images/camping/Seoul.png">서울</CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png">제주도</CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png">부산</CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png">강릉</CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png">인천</CategoryCard>
+        </div>
+      </div>
+      <div>
         <Subtitle>리뷰 모음</Subtitle>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
           <ReviewCard
