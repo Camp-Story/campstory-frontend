@@ -144,13 +144,13 @@ export default function CampingMain() {
           <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
             서울
           </CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+          <CategoryCard src="/images/camping/Jeju.png" path={PATH.campingSearch}>
             제주도
           </CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+          <CategoryCard src="/images/camping/Busan.png" path={PATH.campingSearch}>
             부산
           </CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
+          <CategoryCard src="/images/camping/Gangneung.png" path={PATH.campingSearch}>
             강릉
           </CategoryCard>
           <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
