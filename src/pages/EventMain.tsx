@@ -1,5 +1,6 @@
 import Banner from "@components/event_components/Banner"
 import CardButton from "@components/event_components/CardButton"
+import EventCalendarSection from "@components/event_components/EventCalendarSection"
 import SubTitle from "@components/event_components/SubTitle"
 import TodaySection from "@components/event_components/TodaySection"
 
@@ -18,8 +19,7 @@ export default function EventMain() {
                 </div>
             </div>
             <TodaySection/>
-            <h1>안녕하세요!</h1>
-            <h2>반갑습니다!</h2>
+            <EventCalendarSection/>
         </div>
     )
 }
