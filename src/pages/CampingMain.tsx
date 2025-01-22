@@ -104,7 +104,7 @@ export default function CampingMain() {
           slidesPerView={4}
           navigation
           pagination={{ clickable: true }}
-          autoplay={{ delay: 2500 }}
+          // autoplay={{ delay: 2500 }}
         >
           {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
             <SwiperSlide key={idx}>
