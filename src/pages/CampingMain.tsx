@@ -16,26 +16,31 @@ const PopularCampingData: PopularCampCardProps[] = [
     src: "/images/camping/PopularCamping1.png",
     category: "글램핑",
     name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
   },
   {
     src: "/images/camping/PopularCamping2.png",
     category: "카라반",
     name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
   },
   {
     src: "/images/camping/PopularCamping3.png",
     category: "오토캠핑",
     name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
   },
   {
     src: "/images/camping/PopularCamping4.png",
     category: "일반 야영장",
     name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
   },
   {
     src: "/images/camping/PopularCamping5.png",
     category: "글램핑",
     name: "스토리 캠핑장",
+    path: PATH.campingInfoPath,
   },
 ];
 
@@ -117,7 +122,12 @@ export default function CampingMain() {
         >
           {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
             <SwiperSlide key={idx}>
-              <PopularCampCard src={item.src} category={item.category} name={item.name} />
+              <PopularCampCard
+                src={item.src}
+                category={item.category}
+                name={item.name}
+                path={item.path}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
