@@ -3,6 +3,10 @@ import CategoryCard from "@components/camping/campingMain/CategoryCard";
 import PopularCampCard from "@components/camping/campingMain/PopularCampCard";
 import Subtitle from "@components/camping/campingMain/Subtitle";
 
+// Swiper 관련 모듈
+import { Navigation, Pagination, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 export default function CampingMain() {
   return (
     <div className="flex flex-col gap-[60px]">
@@ -18,20 +22,40 @@ export default function CampingMain() {
       </div>
       <div>
         <Subtitle>인기 캠핑장</Subtitle>
-        <div className="flex gap-2 justify-between items-center">
-          <PopularCampCard src="/images/camping/PopularCamping1.png" category="글램핑">
-            스토리 캠핑장
-          </PopularCampCard>
-          <PopularCampCard src="/images/camping/PopularCamping2.png" category="카라반">
-            스토리 캠핑장
-          </PopularCampCard>
-          <PopularCampCard src="/images/camping/PopularCamping3.png" category="오토캠핑">
-            스토리 캠핑장
-          </PopularCampCard>
-          <PopularCampCard src="/images/camping/PopularCamping4.png" category="글램핑">
-            스토리 캠핑장
-          </PopularCampCard>
-        </div>
+        <Swiper
+          // install Swiper modules
+          modules={[Navigation, Pagination, A11y]}
+          spaceBetween={10}
+          slidesPerView={4}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          <SwiperSlide>
+            <PopularCampCard src="/images/camping/PopularCamping1.png" category="글램핑">
+              스토리 캠핑장
+            </PopularCampCard>
+          </SwiperSlide>
+          <SwiperSlide>
+            <PopularCampCard src="/images/camping/PopularCamping2.png" category="카라반">
+              스토리 캠핑장
+            </PopularCampCard>
+          </SwiperSlide>
+          <SwiperSlide>
+            <PopularCampCard src="/images/camping/PopularCamping3.png" category="오토캠핑">
+              스토리 캠핑장
+            </PopularCampCard>
+          </SwiperSlide>
+          <SwiperSlide>
+            <PopularCampCard src="/images/camping/PopularCamping4.png" category="일반아영장">
+              스토리 캠핑장
+            </PopularCampCard>
+          </SwiperSlide>
+          <SwiperSlide>
+            <PopularCampCard src="/images/camping/PopularCamping5.png" category="카라반">
+              스토리 캠핑장
+            </PopularCampCard>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </div>
   );
