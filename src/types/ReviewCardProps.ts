@@ -3,6 +3,7 @@ interface ReviewCardProps {
   contents: string;
   timestamp: string;
   userId: string;
+  path: string;
 }
 
 export default ReviewCardProps;
