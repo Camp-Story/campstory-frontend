@@ -158,7 +158,7 @@ export default function CampingMain() {
           </CategoryCard>
         </div>
       </div>
-      <div>
+      <div className="mb-[200px]">
         <Subtitle>리뷰 모음</Subtitle>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
           {ReviewData.map((item: ReviewCardProps, idx: number) => (
