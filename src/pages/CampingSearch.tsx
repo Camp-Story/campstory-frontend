@@ -44,10 +44,38 @@ export default function CampingSearch() {
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">'캠핑' 검색 결과 14개</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-            <SearchCard />
-            <SearchCard />
-            <SearchCard />
-            <SearchCard />
+            <SearchCard
+              bookmarked={false}
+              category="오토캠핑•펜션"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경기도 가평군 가화로 1364-59"
+              title="가평미라몬티풀빌라펜션"
+            />
+            <SearchCard
+              bookmarked={true}
+              category="오토캠핑•펜션"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경기도 가평군 가화로 1364-59"
+              title="가평미라몬티풀빌라펜션"
+            />
+            <SearchCard
+              bookmarked={true}
+              category="오토캠핑•펜션"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경기도 가평군 가화로 1364-59"
+              title="가평미라몬티풀빌라펜션"
+            />
+            <SearchCard
+              bookmarked={false}
+              category="오토캠핑•펜션"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경기도 가평군 가화로 1364-59"
+              title="가평미라몬티풀빌라펜션"
+            />
           </div>
         </div>
       </div>

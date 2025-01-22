@@ -1,12 +1,28 @@
-export default function SearchCard() {
+interface SearchCardProps {
+  category: string;
+  title: string;
+  location: string;
+  bookmarked: boolean;
+  handleClickBookmark: () => void;
+  handleClick: () => void;
+}
+
+export default function SearchCard({
+  bookmarked,
+  category,
+  handleClick,
+  handleClickBookmark,
+  location,
+  title,
+}: SearchCardProps) {
   return (
     <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow">
       <img src="/images/camping/searchCamping.png" alt="camping thumbanil" />
       <div className="px-5 py-[15px] flex flex-col gap-[46px]">
         <div className="flex justify-between">
           <div className="flex flex-col text-gray-scale-300">
-            <span className="text-[15px]">오토캠핑 팬션</span>
-            <div className="text-sub-title font-bold">가평미라몬티풀빌라펜션</div>
+            <span className="text-[15px]">{category}</span>
+            <div className="text-sub-title font-bold">{title}</div>
             <div className="flex gap-[7px] items-center">
               <svg
                 width="13"
@@ -24,7 +40,7 @@ export default function SearchCard() {
                   stroke="#676767"
                 />
               </svg>
-              <span className="text-[15px]">경기도 가평군 가화로 1364-59</span>
+              <span className="text-[15px]">{location}</span>
             </div>
           </div>
           <svg
@@ -33,13 +49,14 @@ export default function SearchCard() {
             viewBox="0 0 30 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={handleClickBookmark}
           >
-            <circle cx="15" cy="15" r="15" fill="#D9D9D9" />
+            <circle cx="15" cy="15" r="15" fill={bookmarked ? "#F29B30" : "#D9D9D9"} />
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M14.9999 8.38854C15.8749 7.49946 17.0144 7 18.2039 7C19.4884 7 20.7146 7.58238 21.6124 8.60881C22.5038 9.62713 23 10.9998 23 12.4254C23 13.851 22.5037 15.2238 21.6124 16.242C21.0197 16.9194 20.4279 17.6122 19.8331 18.3086C18.6249 19.723 17.4038 21.1526 16.1353 22.4995L16.1324 22.5026C15.4782 23.187 14.4422 23.1621 13.816 22.4465L8.38716 16.2419C6.53761 14.1281 6.53761 10.7227 8.38716 8.6089C10.1971 6.54038 13.1115 6.46693 14.9999 8.38854Z"
-              fill="#B4B4B4"
+              fill={bookmarked ? "#F85900" : "#B4B4B4"}
             />
           </svg>
         </div>
@@ -47,7 +64,7 @@ export default function SearchCard() {
         {/* TODO: id로 상세 페이지 연결 */}
         <button
           className="bg-gray-scale-100 rounded h-[30px] text-[15px] font-bold text-gray-scale-300"
-          onClick={() => alert("detail page")}
+          onClick={handleClick}
         >
           더 알아보기
         </button>
