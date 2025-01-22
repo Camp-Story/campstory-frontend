@@ -1,7 +1,7 @@
 export default function CampingSearchForm() {
   return (
-    <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-3/5 py-8 px-12 bg-white rounded-xl drop-shadow-custom flex items-end gap-4">
-      <div className="flex flex-col gap-4 w-60">
+    <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-4/5 py-8 px-12 bg-white rounded-xl drop-shadow-custom flex items-end gap-4">
+      <div className="flex flex-col gap-4 w-50">
         <label htmlFor="camping" className="text-sub-title font-bold text-gray-scale-400">
           캠핑장
         </label>
@@ -12,7 +12,7 @@ export default function CampingSearchForm() {
           className="w-full px-5 py-4 rounded text-body1 bg-gray-scale-100 focus:outline-none"
         />
       </div>
-      <div className="flex flex-col gap-4 w-52">
+      <div className="flex flex-col gap-4 w-50">
         <label htmlFor="date" className="text-sub-title font-bold text-gray-scale-400">
           날짜
         </label>
@@ -23,7 +23,7 @@ export default function CampingSearchForm() {
           className="w-full px-5 py-4 rounded text-body1 bg-gray-scale-100 focus:outline-none"
         />
       </div>
-      <div className="flex flex-col gap-4 w-52">
+      <div className="flex flex-col gap-4 w-50">
         <label htmlFor="people" className="text-sub-title font-bold text-gray-scale-400">
           인원
         </label>
