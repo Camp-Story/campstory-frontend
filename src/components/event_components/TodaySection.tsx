@@ -1,6 +1,6 @@
 
 export default function TodaySection() {
-    
+
     return (
         <div className="flex mx-[106px] my-[100px]">
             <div className="flex-1 mr-[70px]">
@@ -14,13 +14,13 @@ export default function TodaySection() {
                     <img src="/images/festival/event-tag-star.png" alt="별 모양 태그" className="inline-block mr-2"/>
                     핫플레이스
                 </div>
-                <div className="mt-4">
+                <div>
                     <button className="border p-2 rounded-xl text-gray-scale-400 font-bold bg-gray-scale-100 w-[302px] h-[58px]">
                         더 알아보기
                     </button>
                 </div>
             </div>
-            <div className="flex-1 flex justify-center items-center">
+            <div className="flex-1 flex justify-center">
                 <img src="/images/festival/event-dummy.png" alt="오늘의 행사 이미지" className="max-w-full"/>
             </div>
         </div>
