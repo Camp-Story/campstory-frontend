@@ -1,13 +1,15 @@
 import { PATH } from "@constants/path";
+import RestaurantMain from "@pages/RestaurantMain";
+import RestaurantSearch from "@pages/RestaurantSearch";
 
 const RESTAURANT_ROUTES = [
   {
     path: PATH.restaurant,
-    element: <>restaurant</>,
+    element: <RestaurantMain />,
   },
   {
     path: PATH.restaurantSearch,
-    element: <>restaurant search</>,
+    element: <RestaurantSearch />,
   },
   {
     path: PATH.restaurantInfoPath,
