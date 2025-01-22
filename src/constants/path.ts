@@ -20,10 +20,10 @@ export const PATH = {
   campingReservationPath: "/camping/reservation/:id",
 
   // event
-  evnet: "/evnet",
-  evnetSearch: "/evnet/search",
-  evnetInfo: (id: string) => `/evnet/information/${id}`,
-  eventInfoPath: "/evnet/information/:id",
+  event: "/event",
+  eventSearch: "/event/search",
+  eventInfo: (id: string) => `/event/information/${id}`,
+  eventInfoPath: "/event/information/:id",
 
   // restaurant
   restaurant: "/restaurant",
