@@ -1,9 +1,10 @@
 import { PATH } from "@constants/path";
+import CampingMain from "@pages/CampingMain";
 
 const CAMPING_ROUTES = [
   {
     path: PATH.camping,
-    element: <>camping</>,
+    element: <CampingMain />,
   },
   {
     path: PATH.campingSearch,
