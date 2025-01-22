@@ -73,5 +73,5 @@ npm run dev
 - lint 확인
 
 ```bash
-git run lint
+npm run lint
 ```
