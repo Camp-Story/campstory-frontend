@@ -11,7 +11,9 @@ export default function RootLayout() {
         </header>
         <Outlet />
       </div>
-      <footer className="h-52 bg-gray-200 px-main py-7">footer</footer>
+      <footer className="h-52 bg-gray-200 mt-28">
+        <div className="w-[1440px] m-auto px-main py-7">footer</div>
+      </footer>
     </div>
   );
 }
