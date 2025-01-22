@@ -4,11 +4,12 @@ export default function Banner() {
   return (
     <>
       <div className="relative ">
-        <img src="/camping/caping-banner.png" alt="메인이미지지" className="w-full object-cover" />
-        <div className="min-w-96 mx-auto absolute bottom-[140px] left-[50%] -translate-x-[50%] text-3xl text-white">
-          <div className="my-2 ">캠핑 후 즐길 맛집, 여기서 찾으세요!</div>
-          <div className=" font-extrabold">최고의 맛집 정보를 한눈에.</div>
-        </div>
+        <img
+          src="/images/food/food-banner.png"
+          alt="메인이미지지"
+          className="w-full object-cover"
+        />
+        <div className="min-w-96 mx-auto absolute bottom-[140px] left-[50%] -translate-x-[50%] text-3xl text-white"></div>
         <SearchBar className="absolute bottom-[60px] left-[50%] -translate-x-[50%]" />
       </div>
     </>
