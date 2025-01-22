@@ -7,7 +7,7 @@ export default function HomeLayout() {
       <div className="fixed top-0 w-full bg-green-200">header</div>
       <div className="my-10">
         <Outlet />
-        redo the test
+        redo the test1
       </div>
       <div>footer</div>
     </div>
