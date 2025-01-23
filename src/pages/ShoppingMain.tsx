@@ -117,6 +117,23 @@ export default function ShoppingMain() {
         </div>
       </div>
 
+      {/* NewProduct */}
+      <div>
+        <div className="flex justify-between items-center">
+          <SubTitle>신상품</SubTitle>
+          <button className="text-info-500">더보기</button>
+        </div>
+      </div>
+
+      {/* Sale */}
+      <div className="relative">
+        <div className="absolute bg-primary-500/10 h-[460px] w-screen -top-4 -left-[300px]"></div>
+        <div className="flex justify-between items-center">
+          <SubTitle>최저가 득템!</SubTitle>
+          <button className="text-info-500">더보기</button>
+        </div>
+      </div>
+
       {/* Review */}
       <div>
         <div className="flex justify-between items-center">
