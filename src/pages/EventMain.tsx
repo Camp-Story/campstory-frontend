@@ -1,8 +1,8 @@
-import Banner from "@components/event_components/Banner";
-import CardButton from "@components/event_components/CardButton";
-import EventCalendarSection from "@components/event_components/EventCalendarSection";
-import SubTitle from "@components/event_components/SubTitle";
-import TodaySection from "@components/event_components/TodaySection";
+import Banner from "@components/event/Banner";
+import CardButton from "@components/event/CardButton";
+import EventCalendarSection from "@components/event/EventCalendarSection";
+import SubTitle from "@components/event/SubTitle";
+import TodaySection from "@components/event/TodaySection";
 
 export default function EventMain() {
   return (
