@@ -18,7 +18,7 @@ export default function SearchCard({
   title,
 }: SearchCardProps) {
   return (
-    <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow">
+    <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
       <div className="w-[450px] h-[250px] overflow-hidden">
         <img src={img || "https://placehold.co/450x250?text=CAMP+STORY"} alt="thumbanil" />
       </div>
