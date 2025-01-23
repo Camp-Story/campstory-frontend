@@ -1,4 +1,5 @@
 import { PATH } from "@constants/path";
+import EventDetail from "@pages/EventDetail";
 import EventMain from "@pages/EventMain";
 import EventSearch from "@pages/EventSearch";
 
@@ -13,7 +14,7 @@ const EVENT_ROUTES = [
   },
   {
     path: PATH.eventInfoPath,
-    element: <>event information</>,
+    element: <EventDetail />,
   },
 ];
 
