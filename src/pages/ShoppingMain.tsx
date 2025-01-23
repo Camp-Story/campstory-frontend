@@ -2,6 +2,7 @@ import SearchBar from "@components/common/main/SearchBar";
 import SubTitle from "@components/common/main//Subtitle";
 import CategoryCard from "@components/shopping/CategoryCard";
 import { PATH } from "@constants/path";
+import RecommendCard from "@components/shopping/RecommendCard";
 
 export default function ShoppingMain() {
   return (
@@ -48,6 +49,27 @@ export default function ShoppingMain() {
             src="/images/shopping/bonfire.png"
             catName="소모품"
             path={PATH.shoppingInfoPath}
+          />
+        </div>
+      </div>
+
+      {/* Recommend */}
+      <div>
+        <SubTitle>오늘의 추천 상품</SubTitle>
+        <div className="flex gap-2 justify-between items-center">
+          <RecommendCard
+            src="/images/shopping/photo-review-dummy-1.png"
+            brand={"브랜드 이름"}
+            productName="시어플러스57 바베큐 그릴"
+            discount={30}
+            price="168,000원"
+          />
+          <RecommendCard
+            src="/images/shopping/photo-review-dummy-2.png"
+            brand={"브랜드 이름"}
+            productName="시어플러스57 바베큐 그릴"
+            discount={30}
+            price="168,000원"
           />
         </div>
       </div>
