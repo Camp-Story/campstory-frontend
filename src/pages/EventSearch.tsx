@@ -4,7 +4,7 @@ import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 
-import { AREA, CAMPING_CATEGORY } from "@constants/filters";
+import { AREA, EVENT_CATEGORY, EVENT_PROGRESS } from "@constants/filters";
 
 export default function EventSearch() {
   return (
@@ -13,15 +13,28 @@ export default function EventSearch() {
         <SearchInput handleSubmit={() => alert("submit!")} />
       </div>
 
-      <div className="flex gap-[34px] pb-5">
+      <div className="flex gap-[34px]">
         <div className="flex flex-col gap-[30px]">
           <SearchMap />
 
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>
+            <h4 className="text-base font-bold">진행/예정</h4>
+            <ul className="w-48 flex flex-col gap-5 text-[15px] font-medium text-gray-scale-400">
+              {EVENT_PROGRESS.map((category) => (
+                <CategoryCheckbox
+                  label={category.label}
+                  value={category.value}
+                  key={category.value}
+                />
+              ))}
+            </ul>
+
+            <hr />
+
             <h4 className="text-base font-bold">카테고리</h4>
             <ul className="w-48 flex flex-col gap-5 text-[15px] font-medium text-gray-scale-400">
-              {CAMPING_CATEGORY.map((category) => (
+              {EVENT_CATEGORY.map((category) => (
                 <CategoryCheckbox
                   label={category.label}
                   value={category.value}

@@ -17,6 +17,40 @@ export const CAMPING_CATEGORY = [
   },
 ];
 
+export const EVENT_CATEGORY = [
+  {
+    value: "regular",
+    label: "일반",
+  },
+  {
+    value: "culture",
+    label: "문화 관광",
+  },
+  {
+    value: "fair",
+    label: "박람회",
+  },
+  {
+    value: "exhibition",
+    label: "전시회",
+  },
+];
+
+export const EVENT_PROGRESS = [
+  {
+    value: "ongoing",
+    label: "진행중인 행사",
+  },
+  {
+    value: "upcoming",
+    label: "예정된 행사",
+  },
+  {
+    value: "past",
+    label: "지난 행사",
+  },
+];
+
 export const AREA = [
   {
     code: 11,
