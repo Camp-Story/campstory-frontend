@@ -1,4 +1,5 @@
 import { PATH } from "@constants/path";
+import CampingDetail from "@pages/CampingDetail";
 import CampingMain from "@pages/CampingMain";
 import CampingSearch from "@pages/CampingSearch";
 
@@ -13,7 +14,7 @@ const CAMPING_ROUTES = [
   },
   {
     path: PATH.campingInfoPath,
-    element: <>camping information</>,
+    element: <CampingDetail/>,
   },
   {
     path: PATH.campingReservationPath,
