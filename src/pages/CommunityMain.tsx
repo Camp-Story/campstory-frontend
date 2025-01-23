@@ -1,4 +1,5 @@
 import SearchInput from "@components/common/SearchInput";
+import OrderRadio from "@components/community/OrderRadio";
 import PostCard from "@components/community/PostCard";
 import Tag from "@components/community/Tag";
 import { PATH } from "@constants/path";
@@ -14,8 +15,8 @@ export default function CommunityMain() {
 
       <div className="flex gap-[50px] justify-between items-center mb-[30px]">
         <div className="flex gap-5 text-sm">
-          <span className="text-gray-scale-400 font-bold">최신순</span>
-          <span className="text-gray-scale-300">인기순</span>
+          <OrderRadio label="최신순" value="recent" defaultChecked />
+          <OrderRadio label="인기순" value="popular" />
         </div>
 
         <div className="flex gap-[5px]">
