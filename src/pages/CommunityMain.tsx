@@ -1,4 +1,5 @@
 import SearchInput from "@components/common/SearchInput";
+import PostCard from "@components/community/PostCard";
 import Tag from "@components/community/Tag";
 import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
@@ -29,6 +30,12 @@ export default function CommunityMain() {
         >
           글 작성하기
         </button>
+      </div>
+
+      <div className="grid grid-cols-2 gap-x-[64px] gap-y-[60px]">
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </div>
     </>
   );

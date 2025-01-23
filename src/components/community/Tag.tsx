@@ -30,7 +30,7 @@ export default function Tag({ tag }: TagProps) {
       <input id={tag} type="checkbox" value="" className="hidden peer" defaultChecked />
       <label
         htmlFor={tag}
-        className="flex gap-[5px] items-center cursor-pointer border px-2.5 py-1 text-gray-scale-400 border-gray-scale-300 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 rounded-[11px] text-[11px]"
+        className="flex gap-[5px] items-center cursor-pointer border px-2.5 py-1 text-gray-scale-400 border-gray-scale-300 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 rounded-[21px] text-[11px]"
       >
         <span>{icon}</span>
         <span className="leading-3">{label}</span>
