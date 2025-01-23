@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import AreaCard from "./AreaCard";
 import Badge from "./Badge";
 import Tag from "./Tag";
@@ -5,10 +6,13 @@ import BookmarkIcon from "./icons/BookmarkIcon";
 import LikeIcon from "./icons/LikeIcon";
 import ShareIcon from "./icons/ShareIcon";
 import ViewIcon from "./icons/ViewIcon";
+import { PATH } from "@constants/path";
 
 export default function PostCard() {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div onClick={() => navigate(PATH.communityPost("1"))} className="cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
         <div className="flex gap-[5px] items-center">
           <img
@@ -41,9 +45,9 @@ export default function PostCard() {
       <div className="flex justify-between items-center">
         <div className="flex gap-[5px]">
           <Badge icon={<ViewIcon />} count={115} />
-          <Badge icon={<LikeIcon />} count={10} />
-          <Badge icon={<BookmarkIcon />} />
-          <Badge icon={<ShareIcon />} />
+          <Badge icon={<LikeIcon />} count={10} handleClick={() => alert("click like")} />
+          <Badge icon={<BookmarkIcon />} handleClick={() => alert("click bookmark")} />
+          <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} />
         </div>
 
         <span className="text-[13px] text-gray-scale-300">24분전</span>
