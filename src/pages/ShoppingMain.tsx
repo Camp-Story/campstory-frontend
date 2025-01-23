@@ -73,6 +73,11 @@ export default function ShoppingMain() {
           />
         </div>
       </div>
+
+      {/* Review */}
+      <div>
+        <SubTitle>포토 리뷰 모음집</SubTitle>
+      </div>
     </div>
   );
 }
