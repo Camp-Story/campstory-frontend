@@ -1,12 +1,28 @@
-export default function DetailRight() {
+interface DetailRightProps {
+  category: string;
+  title: string;
+  address: string;
+  phone: string;
+  contenttypeid: string;
+  bookmarked: boolean;
+}
+
+export default function DetailRight({
+  category,
+  title,
+  address,
+  phone,
+  contenttypeid,
+  bookmarked = false,
+}: DetailRightProps) {
   return (
     <article className="flex-1 flex flex-col">
       <div className="flex-1 flex flex-col gap-8">
         <div className="flex justify-between">
           <div className="flex flex-col gap-7">
             <div className="">
-              <span className="text-sub-title text-gray-scale-300">남상면청년회</span>
-              <h3 className="text-highlight">감악산 해맞이 행사</h3>
+              <span className="text-sub-title text-gray-scale-300">{category}</span>
+              <h3 className="text-highlight">{title}</h3>
             </div>
             <div className="flex flex-col gap-1">
               <span className="flex items-center gap-2 text-gray-scale-300">
@@ -26,7 +42,7 @@ export default function DetailRight() {
                     stroke="#676767"
                   />
                 </svg>
-                경상남도 거창군 신원면 덕산리
+                {address}
               </span>
               <span className="flex items-center gap-2 text-gray-scale-300">
                 <svg
@@ -43,7 +59,7 @@ export default function DetailRight() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                055-940-3424
+                {phone}
               </span>
             </div>
           </div>
@@ -93,35 +109,36 @@ export default function DetailRight() {
                   fill-rule="evenodd"
                   clip-rule="evenodd"
                   d="M14.9999 8.38854C15.8749 7.49946 17.0144 7 18.2039 7C19.4884 7 20.7146 7.58238 21.6124 8.60881C22.5038 9.62713 23 10.9998 23 12.4254C23 13.851 22.5037 15.2238 21.6124 16.242C21.0197 16.9194 20.4279 17.6122 19.8331 18.3086C18.6249 19.723 17.4038 21.1526 16.1353 22.4995L16.1324 22.5026C15.4782 23.187 14.4422 23.1621 13.816 22.4465L8.38716 16.2419C6.53761 14.1281 6.53761 10.7227 8.38716 8.6089C10.1971 6.54038 13.1115 6.46693 14.9999 8.38854Z"
-                  fill="#B4B4B4"
-                  // fill={bookmarked ? "#DC3644" : "#B4B4B4"}
+                  fill={bookmarked ? "#DC3644" : "#B4B4B4"}
                 />
               </svg>
             </div>
           </div>
         </div>
-        <div>
-          <h3 className="text-[26px] font-bold mb-3">기본 정보</h3>
-          <ul>
-            <li className="mb-3">
-              <span className="block text-body1 text-gray-scale-400">
-                <strong className="mr-4 text-gray-scale-500">행사기간</strong>2025.01.14 -
-                2025.01.20
-              </span>
-            </li>
-            <li className="mb-3">
-              <span className="block text-body1 text-gray-scale-400">
-                <strong className="mr-4 text-gray-scale-500">행사장소</strong>
-                산57 감악산 정상
-              </span>
-            </li>
-            <li className="mb-3">
-              <span className="block text-body1 text-gray-scale-400">
-                <strong className="mr-4 text-gray-scale-500">홈페이지</strong>www.campstory.com
-              </span>
-            </li>
-          </ul>
-        </div>
+        {contenttypeid === "15" && (
+          <div>
+            <h3 className="text-[26px] font-bold mb-3">기본 정보</h3>
+            <ul>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">행사기간</strong>2025.01.14 -
+                  2025.01.20
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">행사장소</strong>
+                  산57 감악산 정상
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">홈페이지</strong>www.campstory.com
+                </span>
+              </li>
+            </ul>
+          </div>
+        )}
         <div>
           <h3 className="text-[26px] font-bold mb-3">개요</h3>
           <p className="text-body1 text-gray-scale-400">
