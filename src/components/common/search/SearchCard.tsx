@@ -1,4 +1,5 @@
 interface SearchCardProps {
+  img: string;
   category: string;
   title: string;
   location: string;
@@ -8,6 +9,7 @@ interface SearchCardProps {
 }
 
 export default function SearchCard({
+  img,
   bookmarked,
   category,
   handleClick,
@@ -17,7 +19,9 @@ export default function SearchCard({
 }: SearchCardProps) {
   return (
     <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow">
-      <img src="/images/camping/searchCamping.png" alt="camping thumbanil" />
+      <div className="w-[450px] h-[250px] overflow-hidden">
+        <img src={img || "https://placehold.co/600x400"} alt="camping thumbanil" />
+      </div>
       <div className="px-5 py-[15px] flex flex-col gap-[46px]">
         <div className="flex justify-between">
           <div className="flex flex-col text-gray-scale-300">
