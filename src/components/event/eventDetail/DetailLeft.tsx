@@ -1,24 +1,30 @@
-export default function DetailLeft() {
+interface DetailLeftProps {
+  image1: string;
+  image2: string;
+  image3: string;
+}
+
+export default function DetailLeft({ image1, image2, image3 }: DetailLeftProps) {
   return (
     <article className="w-7/12 grid grid-cols-6 gap-5">
       <div className="col-span-6 h-[444px] bg-gray-scale-100 rounded-xl overflow-hidden">
         <img
-          src={"/images/festival/event-dummy.png"}
-          alt="행사 이미지 1"
+          src={image1 || "https://placehold.co/450x250?text=CAMP+STORY"}
+          alt="이미지 1"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="col-span-2 h-[140px] bg-gray-scale-100 rounded-xl overflow-hidden">
         <img
-          src={"https://placehold.co/450x250?text=CAMP+STORY"}
-          alt="행사 이미지 2"
+          src={image2 || "https://placehold.co/450x250?text=CAMP+STORY"}
+          alt="이미지 2"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="col-span-2 h-[140px] bg-gray-scale-100 rounded-xl overflow-hidden">
         <img
-          src={"https://placehold.co/450x250?text=CAMP+STORY"}
-          alt="행사 이미지 3"
+          src={image3 || "https://placehold.co/450x250?text=CAMP+STORY"}
+          alt="이미지 3"
           className="w-full h-full object-cover"
         />
       </div>
