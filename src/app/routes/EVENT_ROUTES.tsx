@@ -1,14 +1,15 @@
 import { PATH } from "@constants/path";
 import EventMain from "@pages/EventMain";
+import EventSearch from "@pages/EventSearch";
 
 const EVENT_ROUTES = [
   {
     path: PATH.event,
-    element: <EventMain/>,
+    element: <EventMain />,
   },
   {
     path: PATH.eventSearch,
-    element: <>event search</>,
+    element: <EventSearch />,
   },
   {
     path: PATH.eventInfoPath,
