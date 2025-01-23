@@ -1,8 +1,8 @@
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
-import LocalConvenienceStoreOutlinedIcon from "@mui/icons-material/LocalConvenienceStoreOutlined";
+import ConvenienceIcon from "./icons/ConvenienceIcon";
+import SmileIcon from "./icons/SmileIcon";
+import SparklingIcon from "./icons/SparklingIcon";
 
-type Tag = "clean" | "kind" | "conveny";
+type Tag = "clean" | "kind" | "convenience";
 
 interface TagProps {
   tag: Tag;
@@ -11,15 +11,15 @@ interface TagProps {
 const TAGS = {
   clean: {
     label: "청결함",
-    icon: <AutoAwesomeOutlinedIcon sx={{ fontSize: "12px" }} />,
+    icon: <SparklingIcon />,
   },
   kind: {
     label: "친절함",
-    icon: <TagFacesOutlinedIcon sx={{ fontSize: "12px" }} />,
+    icon: <SmileIcon />,
   },
-  conveny: {
+  convenience: {
     label: "편의시설",
-    icon: <LocalConvenienceStoreOutlinedIcon sx={{ fontSize: "12px" }} />,
+    icon: <ConvenienceIcon />,
   },
 };
 

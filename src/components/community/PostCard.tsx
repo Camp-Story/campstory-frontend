@@ -25,7 +25,7 @@ export default function PostCard() {
         <div className="flex gap-[5px]">
           <Tag tag="clean" />
           <Tag tag="kind" />
-          <Tag tag="conveny" />
+          <Tag tag="convenience" />
         </div>
 
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
