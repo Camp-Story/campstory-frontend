@@ -21,7 +21,7 @@ export default function CommunityMain() {
         <div className="flex gap-[5px]">
           <Tag tag="clean" />
           <Tag tag="kind" />
-          <Tag tag="conveny" />
+          <Tag tag="convenience" />
         </div>
 
         <button
