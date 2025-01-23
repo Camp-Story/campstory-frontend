@@ -65,7 +65,7 @@ function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
 
 export default function TopCampingSpotsSection() {
   return (
-    <section className="mb-14">
+    <section className="mb-14 relative">
       <h2 className="text-highlight font-impact">인기 캠핑장</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         나를 위한 근사한 휴가를 계획해보세요.
@@ -88,6 +88,9 @@ export default function TopCampingSpotsSection() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <Link to="/" className="absolute top-5 font-bold right-0 text-info-500">
+        더보기
+      </Link>
     </section>
   );
 }
