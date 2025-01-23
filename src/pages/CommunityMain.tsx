@@ -19,9 +19,9 @@ export default function CommunityMain() {
         </div>
 
         <div className="flex gap-[5px]">
-          <Tag tag="clean" />
-          <Tag tag="kind" />
-          <Tag tag="convenience" />
+          <Tag tag="clean" isCheckbox />
+          <Tag tag="kind" isCheckbox />
+          <Tag tag="convenience" isCheckbox />
         </div>
 
         <button
