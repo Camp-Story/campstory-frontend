@@ -1,4 +1,4 @@
-import FoodCategoryItem from "./FoodCategoryItem";
+import { Link } from "react-router";
 
 const DUMMY_FOOD_CATEGORY: { src: string; category: string }[] = [
   {
@@ -18,6 +18,17 @@ const DUMMY_FOOD_CATEGORY: { src: string; category: string }[] = [
     category: "일본",
   },
 ];
+
+function FoodCategoryItem({ src, category }: { src: string; category: string }) {
+  return (
+    <li className="col-span-2">
+      <Link to="/" className="block rounded-full overflow-hidden">
+        <img src={src} alt="음식 카테고리 이미지" className="mb-2" />
+      </Link>
+      <h4 className="text-center text-sub-title font-bold text-gray-scale-400">{category}</h4>
+    </li>
+  );
+}
 
 export default function FoodSection() {
   return (
