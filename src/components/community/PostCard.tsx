@@ -45,8 +45,8 @@ export default function PostCard() {
       <div className="flex justify-between items-center">
         <div className="flex gap-[5px]">
           <Badge icon={<ViewIcon />} count={115} />
-          <Badge icon={<LikeIcon />} count={10} handleClick={() => alert("click like")} />
-          <Badge icon={<BookmarkIcon />} handleClick={() => alert("click bookmark")} />
+          <Badge icon={<LikeIcon isLiked />} count={10} handleClick={() => alert("click like")} />
+          <Badge icon={<BookmarkIcon bookmarked />} handleClick={() => alert("click bookmark")} />
           <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} />
         </div>
 
