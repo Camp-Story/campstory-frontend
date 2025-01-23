@@ -1,10 +1,11 @@
 import SearchInput from "@components/common/SearchInput";
 import Category from "@components/shopping/Category";
 import FilterButtons from "@components/shopping/Filter";
+import ProductCardList from "@components/shopping/ProductCardList";
 
 export default function ShoppingSearch() {
   return (
-    <>
+    <div className="mx-">
       <div className="mt-[100px]">
         <SearchInput handleSubmit={() => alert("succecssfully submited")} />
       </div>
@@ -23,6 +24,10 @@ export default function ShoppingSearch() {
       <div className="flex mt-[64px] ">
         <FilterButtons filters={["판매인기순", "높은금액순", "낮은금액순", "최신순"]} />
       </div>
-    </>
+
+      <div className="mb-[208px]">
+        <ProductCardList />
+      </div>
+    </div>
   );
 }
