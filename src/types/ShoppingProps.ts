@@ -2,7 +2,7 @@ interface ShoppingProps {
   src: string;
   brand: string;
   productName: string;
-  discount: number;
+  discount?: number;
   price: string;
 }
 
