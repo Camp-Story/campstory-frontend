@@ -1,9 +1,10 @@
 import { PATH } from "@constants/path";
+import CommunityMain from "@pages/CommunityMain";
 
 const COMMUNITY_ROUTES = [
   {
     path: PATH.community,
-    element: <>community</>,
+    element: <CommunityMain />,
   },
   {
     path: PATH.communityPostPath,
