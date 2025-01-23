@@ -1,9 +1,10 @@
 import { PATH } from "@constants/path";
+import ShoppingMain from "@pages/ShoppingMain";
 
 const SHOPPING_ROUTES = [
   {
     path: PATH.shopping,
-    element: <>shopping</>,
+    element: <ShoppingMain />,
   },
   {
     path: PATH.shoppingSearch,
