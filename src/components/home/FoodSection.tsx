@@ -32,7 +32,7 @@ function FoodCategoryItem({ src, category }: { src: string; category: string }) 
 
 export default function FoodSection() {
   return (
-    <article className="col-start-1 col-end-5">
+    <article className="relative col-start-1 col-end-5">
       <h2 className="text-highlight font-impact">맛을 찾아서</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         캠핑을 더욱 특별하게 만들어줄 음식을 만나보세요.
@@ -42,6 +42,9 @@ export default function FoodSection() {
           <FoodCategoryItem src={item.src} category={item.category} />
         ))}
       </ul>
+      <Link to="/" className="absolute top-5 font-bold right-0 text-info-500">
+        더보기
+      </Link>
     </article>
   );
 }

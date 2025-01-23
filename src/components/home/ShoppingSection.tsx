@@ -43,7 +43,7 @@ function ShoppingItem({ name, discount, price, image, brand }: ProductItemType) 
 
 export default function ShoppingSection() {
   return (
-    <article className="col-start-6 -col-end-1">
+    <article className="relative col-start-6 -col-end-1">
       <h2 className="text-highlight font-impact">쇼핑은 필수</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         캠핑은 장비빨! A부터 Z까지 모두 준비하세요.
@@ -60,6 +60,9 @@ export default function ShoppingSection() {
           />
         ))}
       </div>
+      <Link to="/" className="absolute top-5 font-bold right-0 text-info-500">
+        더보기
+      </Link>
     </article>
   );
 }
