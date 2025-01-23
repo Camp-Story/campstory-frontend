@@ -1,6 +1,6 @@
 export default function NearbyPlacesSection() {
   return (
-    <section>
+    <section className="mb-14">
       <div className="flex flex-wrap justify-between items-center mb-5">
         <div className="text-[26px] font-bold">인근 명소</div>
         <div className="text-[20px] font-bold text-info-500">더보기</div>
