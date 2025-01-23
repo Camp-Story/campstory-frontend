@@ -51,6 +51,33 @@ export const EVENT_PROGRESS = [
   },
 ];
 
+export const RESTURANT_CATEGORY = [
+  {
+    value: "korean",
+    label: "한식",
+  },
+  {
+    value: "western",
+    label: "양식",
+  },
+  {
+    value: "chinese",
+    label: "중식",
+  },
+  {
+    value: "japanese",
+    label: "일식",
+  },
+  {
+    value: "exotic",
+    label: "이색음식점",
+  },
+  {
+    value: "cafe-tea",
+    label: "카페/전통찻집",
+  },
+];
+
 export const AREA = [
   {
     code: 11,
