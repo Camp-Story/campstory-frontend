@@ -44,8 +44,15 @@ export default function EventDetail() {
   return (
     <>
       <section className="mt-20 w-full flex gap-11 mb-14">
-        <DetailLeft />
-        <DetailRight />
+        <DetailLeft image1={"/images/festival/event-dummy.png"} image2={""} image3={""} />
+        <DetailRight
+          category={"남상면청년회"}
+          title={"감악산 해맞이 행사"}
+          address={"경상남도 거창군 신원면 덕선리"}
+          phone={"055-940-3424"}
+          bookmarked={false}
+          contenttypeid={"15"}
+        />
       </section>
       <NearbyPlacesSection />
       <div className="mb-[200px]">
