@@ -1,19 +1,6 @@
-interface RecommendCardProps {
-  src: string;
-  brand: string;
-  productName: string;
-  discount: number;
-  price: string;
-}
-// {src, brand, productName, discount, price}:RecommendCardProps
+import ShoppingProps from "types/ShoppingProps";
 
-export default function RecommendCard({
-  src,
-  brand,
-  productName,
-  discount,
-  price,
-}: RecommendCardProps) {
+export default function RecommendCard({ src, brand, productName, discount, price }: ShoppingProps) {
   return (
     <div className="flex gap-6 justify-between items-center w-[610px] h-[280px] bg-gray-scale-0 drop-shadow-custom rounded p-4">
       <img src={src} alt="productImg" className="w-[240px] h-[240px] rounded" />

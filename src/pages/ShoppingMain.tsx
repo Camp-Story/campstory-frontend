@@ -5,6 +5,8 @@ import { PATH } from "@constants/path";
 import RecommendCard from "@components/shopping/RecommendCard";
 import ReviewCardProps from "types/ReviewCardProps";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
+import ProductCard from "@components/shopping/ProductCard";
+import ShoppingProps from "types/ShoppingProps";
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -38,6 +40,44 @@ const ReviewData: ReviewCardProps[] = [
     timestamp: "3시간 전",
     userId: "사용자 이름4",
     path: PATH.communityPostPath,
+  },
+];
+
+const DiscountProductData: ShoppingProps[] = [
+  {
+    src: "/images/camping/camping-category-1.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    discount: 30,
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-1.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    discount: 30,
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-1.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    discount: 30,
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-1.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    discount: 30,
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-1.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    discount: 30,
+    price: "168,000원",
   },
 ];
 
@@ -127,10 +167,23 @@ export default function ShoppingMain() {
 
       {/* Sale */}
       <div className="relative">
-        <div className="absolute bg-primary-500/10 h-[460px] w-screen -top-4 -left-[300px]"></div>
+        <div className="absolute bg-[#E8F6F1] h-[470px] w-screen -top-4 -left-[50%] -z-10"></div>
+        <div className="absolute bg-[#E8F6F1] h-[470px] -top-4 w-screen -z-10"></div>
         <div className="flex justify-between items-center">
           <SubTitle>최저가 득템!</SubTitle>
           <button className="text-info-500">더보기</button>
+        </div>
+        <div className="flex gap-2 justify-between items-center">
+          {DiscountProductData.map((item: ShoppingProps, idx: number) => (
+            <ProductCard
+              key={idx}
+              src={item.src}
+              brand={item.brand}
+              productName={item.productName}
+              discount={item.discount}
+              price={item.price}
+            />
+          ))}
         </div>
       </div>
 
