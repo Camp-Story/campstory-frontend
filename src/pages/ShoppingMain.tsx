@@ -55,7 +55,10 @@ export default function ShoppingMain() {
 
       {/* Category */}
       <div>
-        <SubTitle>카테고리별 분류</SubTitle>
+        <div className="flex justify-between items-center">
+          <SubTitle>카테고리별 분류</SubTitle>
+          <button className="text-info-500">더보기</button>
+        </div>
         <div className="flex gap-0 justify-between">
           <CategoryCard
             src="/images/shopping/food.png"
@@ -92,7 +95,10 @@ export default function ShoppingMain() {
 
       {/* Recommend */}
       <div>
-        <SubTitle>오늘의 추천 상품</SubTitle>
+        <div className="flex justify-between items-center">
+          <SubTitle>오늘의 추천 상품</SubTitle>
+          <button className="text-info-500">더보기</button>
+        </div>
         <div className="flex gap-2 justify-between items-center">
           <RecommendCard
             src="/images/shopping/photo-review-dummy-1.png"
@@ -113,7 +119,10 @@ export default function ShoppingMain() {
 
       {/* Review */}
       <div>
-        <SubTitle>포토 리뷰 모음집</SubTitle>
+        <div className="flex justify-between items-center">
+          <SubTitle>포토 리뷰 모음집</SubTitle>
+          <button className="text-info-500">더보기</button>
+        </div>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
           {ReviewData.map((item: ReviewCardProps, idx: number) => (
             <ReviewCard
