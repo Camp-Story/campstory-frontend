@@ -37,39 +37,43 @@ export default function EventSearch() {
         </div>
 
         <div className="flex flex-col gap-[30px]">
-          <h2 className="text-[26px] font-bold text-gray-scale-400">'캠핑' 검색 결과 14개</h2>
+          <h2 className="text-[26px] font-bold text-gray-scale-400">'행사' 검색 결과 14개</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             <SearchCard
-              bookmarked={false}
-              category="오토캠핑•펜션"
-              handleClick={() => alert("click")}
-              handleClickBookmark={() => alert("bookmark")}
-              location="경기도 가평군 가화로 1364-59"
-              title="가평미라몬티풀빌라펜션"
-            />
-            <SearchCard
+              img="/images/festival/searchFestival.png"
               bookmarked={true}
-              category="오토캠핑•펜션"
+              category="(재)영주풍기인삼축제조직위원회"
               handleClick={() => alert("click")}
               handleClickBookmark={() => alert("bookmark")}
-              location="경기도 가평군 가화로 1364-59"
-              title="가평미라몬티풀빌라펜션"
+              location="경상북도 영주시 풍기읍 성내리"
+              title="경북영주 풍기인삼축제"
             />
             <SearchCard
-              bookmarked={true}
-              category="오토캠핑•펜션"
-              handleClick={() => alert("click")}
-              handleClickBookmark={() => alert("bookmark")}
-              location="경기도 가평군 가화로 1364-59"
-              title="가평미라몬티풀빌라펜션"
-            />
-            <SearchCard
+              img="/images/festival/searchFestival.png"
               bookmarked={false}
-              category="오토캠핑•펜션"
+              category="(재)영주풍기인삼축제조직위원회"
               handleClick={() => alert("click")}
               handleClickBookmark={() => alert("bookmark")}
-              location="경기도 가평군 가화로 1364-59"
-              title="가평미라몬티풀빌라펜션"
+              location="경상북도 영주시 풍기읍 성내리"
+              title="경북영주 풍기인삼축제"
+            />
+            <SearchCard
+              img="/images/festival/searchFestival.png"
+              bookmarked={false}
+              category="(재)영주풍기인삼축제조직위원회"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경상북도 영주시 풍기읍 성내리"
+              title="경북영주 풍기인삼축제"
+            />
+            <SearchCard
+              img=""
+              bookmarked={false}
+              category="(재)영주풍기인삼축제조직위원회"
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+              location="경상북도 영주시 풍기읍 성내리"
+              title="경북영주 풍기인삼축제"
             />
           </div>
         </div>
