@@ -45,6 +45,7 @@ export default function CampingSearch() {
           <h2 className="text-[26px] font-bold text-gray-scale-400">'캠핑' 검색 결과 14개</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             <SearchCard
+              img="/images/camping/searchCamping.png"
               bookmarked={false}
               category="오토캠핑•펜션"
               handleClick={() => alert("click")}
@@ -53,6 +54,7 @@ export default function CampingSearch() {
               title="가평미라몬티풀빌라펜션"
             />
             <SearchCard
+              img="/images/camping/searchCamping.png"
               bookmarked={true}
               category="오토캠핑•펜션"
               handleClick={() => alert("click")}
@@ -61,7 +63,8 @@ export default function CampingSearch() {
               title="가평미라몬티풀빌라펜션"
             />
             <SearchCard
-              bookmarked={true}
+              img="/images/camping/searchCamping.png"
+              bookmarked={false}
               category="오토캠핑•펜션"
               handleClick={() => alert("click")}
               handleClickBookmark={() => alert("bookmark")}
@@ -69,6 +72,7 @@ export default function CampingSearch() {
               title="가평미라몬티풀빌라펜션"
             />
             <SearchCard
+              img="/images/camping/searchCamping.png"
               bookmarked={false}
               category="오토캠핑•펜션"
               handleClick={() => alert("click")}
