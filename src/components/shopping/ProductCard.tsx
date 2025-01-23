@@ -32,7 +32,7 @@ export default function ProductCard({ src, brand, productName, discount, price }
         </div>
       </div>
       <div className="flex gap-2 text-sub-title font-bold">
-        <div className="text-sub-title font-bold text-secondary-500">{discount}%</div>
+        {discount && <div className="text-sub-title font-bold text-secondary-500">{discount}%</div>}
         <div className="text-sub-title font-bold">{price}</div>
       </div>
     </div>
