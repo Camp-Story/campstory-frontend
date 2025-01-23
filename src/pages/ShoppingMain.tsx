@@ -43,6 +43,39 @@ const ReviewData: ReviewCardProps[] = [
   },
 ];
 
+const NewProductData: ShoppingProps[] = [
+  {
+    src: "/images/camping/camping-category-2.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-3.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-2.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-4.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    price: "168,000원",
+  },
+  {
+    src: "/images/camping/camping-category-2.png",
+    brand: "브랜드 이름",
+    productName: "시어플러스57 바베큐 그릴",
+    price: "168,000원",
+  },
+];
+
 const DiscountProductData: ShoppingProps[] = [
   {
     src: "/images/camping/camping-category-1.png",
@@ -162,6 +195,18 @@ export default function ShoppingMain() {
         <div className="flex justify-between items-center">
           <SubTitle>신상품</SubTitle>
           <button className="text-info-500">더보기</button>
+        </div>
+        <div className="flex gap-2 justify-between items-center">
+          {NewProductData.map((item: ShoppingProps, idx: number) => (
+            <ProductCard
+              key={idx}
+              src={item.src}
+              brand={item.brand}
+              productName={item.productName}
+              discount={item.discount}
+              price={item.price}
+            />
+          ))}
         </div>
       </div>
 
