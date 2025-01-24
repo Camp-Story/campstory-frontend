@@ -38,7 +38,7 @@ export default function Tag({ tag, isCheckbox }: TagProps) {
         className={twMerge(
           "flex gap-[5px] items-center px-2.5 py-[5px] text-gray-scale-400 rounded-[21px] text-[11px]",
           isCheckbox
-            ? "cursor-pointer border border-gray-scale-200 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 "
+            ? "cursor-pointer border border-gray-scale-200 bg-white hover:brightness-95 peer-checked:border-[#1A9EFE]/50 peer-checked:bg-[#1A9EFE]/15 peer-checked:hover:bg-[#1A9EFE]/30"
             : "bg-gray-scale-100",
         )}
       >
