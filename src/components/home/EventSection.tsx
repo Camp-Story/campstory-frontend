@@ -1,3 +1,4 @@
+import { PATH } from "@constants/path";
 import { Link } from "react-router";
 
 export default function EventSection() {
@@ -41,7 +42,7 @@ export default function EventSection() {
           </div>
         </Link>
         <Link
-          to="/"
+          to={PATH.campingSearch}
           className="p-7 col-span-4 flex items-center justify-between bg-gray-scale-0 drop-shadow-custom rounded-xl"
         >
           <div className="py-4">
