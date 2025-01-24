@@ -11,9 +11,9 @@ export default function ProductCard({
   img,
 }: ProductCardProps) {
   return (
-    <div className="w-[240px] h-[352px] mt=[40px]">
+    <div className="w-[240px]">
       {/* 이미지 영역 */}
-      <div onClick={handleClick} className="w-full h-[257px]">
+      <div onClick={handleClick} className="w-full h-[240px]">
         <img
           className="w-full h-full"
           src={img || "https://placehold.co/450x250?text=CAMP+STORY"}
@@ -21,9 +21,13 @@ export default function ProductCard({
         />
       </div>
 
-      {/* 브랜드 및 이름 */}
-      <div className="mt-3 flex items-center justify-between text-gray-scale-200 text-sm">
-        <p>{brandName}</p>
+      <div className="mt-3 flex items-center justify-between text-gray-scale-400 text-body2">
+        {/* 브랜드 및 이름 */}
+        <div className="flex flex-col">
+          <div className="text-body2 text-gray-scale-300">{brandName}</div>
+          <div className="text-body1 font-medium text-gray-scale-400">{productName}</div>
+        </div>
+        {/* 좋아요 버튼 */}
         <button className="flex items-center justify-center">
           <svg
             width="30"
@@ -44,15 +48,13 @@ export default function ProductCard({
         </button>
       </div>
 
-      <p className="font-medium text-black">{productName}</p>
-
       {/* 가격 정보 */}
-      <div className="mt-2 flex items-center justify-between">
-        <span className="text-secondary-300 text-sm font-bold">{discount}</span>
-        <span className="text-black font-bold text-base">{price}</span>
+      <div className="mt-4 flex gap-2 items-center">
+        {discount && (
+          <span className="text-secondary-500 text-sub-title font-bold">{discount}</span>
+        )}
+        <span className="text-gray-scale-400 font-bold text-sub-title">{price}</span>
       </div>
-
-      {/* 좋아요 버튼 */}
     </div>
   );
 }

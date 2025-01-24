@@ -22,7 +22,7 @@ export default function RecommendCard({
           {/* 브랜드 & 상품명 */}
           <div>
             <div className="text-body2 text-gray-scale-300">{brandName}</div>
-            <div className="text-body1 font-bold text-gray-scale-400">{productName}</div>
+            <div className="text-body1 font-medium text-gray-scale-400">{productName}</div>
           </div>
           {/* 북마크 버튼 */}
           <div>
