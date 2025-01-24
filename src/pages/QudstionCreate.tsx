@@ -4,7 +4,7 @@ import QuestionTag from "@components/community/QuestionTag";
 export default function QuestionCreate() {
   return (
     <div className="w-[618px] mx-auto mt-[52px]">
-      <h1 className="mb-[30px] text-[26px] font-bold">게시글 쓰기</h1>
+      <h1 className="mb-[30px] text-[26px] font-bold">질문 작성하기</h1>
 
       <div className="flex flex-col gap-5">
         <InputContainer title="제목">
@@ -14,8 +14,8 @@ export default function QuestionCreate() {
             className="p-3.5 px-[25px] text-[15px] border border-gray-scale-200 rounded-sm focus:outline-none"
           />
         </InputContainer>
-        <InputContainer title="태그 선택">
-          <div className="flex gap-3">
+        <InputContainer title="카테고리">
+          <div className="flex gap-2">
             <QuestionTag tag="reservation" isCheckbox />
             <QuestionTag tag="payment" isCheckbox />
             <QuestionTag tag="member" isCheckbox />
