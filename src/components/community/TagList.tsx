@@ -1,0 +1,15 @@
+import Tag, { Tag as TagType } from "./Tag";
+
+interface TgaListProps {
+  tags: TagType[];
+}
+
+export default function TgaList({ tags }: TgaListProps) {
+  return (
+    <div className="flex gap-[5px]">
+      {tags.map((tag) => (
+        <Tag tag={tag} />
+      ))}
+    </div>
+  );
+}

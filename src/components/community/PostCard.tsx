@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router";
 import AreaCard from "./AreaCard";
-import Badge from "./Badge";
-import Tag from "./Tag";
-import BookmarkIcon from "./icons/BookmarkIcon";
-import LikeIcon from "./icons/LikeIcon";
-import ShareIcon from "./icons/ShareIcon";
-import ViewIcon from "./icons/ViewIcon";
 import { PATH } from "@constants/path";
+import UserProfile from "./UserProfile";
+import TgaList from "./TagList";
+import AdditionalInfo from "./AdditionalInfo";
 
 export default function PostCard() {
   const navigate = useNavigate();
@@ -14,23 +11,12 @@ export default function PostCard() {
   return (
     <div onClick={() => navigate(PATH.communityPost("1"))} className="cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
-        <div className="flex gap-[5px] items-center">
-          <img
-            src="https://placehold.co/30x30?text=CAMP+STORY"
-            alt="profile"
-            className="rounded-full w-[30px] h-[30px]"
-          />
-          <span className="text-[15px] font-bold text-gray-scale-400">사용자 닉네임</span>
-        </div>
+        <UserProfile nickname="사용자 닉네임" profileUrl="" />
 
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src="/images/community/communityPostItem.png" alt="thumbnail" />
 
-        <div className="flex gap-[5px]">
-          <Tag tag="clean" />
-          <Tag tag="kind" />
-          <Tag tag="convenience" />
-        </div>
+        <TgaList tags={["clean", "kind", "convenience"]} />
 
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
       </div>
@@ -42,16 +28,15 @@ export default function PostCard() {
         도와주세요!!!
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex gap-[5px]">
-          <Badge icon={<ViewIcon />} count={115} />
-          <Badge icon={<LikeIcon isLiked />} count={10} handleClick={() => alert("click like")} />
-          <Badge icon={<BookmarkIcon bookmarked />} handleClick={() => alert("click bookmark")} />
-          <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} />
-        </div>
-
-        <span className="text-[13px] text-gray-scale-300">24분전</span>
-      </div>
+      <AdditionalInfo
+        bookmarked
+        isLiked
+        likeCount={10}
+        viewCount={115}
+        time="24분"
+        handleClickBookmark={() => alert("click bookmark")}
+        handleClickLike={() => alert("click like")}
+      />
     </div>
   );
 }
