@@ -1,5 +1,5 @@
 import AreaCard from "@components/community/community/AreaCard";
-import ImageUploader from "@components/community/communityCreate/ImageUploader";
+import ImageUploader from "@components/community/community/communityCreate/ImageUploader";
 import Tag from "@components/community/Tag";
 import { useParams } from "react-router";
 

@@ -1,4 +1,4 @@
-import ImageIcon from "../icons/ImageIcon";
+import ImageIcon from "../../icons/ImageIcon";
 
 export default function ImageUploader() {
   return (
