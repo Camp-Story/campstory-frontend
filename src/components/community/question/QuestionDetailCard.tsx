@@ -16,7 +16,7 @@ export default function QuestionCard() {
         </div>
 
         {/* card */}
-        <div className="flex flex-col gap-[10px] bg-gray-scale-0 w-[832px] p-[20px] rounded-sm drop-shadow-custom">
+        <div className="flex flex-col gap-[10px] bg-gray-scale-0 w-[832px] p-[24px] rounded-sm drop-shadow-custom">
           <div className="flex items-start gap-5">
             <div className="flex gap-4 items-start">
               <div className="text-primary-500 -mt-1.5 font-bold text-[26px]">Q.</div>

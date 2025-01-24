@@ -5,7 +5,7 @@ interface UserProfileProps {
 
 export default function UserProfile({ nickname, profileUrl }: UserProfileProps) {
   return (
-    <div className="flex gap-[5px] items-center">
+    <div className="flex gap-[10px] items-center">
       <img
         src={profileUrl || "https://placehold.co/30x30?text=CAMP+STORY"}
         alt="profile"
