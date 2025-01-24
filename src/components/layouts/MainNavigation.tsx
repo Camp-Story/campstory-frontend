@@ -9,7 +9,7 @@ export default function MainNavigation() {
           <img src="/images/campstory-logo.png" />
         </Link>
       </h1>
-      <ul className="flex gap-[40px] text-body1">
+      <ul className="flex gap-[40px] text-[18px]">
         <li>
           <Link to={PATH.camping}>캠핑</Link>
         </li>
@@ -26,11 +26,11 @@ export default function MainNavigation() {
           <Link to={PATH.community}>커뮤니티</Link>
         </li>
       </ul>
-      <div className="flex gap-[40px] items-center">
+      <div className="flex gap-[40px] items-center text-[18px]">
         <Link to={PATH.login}>로그인</Link>
         <Link
           to={PATH.signUp}
-          className="w-24 bg-primary-500 text-center px-5 py-2 rounded text-gray-scale-0"
+          className="w-30 bg-primary-500 text-center px-5 py-2 rounded text-gray-scale-0"
         >
           회원가입
         </Link>
