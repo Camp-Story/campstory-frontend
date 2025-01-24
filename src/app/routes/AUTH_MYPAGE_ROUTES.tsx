@@ -2,6 +2,7 @@ import { PATH } from "@constants/path";
 import MypageInfo from "@pages/MypageInfo";
 import Bookmark from "@pages/Bookmark";
 import MypageActivities from "@pages/MypageActivities";
+import ReservedList from "@pages/ReservedList";
 
 const AUTH_MYPAGE_ROUTES = [
   {
@@ -10,7 +11,7 @@ const AUTH_MYPAGE_ROUTES = [
   },
   {
     path: PATH.reservedList,
-    element: <>mypage reservedList</>,
+    element: <ReservedList/>,
   },
   {
     path: PATH.bookmark,
