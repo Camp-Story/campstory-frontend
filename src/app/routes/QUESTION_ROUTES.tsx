@@ -2,6 +2,7 @@ import { PATH } from "@constants/path";
 import QuestionDetail from "@pages/QuestionDetail";
 import QuestionCreate from "@pages/QudstionCreate";
 import QuestionMain from "@pages/QuestionMain";
+import QuestionModify from "@pages/QuestionModify";
 
 const QUESTION_ROUTES = [
   {
@@ -18,7 +19,7 @@ const QUESTION_ROUTES = [
   },
   {
     path: PATH.questionModifyPath,
-    element: <>question modify</>,
+    element: <QuestionModify />,
   },
 ];
 
