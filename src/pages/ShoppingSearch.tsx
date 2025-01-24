@@ -1,7 +1,7 @@
 import SearchInput from "@components/common/SearchInput";
 import Category from "@components/shopping/Category";
-import FilterButtons from "@components/shopping/Filter";
 import ProductCardList from "@components/shopping/ProductCardList";
+import OrderRadio from "@components/community/OrderRadio";
 
 export default function ShoppingSearch() {
   return (
@@ -21,11 +21,14 @@ export default function ShoppingSearch() {
         />
         <Category path="소모품" src="/images/shopping/bonfire.png" catName="소모품" />
       </div>
-      <div className="flex mt-[64px] ">
-        <FilterButtons filters={["판매인기순", "높은금액순", "낮은금액순", "최신순"]} />
+      <div className="flex mt-[64px] gap-5 text-[20px] ">
+        <OrderRadio label="판매인기순" value="popular" />
+        <OrderRadio label="높은금액순" value="highPrice" />
+        <OrderRadio label="낮은금액순" value="lowPrice" />
+        <OrderRadio label="최신순" value="recent" defaultChecked />
       </div>
 
-      <div className="mb-[208px]">
+      <div className="mb-[208px] mt-[10px] gap-4">
         <ProductCardList />
       </div>
     </div>

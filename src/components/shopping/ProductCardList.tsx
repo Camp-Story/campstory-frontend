@@ -205,7 +205,8 @@ export default function ProductCardList() {
   ];
 
   return (
-    <div className="mt-[50px] grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5">
+      {" "}
       {products.map((product, idx) => (
         <div className="mt-[40px]">
           <ProductCard
