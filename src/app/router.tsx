@@ -11,7 +11,6 @@ import QUESTION_ROUTES from "./routes/QUESTION_ROUTES";
 import AUTH_ROUTES from "./routes/AUTH_ROUTES";
 import AuthMyPageLayout from "@components/layouts/AuthMyPageLayout";
 import AUTH_MYPAGE_ROUTES from "./routes/AUTH_MYPAGE_ROUTES";
-import { PATH } from "@constants/path";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +49,7 @@ const router = createBrowserRouter([
         element: <AuthMyPageLayout />,
         children: [
           {
-            path: PATH.mypage,
+            path: "/",
             children: AUTH_MYPAGE_ROUTES,
           },
         ],
