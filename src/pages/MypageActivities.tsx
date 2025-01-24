@@ -1,4 +1,5 @@
-import Post from "@components/mypage/Post";
+import Post from "@components/mypage/MyPost";
+import MyQuestion from "@components/mypage/MyQuestion";
 
 export default function MypageActivities() {
   return (
@@ -14,8 +15,11 @@ export default function MypageActivities() {
         </span>
       </div>
 
-      <div>
-        <h2 className="text-[15px] mt-[30px]">내 질문</h2>
+      <h2 className="text-[15px] mt-[80px]">내 질문</h2>
+
+      <div className="mt-[20px] gap-y-4">
+        <MyQuestion />
+        <MyQuestion />
       </div>
     </>
   );
