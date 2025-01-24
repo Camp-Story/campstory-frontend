@@ -1,10 +1,11 @@
 import { PATH } from "@constants/path";
+import PersonalInfo from "@pages/PersonalInfo";
 import Bookmark from "@pages/Bookmark";
 
 const AUTH_MYPAGE_ROUTES = [
   {
     path: PATH.information,
-    element: <>mypage information</>,
+    element: <PersonalInfo />,
   },
   {
     path: PATH.reservedList,
