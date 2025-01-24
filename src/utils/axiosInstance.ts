@@ -27,4 +27,13 @@ const tourApiInstance = axios.create({
   },
 });
 
-export { apiInstance, goCampingInstance, tourApiInstance };
+const naverApiInstance = axios.create({
+  baseURL: "/v1/search",
+  headers: {
+    "Content-Type": "application/json",
+    "X-Naver-Client-Id": import.meta.env.VITE_NAVER_API_ID_KEY,
+    "X-Naver-Client-Secret": import.meta.env.VITE_NAVER_SECRET_KEY,
+  },
+});
+
+export { apiInstance, goCampingInstance, tourApiInstance, naverApiInstance };
