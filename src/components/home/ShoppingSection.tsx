@@ -1,3 +1,4 @@
+import { PATH } from "@constants/path";
 import { Link } from "react-router";
 import ProductItemType from "types/ProductItem";
 
@@ -60,7 +61,7 @@ export default function ShoppingSection() {
           />
         ))}
       </div>
-      <Link to="/" className="absolute top-5 font-bold right-0 text-info-500">
+      <Link to={PATH.shoppingSearch} className="absolute top-5 font-bold right-0 text-info-500">
         더보기
       </Link>
     </article>
