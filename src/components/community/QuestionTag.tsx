@@ -39,13 +39,13 @@ export default function Tag({ tag, isCheckbox }: TagProps) {
       <label
         htmlFor={tag}
         className={twMerge(
-          "flex gap-[6px] items-center px-2.5 py-[5px] text-gray-scale-400 rounded-[21px] text-[11px]",
+          "flex gap-[6px] items-center px-2.5 py-[5px] rounded-[21px] text-body1",
           isCheckbox
             ? "cursor-pointer border border-gray-scale-200 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 "
             : "bg-gray-scale-100",
         )}
       >
-        <span className="leading-3">{label}</span>
+        <span className="leading-3 text-gray-scale-300">{label}</span>
       </label>
     </div>
   );
