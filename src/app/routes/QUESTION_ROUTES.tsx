@@ -1,4 +1,5 @@
 import { PATH } from "@constants/path";
+import QuestionDetail from "@pages/QuestionDetail";
 import QuestionMain from "@pages/QuestionMain";
 
 const QUESTION_ROUTES = [
@@ -8,7 +9,7 @@ const QUESTION_ROUTES = [
   },
   {
     path: PATH.questionPostPath,
-    element: <>question post</>,
+    element: <QuestionDetail />,
   },
   {
     path: PATH.questionCreate,
