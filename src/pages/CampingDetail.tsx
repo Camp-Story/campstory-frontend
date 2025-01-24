@@ -1,10 +1,10 @@
-import ImageSection from "@components/camping/campingDetail/ImageSection";
-import SpotDetailSection from "@components/camping/campingDetail/SpotDetailSection";
-import SpotAboutSection from "@components/camping/campingDetail/SpotAboutSection";
-import NearbyPlacesSection from "@components/camping/campingDetail/NearbyPlacesSection";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import ReviewCardProps from "types/ReviewCardProps";
 import { PATH } from "@constants/path";
+import ImageSection from "@components/detail/ImageSection";
+import SpotDetailSection from "@components/detail/SpotDetailSection";
+import SpotAboutSection from "@components/detail/SpotAboutSection";
+import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 
 const ReviewData: ReviewCardProps[] = [
   {
