@@ -1,40 +1,26 @@
+import AdditionalInfo from "@components/community/AdditionalInfo";
 import AreaCard from "@components/community/AreaCard";
-import Badge from "@components/community/Badge";
-import BookmarkIcon from "@components/community/icons/BookmarkIcon";
-import LikeIcon from "@components/community/icons/LikeIcon";
-import ShareIcon from "@components/community/icons/ShareIcon";
-import ViewIcon from "@components/community/icons/ViewIcon";
-import Tag from "@components/community/Tag";
+import TgaList from "@components/community/TagList";
+import UserProfile from "@components/community/UserProfile";
 
 export default function CommunityDefault() {
   return (
     <div className="cursor-pointer flex flex-col gap-2.5">
-      <div className="flex gap-[5px] items-center">
-        <img
-          src="https://placehold.co/30x30?text=CAMP+STORY"
-          alt="profile"
-          className="rounded-full w-[30px] h-[30px]"
-        />
-        <span className="text-[15px] font-bold text-gray-scale-400">사용자 닉네임</span>
-      </div>
+      <UserProfile nickname="한라봉" profileUrl="" />
 
       <div className="flex gap-4">
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src="/images/community/communityPostItem.png" alt="thumbnail" />
 
         <div className="flex flex-col justify-between">
-          <div className="flex flex-col gap-custom">
+          <div className="flex flex-col gap-[15px]">
             <div className="flex gap-custom items-center text-[15px] text-gray-scale-500">
               <span>작성일</span>
               <span className="font-medium">2025.01.14</span>
             </div>
 
             <div className="flex flex-col gap-2.5">
-              <div className="flex gap-[5px]">
-                <Tag tag="clean" />
-                <Tag tag="kind" />
-                <Tag tag="convenience" />
-              </div>
+              <TgaList tags={["clean", "kind", "convenience"]} />
 
               <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
             </div>
@@ -46,23 +32,16 @@ export default function CommunityDefault() {
               좋아요! 캠핑 고수님들 도와주세요!!!
             </div>
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex gap-[5px]">
-              <Badge icon={<ViewIcon />} count={115} />
-              <Badge
-                icon={<LikeIcon isLiked />}
-                count={10}
-                handleClick={() => alert("click like")}
-              />
-              <Badge
-                icon={<BookmarkIcon bookmarked />}
-                handleClick={() => alert("click bookmark")}
-              />
-              <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} />
-            </div>
 
-            <span className="text-[13px] text-gray-scale-300">24분전</span>
-          </div>
+          <AdditionalInfo
+            bookmarked={false}
+            isLiked={false}
+            likeCount={10}
+            viewCount={115}
+            time="24분"
+            handleClickBookmark={() => alert("click bookmark")}
+            handleClickLike={() => alert("click like")}
+          />
         </div>
       </div>
     </div>

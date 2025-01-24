@@ -49,9 +49,6 @@ export default {
       dropShadow: {
         custom: "1px 1px 10px rgba(180, 180, 180, 0.5)",
       },
-      gap: {
-        custom: "15px",
-      },
     },
   },
   plugins: [],

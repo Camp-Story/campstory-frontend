@@ -3,7 +3,7 @@ import ConvenienceIcon from "./icons/ConvenienceIcon";
 import SmileIcon from "./icons/SmileIcon";
 import SparklingIcon from "./icons/SparklingIcon";
 
-type Tag = "clean" | "kind" | "convenience";
+export type Tag = "clean" | "kind" | "convenience";
 
 interface TagProps {
   tag: Tag;
