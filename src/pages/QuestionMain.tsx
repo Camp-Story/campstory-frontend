@@ -1,5 +1,6 @@
 import SearchInput from "@components/common/SearchInput";
 import OrderRadio from "@components/community/OrderRadio";
+import QuestionCard from "@components/community/question/QuestionCard";
 import QuestionTag from "@components/community/QuestionTag";
 import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
@@ -21,7 +22,7 @@ export default function QuestionMain() {
         </div>
 
         {/* Tags */}
-        <div className="flex gap-[5px]">
+        <div className="flex gap-3">
           <QuestionTag tag="reservation" isCheckbox />
           <QuestionTag tag="payment" isCheckbox />
           <QuestionTag tag="member" isCheckbox />
@@ -35,8 +36,16 @@ export default function QuestionMain() {
           className="px-3 py-2 ml-auto text-white text-sm bg-primary-500 rounded"
           onClick={() => navigate(PATH.questionCreate)}
         >
-          글 작성하기
+          질문 작성하기
         </button>
+      </div>
+
+      {/* QuestionCards */}
+      <div className="grid grid-cols-2 gap-[30px] justify-between">
+        <QuestionCard />
+        <QuestionCard />
+        <QuestionCard />
+        <QuestionCard />
       </div>
     </>
   );
