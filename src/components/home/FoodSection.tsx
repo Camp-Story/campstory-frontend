@@ -1,3 +1,4 @@
+import { PATH } from "@constants/path";
 import { Link } from "react-router";
 
 const DUMMY_FOOD_CATEGORY: { src: string; category: string }[] = [
@@ -39,10 +40,10 @@ export default function FoodSection() {
       </p>
       <ul className="grid grid-cols-4 gap-4">
         {DUMMY_FOOD_CATEGORY.map((item) => (
-          <FoodCategoryItem src={item.src} category={item.category} />
+          <FoodCategoryItem key={item.category} src={item.src} category={item.category} />
         ))}
       </ul>
-      <Link to="/" className="absolute top-5 font-bold right-0 text-info-500">
+      <Link to={PATH.restaurantSearch} className="absolute top-5 font-bold right-0 text-info-500">
         더보기
       </Link>
     </article>
