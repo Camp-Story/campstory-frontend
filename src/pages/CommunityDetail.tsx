@@ -2,11 +2,28 @@ import AdditionalInfo from "@components/community/AdditionalInfo";
 import AreaCard from "@components/community/community/AreaCard";
 import TgaList from "@components/community/TagList";
 import UserProfile from "@components/community/UserProfile";
+import { PATH } from "@constants/path";
+import { useNavigate, useParams } from "react-router";
 
 export default function CommunityDefault() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  if (!id) {
+    return <>잘못된 접근입니다.</>;
+  }
+
   return (
     <div className="cursor-pointer flex flex-col gap-2.5">
-      <UserProfile nickname="한라봉" profileUrl="" />
+      <div className="flex justify-between items-center">
+        <UserProfile nickname="한라봉" profileUrl="" />
+        <button
+          onClick={() => navigate(PATH.communityModify(id))}
+          className="py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
+        >
+          수정하기
+        </button>
+      </div>
 
       <div className="flex gap-4">
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
