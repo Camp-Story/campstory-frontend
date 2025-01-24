@@ -5,7 +5,7 @@ export default function HomeLayout() {
   return (
     <>
       <main className="w-[1440px] m-auto">
-        <div className="px-main">
+        <div className="px-main" style={{ minHeight: "calc(100dvh - 392px)" }}>
           <Outlet />
         </div>
       </main>
