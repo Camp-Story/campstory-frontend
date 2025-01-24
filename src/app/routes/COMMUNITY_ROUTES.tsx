@@ -2,6 +2,7 @@ import { PATH } from "@constants/path";
 import CommunityCreate from "@pages/CommunityCreate";
 import CommunityDefault from "@pages/CommunityDetail";
 import CommunityMain from "@pages/CommunityMain";
+import CommunityModify from "@pages/CommunityModify";
 
 const COMMUNITY_ROUTES = [
   {
@@ -18,7 +19,7 @@ const COMMUNITY_ROUTES = [
   },
   {
     path: PATH.communityModifyPath,
-    element: <>community modify</>,
+    element: <CommunityModify />,
   },
 ];
 
