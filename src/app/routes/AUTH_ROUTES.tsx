@@ -1,19 +1,18 @@
+import AuthMyPageLayout from "@components/layouts/\bAuthMyPageLayout";
 import { PATH } from "@constants/path";
-import Login from "@pages/Login";
-import SignUp from "@pages/SignUp";
 
 const AUTH_ROUTES = [
   {
     path: PATH.signUp,
-    element: <SignUp />,
+    element: <>signUp</>,
   },
   {
     path: PATH.login,
-    element: <Login />,
+    element: <>login</>,
   },
   {
     path: PATH.mypage,
-    element: <>mypage</>,
+    element: <AuthMyPageLayout />,
   },
   {
     path: PATH.information,
