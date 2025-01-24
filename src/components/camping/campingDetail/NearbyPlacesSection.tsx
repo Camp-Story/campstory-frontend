@@ -36,7 +36,7 @@ export default function NearbyPlacesSection() {
         </div>
         <div>
           <img
-            src="/public/images/camping/camping-popular-dummy1.png"
+            src="/images/camping/camping-popular-dummy1.png"
             alt="인근 명소 이미지"
             className="w-[228px] h-[228px] rounded-xl mb-[10px]"
           />
@@ -64,7 +64,7 @@ export default function NearbyPlacesSection() {
         </div>
         <div>
           <img
-            src="/public/images/camping/camping-popular-dummy1.png"
+            src="/images/camping/camping-popular-dummy1.png"
             alt="인근 명소 이미지"
             className="w-[228px] h-[228px] rounded-xl mb-[10px]"
           />
@@ -92,7 +92,7 @@ export default function NearbyPlacesSection() {
         </div>
         <div>
           <img
-            src="/public/images/camping/camping-popular-dummy1.png"
+            src="/images/camping/camping-popular-dummy1.png"
             alt="인근 명소 이미지"
             className="w-[228px] h-[228px] rounded-xl mb-[10px]"
           />
@@ -120,7 +120,7 @@ export default function NearbyPlacesSection() {
         </div>
         <div>
           <img
-            src="/public/images/camping/camping-popular-dummy1.png"
+            src="/images/camping/camping-popular-dummy1.png"
             alt="인근 명소 이미지"
             className="w-[228px] h-[228px] rounded-xl mb-[10px]"
           />

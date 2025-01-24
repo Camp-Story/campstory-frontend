@@ -7,7 +7,7 @@ export default function ImageSection({ image1, image2, image3, image4 }: Camping
     <section className="mt-20 w-full grid grid-cols-12 gap-4 mb-7">
       <div className="col-span-6 h-[400px] bg-gray-scale-100 rounded-xl overflow-hidden">
         <img
-          src={image1 || "../../public/images/camping/camping-popular-dummy4.png"}
+          src={image1 || "/images/camping/camping-popular-dummy4.png"}
           alt="캠핑장 이미지 1"
           className="w-full h-full object-cover"
         />
