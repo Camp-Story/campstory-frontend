@@ -1,4 +1,5 @@
 import { PATH } from "@constants/path";
+import CommunityDefault from "@pages/CommunityDetail";
 import CommunityMain from "@pages/CommunityMain";
 
 const COMMUNITY_ROUTES = [
@@ -8,7 +9,7 @@ const COMMUNITY_ROUTES = [
   },
   {
     path: PATH.communityPostPath,
-    element: <>community post</>,
+    element: <CommunityDefault />,
   },
   {
     path: PATH.communityCreate,
