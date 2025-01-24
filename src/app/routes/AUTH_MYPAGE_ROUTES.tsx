@@ -1,5 +1,5 @@
 import { PATH } from "@constants/path";
-import PersonalInfo from "@pages/PersonalInfo";
+import PersonalInfo from "@pages/MypageInfo";
 import Bookmark from "@pages/Bookmark";
 
 const AUTH_MYPAGE_ROUTES = [
