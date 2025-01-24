@@ -1,6 +1,6 @@
 import AreaCard from "@components/community/community/AreaCard";
 import Tag from "@components/community/Tag";
-import ImageUploader from "@components/community/communityCreate/ImageUploader";
+import ImageUploader from "@components/community/community/communityCreate/ImageUploader";
 
 export default function CommunityCreate() {
   return (
