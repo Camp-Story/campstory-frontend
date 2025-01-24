@@ -1,6 +1,7 @@
 import { PATH } from "@constants/path";
 import MypageInfo from "@pages/MypageInfo";
 import Bookmark from "@pages/Bookmark";
+import MypageActivities from "@pages/MypageActivities";
 
 const AUTH_MYPAGE_ROUTES = [
   {
@@ -17,7 +18,7 @@ const AUTH_MYPAGE_ROUTES = [
   },
   {
     path: PATH.activities,
-    element: <>mypage activities</>,
+    element: <MypageActivities />,
   },
 ];
 
