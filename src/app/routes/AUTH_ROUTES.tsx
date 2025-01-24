@@ -1,6 +1,7 @@
 import { PATH } from "@constants/path";
 import Login from "@pages/Login";
 import SignUp from "@pages/SignUp";
+import ReservedList from "@pages/ReservedList";
 
 const AUTH_ROUTES = [
   {
@@ -21,11 +22,11 @@ const AUTH_ROUTES = [
   },
   {
     path: PATH.reservedList,
-    element: <>mypage reservedList</>,
+    element: <ReservedList/>,
   },
   {
     path: PATH.bookmark,
-    element: <>mypage bookmark</>,
+    element: <>bookmark</>
   },
   {
     path: PATH.activities,
