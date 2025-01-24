@@ -6,9 +6,108 @@ import RecommendCard from "@components/shopping/RecommendCard";
 import ReviewCardProps from "types/ReviewCardProps";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import ProductCard from "@components/shopping/ProductCard";
-import ShoppingProps from "types/ShoppingProps";
 
-const ReviewData: ReviewCardProps[] = [
+const RecommendProductData = [
+  {
+    id: 1,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/photo-review-dummy-1.png",
+  },
+  {
+    id: 2,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/photo-review-dummy-1.png",
+  },
+];
+
+const NewProductData = [
+  {
+    id: 1,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item01.png",
+  },
+  {
+    id: 2,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item02.png",
+  },
+  {
+    id: 3,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item03.png",
+  },
+  {
+    id: 4,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item04.png",
+  },
+  {
+    id: 5,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item05.png",
+  },
+];
+
+const DiscountProductData = [
+  {
+    id: 1,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item01.png",
+  },
+  {
+    id: 2,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item02.png",
+  },
+  {
+    id: 3,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item03.png",
+  },
+  {
+    id: 4,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item04.png",
+  },
+  {
+    id: 5,
+    brand: "브랜드 이름",
+    name: "시어플러스57 배틀큐 그릴",
+    discount: "30%",
+    price: "168,000원",
+    img: "/images/shopping/shoppingItems/item05.png",
+  },
+];
+
+const ReviewData = [
   {
     src: "/images/shopping/photo-review-dummy-1.png",
     contents:
@@ -40,77 +139,6 @@ const ReviewData: ReviewCardProps[] = [
     timestamp: "3시간 전",
     userId: "사용자 이름4",
     path: PATH.communityPostPath,
-  },
-];
-
-const NewProductData: ShoppingProps[] = [
-  {
-    src: "/images/camping/camping-category-2.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-3.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-2.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-4.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-2.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    price: "168,000원",
-  },
-];
-
-const DiscountProductData: ShoppingProps[] = [
-  {
-    src: "/images/camping/camping-category-1.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    discount: 30,
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-1.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    discount: 30,
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-1.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    discount: 30,
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-1.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    discount: 30,
-    price: "168,000원",
-  },
-  {
-    src: "/images/camping/camping-category-1.png",
-    brand: "브랜드 이름",
-    productName: "시어플러스57 바베큐 그릴",
-    discount: 30,
-    price: "168,000원",
   },
 ];
 
@@ -173,20 +201,19 @@ export default function ShoppingMain() {
           <button className="text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
-          <RecommendCard
-            src="/images/shopping/photo-review-dummy-1.png"
-            brand={"브랜드 이름"}
-            productName="시어플러스57 바베큐 그릴"
-            discount={30}
-            price="168,000원"
-          />
-          <RecommendCard
-            src="/images/shopping/photo-review-dummy-2.png"
-            brand={"브랜드 이름"}
-            productName="시어플러스57 바베큐 그릴"
-            discount={30}
-            price="168,000원"
-          />
+          {RecommendProductData.map((product) => (
+            <RecommendCard
+              img={product.img}
+              bookmarked={false}
+              key={product.id}
+              brandName={product.brand}
+              discount={product.discount}
+              productName={product.name}
+              price={product.price}
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
+            />
+          ))}
         </div>
       </div>
 
@@ -197,14 +224,16 @@ export default function ShoppingMain() {
           <button className="text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
-          {NewProductData.map((item: ShoppingProps, idx: number) => (
+          {NewProductData.map((product) => (
             <ProductCard
-              key={idx}
-              src={item.src}
-              brand={item.brand}
-              productName={item.productName}
-              discount={item.discount}
-              price={item.price}
+              img={product.img}
+              bookmarked={false}
+              key={product.id}
+              brandName={product.brand}
+              productName={product.name}
+              price={product.price}
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
             />
           ))}
         </div>
@@ -219,14 +248,17 @@ export default function ShoppingMain() {
           <button className="text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
-          {DiscountProductData.map((item: ShoppingProps, idx: number) => (
+          {DiscountProductData.map((product) => (
             <ProductCard
-              key={idx}
-              src={item.src}
-              brand={item.brand}
-              productName={item.productName}
-              discount={item.discount}
-              price={item.price}
+              img={product.img}
+              bookmarked={false}
+              key={product.id}
+              brandName={product.brand}
+              productName={product.name}
+              discount={product.discount}
+              price={product.price}
+              handleClick={() => alert("click")}
+              handleClickBookmark={() => alert("bookmark")}
             />
           ))}
         </div>
