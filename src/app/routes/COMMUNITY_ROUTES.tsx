@@ -1,4 +1,5 @@
 import { PATH } from "@constants/path";
+import CommunityCreate from "@pages/CommunityCreate";
 import CommunityDefault from "@pages/CommunityDetail";
 import CommunityMain from "@pages/CommunityMain";
 
@@ -13,7 +14,7 @@ const COMMUNITY_ROUTES = [
   },
   {
     path: PATH.communityCreate,
-    element: <>community create</>,
+    element: <CommunityCreate />,
   },
   {
     path: PATH.communityModifyPath,
