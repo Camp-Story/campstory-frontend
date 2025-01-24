@@ -1,6 +1,7 @@
 import { PATH } from "@constants/path";
 import MypageInfo from "@pages/MypageInfo";
 import Bookmark from "@pages/Bookmark";
+import MyActivities from "@pages/MyActivites";
 import MypageActivities from "@pages/MypageActivities";
 import ReservedList from "@pages/ReservedList";
 
@@ -19,7 +20,7 @@ const AUTH_MYPAGE_ROUTES = [
   },
   {
     path: PATH.activities,
-    element: <MypageActivities />,
+    element: <MyActivities />,
   },
 ];
 
