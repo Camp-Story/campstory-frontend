@@ -14,7 +14,7 @@ export default function CommunityDefault() {
 
         <div className="flex flex-col justify-between">
           <div className="flex flex-col gap-[15px]">
-            <div className="flex gap-custom items-center text-[15px] text-gray-scale-500">
+            <div className="flex gap-[15px] items-center text-[15px] text-gray-scale-500">
               <span>작성일</span>
               <span className="font-medium">2025.01.14</span>
             </div>
