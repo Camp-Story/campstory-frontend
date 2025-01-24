@@ -9,8 +9,9 @@ export default function QuestionCreate() {
       <div className="flex flex-col gap-5">
         <InputContainer title="제목">
           <input
-            placeholder="이곳에 내용을 작성해주세요 (최소 10자 이상 작성)"
-            className="p-4 px-[25px] border border-gray-scale-200 rounded-sm focus:outline-none"
+            placeholder="이곳에 제목을 입력해주세요 (최대 20자 작성)"
+            maxLength={20}
+            className="p-3.5 px-[25px] text-[15px] border border-gray-scale-200 rounded-sm focus:outline-none"
           />
         </InputContainer>
         <InputContainer title="태그 선택">
@@ -26,7 +27,7 @@ export default function QuestionCreate() {
         <InputContainer title="내용">
           <textarea
             autoFocus
-            className="h-[466px] p-[25px] border border-gray-scale-200 rounded-sm focus:outline-none"
+            className="h-[466px] p-[25px] border border-gray-scale-200 rounded-sm focus:outline-none text-[15px]"
             placeholder="이곳에 내용을 작성해주세요 (최소 10자 이상 작성)"
           />
         </InputContainer>
