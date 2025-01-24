@@ -1,9 +1,9 @@
-import NearbyPlacesSection from "@components/camping/campingDetail/NearbyPlacesSection";
-import ReviewCard from "@components/camping/campingMain/ReviewCard";
-import DetailLeft from "@components/event/eventDetail/DetailLeft";
-import DetailRight from "@components/event/eventDetail/DetailRight";
 import { PATH } from "@constants/path";
 import ReviewCardProps from "types/ReviewCardProps";
+import ReviewCard from "@components/camping/campingMain/ReviewCard";
+import DetailLeft from "@components/detail/DetailLeft";
+import DetailRight from "@components/detail/DetailRight";
+import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 
 const ReviewData: ReviewCardProps[] = [
   {
