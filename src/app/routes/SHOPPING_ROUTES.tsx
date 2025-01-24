@@ -1,7 +1,7 @@
 import { PATH } from "@constants/path";
-
 import ShoppingMain from "@pages/ShoppingMain";
 import ShoppingSearch from "@pages/ShoppingSearch";
+import ShoppingDetail from "@pages/ShoppingDetail";
 
 const SHOPPING_ROUTES = [
   {
@@ -14,7 +14,7 @@ const SHOPPING_ROUTES = [
   },
   {
     path: PATH.shoppingInfoPath,
-    element: <>shopping information</>,
+    element: <ShoppingDetail />,
   },
 ];
 
