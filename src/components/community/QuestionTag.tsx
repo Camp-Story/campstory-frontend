@@ -42,7 +42,7 @@ export default function Tag({ tag, isCheckbox }: TagProps) {
           "flex gap-[6px] items-center px-2.5 py-[5px] rounded-[21px] text-body1",
           isCheckbox
             ? "cursor-pointer border border-gray-scale-200 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 "
-            : "bg-gray-scale-100",
+            : "bg-gray-scale-0 border border-gray-scale-200",
         )}
       >
         <span className="leading-3 text-gray-scale-300">{label}</span>
