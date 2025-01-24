@@ -9,6 +9,9 @@ import RESTAURANT_ROUTES from "./routes/RESTAURANT_ROUTES";
 import COMMUNITY_ROUTES from "./routes/COMMUNITY_ROUTES";
 import QUESTION_ROUTES from "./routes/QUESTION_ROUTES";
 import AUTH_ROUTES from "./routes/AUTH_ROUTES";
+import AuthMyPageLayout from "@components/layouts/AuthMyPageLayout";
+import AUTH_MYPAGE_ROUTES from "./routes/AUTH_MYPAGE_ROUTES";
+import { PATH } from "@constants/path";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,16 @@ const router = createBrowserRouter([
           {
             path: "/",
             children: AUTH_ROUTES,
+          },
+        ],
+      },
+      {
+        path: "/",
+        element: <AuthMyPageLayout />,
+        children: [
+          {
+            path: PATH.mypage,
+            children: AUTH_MYPAGE_ROUTES,
           },
         ],
       },
