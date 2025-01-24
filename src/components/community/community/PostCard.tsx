@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import AreaCard from "./AreaCard";
 import { PATH } from "@constants/path";
-import UserProfile from "./UserProfile";
-import TgaList from "./TagList";
-import AdditionalInfo from "./AdditionalInfo";
+import UserProfile from "../UserProfile";
+import TgaList from "../TagList";
+import AdditionalInfo from "../AdditionalInfo";
 
 export default function PostCard() {
   const navigate = useNavigate();
