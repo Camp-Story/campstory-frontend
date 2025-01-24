@@ -1,13 +1,4 @@
-interface ProductCard {
-  brandName: string;
-  productName: string;
-  discount?: string;
-  price: string;
-  bookmarked: boolean;
-  handleClickBookmark: () => void;
-  handleClick: () => void;
-  img?: string;
-}
+import ProductCardProps from "types/ProductCardProps";
 
 export default function ProductCard({
   handleClick,
@@ -18,7 +9,7 @@ export default function ProductCard({
   discount,
   price,
   img,
-}: ProductCard) {
+}: ProductCardProps) {
   return (
     <div className="w-[240px] h-[352px] mt=[40px]">
       {/* 이미지 영역 */}
