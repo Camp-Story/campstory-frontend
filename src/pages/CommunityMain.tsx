@@ -1,6 +1,6 @@
 import SearchInput from "@components/common/SearchInput";
 import OrderRadio from "@components/community/OrderRadio";
-import PostCard from "@components/community/PostCard";
+import PostCard from "@components/community/community/PostCard";
 import Tag from "@components/community/Tag";
 import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";

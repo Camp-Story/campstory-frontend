@@ -1,5 +1,5 @@
 import AdditionalInfo from "@components/community/AdditionalInfo";
-import AreaCard from "@components/community/AreaCard";
+import AreaCard from "@components/community/community/AreaCard";
 import TgaList from "@components/community/TagList";
 import UserProfile from "@components/community/UserProfile";
 
