@@ -1,10 +1,14 @@
 import AdditionalInfo from "../AdditionalInfo";
 import UserProfile from "../UserProfile";
 
-export default function QuestionCard() {
+interface QuestionCardProps extends React.HtmlHTMLAttributes<HTMLInputElement> {
+  handleClick: () => void;
+}
+
+export default function QuestionCard({ handleClick }: QuestionCardProps) {
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div onClick={handleClick} className="flex flex-col gap-3 hover:cursor-pointer">
         <UserProfile nickname="사용자 닉네임" profileUrl="" />
         {/* card */}
         <div className="flex flex-col gap-4 bg-gray-scale-0 w-[600px] p-[20px] rounded-sm drop-shadow-custom">

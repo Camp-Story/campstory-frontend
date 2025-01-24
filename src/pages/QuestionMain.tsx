@@ -42,10 +42,10 @@ export default function QuestionMain() {
 
       {/* QuestionCards */}
       <div className="grid grid-cols-2 gap-[30px] justify-between">
-        <QuestionCard />
-        <QuestionCard />
-        <QuestionCard />
-        <QuestionCard />
+        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
+        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
+        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
+        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
       </div>
     </>
   );
