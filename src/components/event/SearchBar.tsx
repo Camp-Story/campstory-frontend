@@ -1,26 +1,24 @@
-import { useState } from "react";
+import { PATH } from "@constants/path";
+import { useNavigate } from "react-router";
 
 interface SearchBarProps {
   className: string;
-  backgroundColor?: boolean;
 }
 
-export default function SearchBar({ className, backgroundColor }: SearchBarProps) {
-  const [focus, setFocus] = useState(false);
+export default function SearchBar({ className }: SearchBarProps) {
+  const navigate = useNavigate();
   return (
     <div className={className}>
       <input
-        placeholder="검색어를 입력하세요"
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        className={`py-3 px-6 w-[800px] rounded-full focus:outline-secondary-500 ${
-          backgroundColor
-            ? focus
-              ? "bg-white placeholder-slate-600"
-              : "bg-slate-200 placeholder-slate-600"
-            : "bg-white"
-        } `}
+        placeholder="검색어를 입력해주세요."
+        className="relative py-3 px-6 w-[892px] rounded-full placeholder-gray-scale-300 focus:outline-green-700"
       />
+      <button
+        onClick={() => navigate(PATH.campingSearch)}
+        className="absolute top-[50%] -translate-y-[50%] right-[20px] p-2"
+      >
+        <img src="/SearchIcon.svg" alt="searchIcon" />
+      </button>
     </div>
   );
 }
