@@ -1,4 +1,4 @@
-import AuthMyPageLayout from "@components/layouts/\bAuthMyPageLayout";
+import AuthMyPageLayout from "@components/layouts/AuthMyPageLayout";
 import { PATH } from "@constants/path";
 
 const AUTH_ROUTES = [
