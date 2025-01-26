@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router";
+import { PATH } from "@constants/path";
+
 export default function MyQuestion() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div onClick={() => navigate(PATH.questionPost("1"))} className="cursor-pointer">
         {/* card */}
         <div className="flex flex-col gap-4 bg-gray-scale-0 w-full p-[20px] drop-shadow-custom">
           <div className="flex gap-4 items-center">
