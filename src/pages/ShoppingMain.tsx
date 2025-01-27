@@ -330,7 +330,6 @@ export default function ShoppingMain() {
       {/* Sale */}
       <div className="relative">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E8F6F1] w-screen h-[450px] -z-10"></div>
-        {/* <div className="absolute bg-[#E8F6F1] h-[470px] -top-10 w-screen -z-10"></div> */}
         <div className="flex justify-between items-center">
           <SubTitle>최저가 득템!</SubTitle>
           <button className="text-info-500">더보기</button>
