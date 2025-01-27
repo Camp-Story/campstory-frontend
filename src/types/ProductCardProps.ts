@@ -1,12 +1,12 @@
 interface ProductCardProps {
-  brandName: string;
-  productName: string;
-  discount?: string;
-  price: string;
+  id: string;
+  title: string;
+  mallName: string;
+  image?: string;
+  hprice: string;
+  lprice: string;
   bookmarked: boolean;
   handleClickBookmark: () => void;
-  handleClick: () => void;
-  img?: string;
 }
 
 export default ProductCardProps;
