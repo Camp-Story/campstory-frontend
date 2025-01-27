@@ -1,31 +1,7 @@
-interface NaverProductResponse {
-  title: string;
-  link: string;
-  image: string;
-  lprice: string;
-  hprice: string;
-  mallName: string;
-  productId: string;
-  productType: string;
-  brand: string;
-  maker: string;
-  category1: string;
-  category2: string;
-  category3: string;
-  category4: string;
-}
-
-interface ProductInfoProps {
-  brand: string;
-  title: string;
-  image: string;
-  link: string;
-  lprice: string;
-  hprice: string;
-}
+import { NaverProductResponse } from "types/NaverResponse";
 
 export default function ProductInfo({ product }: { product: NaverProductResponse }) {
-  const { brand, title, image, link, lprice, hprice }: ProductInfoProps = product;
+  const { brand, mallName, title, image, link, lprice, hprice } = product;
 
   const calculateDiscountRate = (hprice: string, lprice: string) => {
     const highPrice = Number(hprice);
@@ -42,14 +18,14 @@ export default function ProductInfo({ product }: { product: NaverProductResponse
             image ||
             "https://shopping-phinf.pstatic.net/main_3662609/36626094620.20221219153401.jpg"
           }
-          alt="캠핑장 이미지 1"
+          alt="Product Image"
           className="w-full h-full object-cover"
         />
       </article>
       <article className="w-[550px] flex flex-col justify-between">
         <div className="flex justify-between">
           <div className="w-[400px]">
-            <span className="text-sub-title text-gray-scale-300 mb-2">{brand}</span>
+            <span className="text-sub-title text-gray-scale-300 mb-2">{brand || mallName}</span>
             <h4 className="text-title mb-4">{title.replace(/<\/?[^>]+(>|$)/g, "")}</h4>
             <span className="text-title font-bold">
               {hprice && (
