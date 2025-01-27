@@ -1,9 +1,24 @@
-import { PATH } from "@constants/path";
 import ReviewCardProps from "types/ReviewCardProps";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
+import { PATH } from "@constants/path";
+import { useLocation, useParams } from "react-router";
+import { tourApiInstance } from "@utils/axiosInstance";
+import { useEffect, useState } from "react";
+
+interface RestaurantDataResponse {}
+
+interface ApiResponse {
+  response: {
+    body: {
+      items: {
+        item: Item[];
+      };
+    };
+  };
+}
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -41,6 +56,9 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function FoodDetail() {
+  const { id } = useParams();
+  const location = useLocation();
+  const restaurantDetailData: RestaurantDataResponse = location.state.item;
   return (
     <>
       <section className="mt-20 w-full flex gap-11 mb-14">
