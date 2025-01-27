@@ -127,8 +127,10 @@ export default function RestaurantSearch() {
                   key={restaurant.contentid}
                   img={restaurant.firstimage}
                   bookmarked={false}
-                  category={CATEGORY_MAP[restaurant.cat3] || "카데고리 없음"}
-                  handleClick={() => navigate(PATH.restaurantInfo(restaurant.contentid))}
+                  category={CATEGORY_MAP[restaurant.cat3] || "카테고리 없음"}
+                  handleClick={() =>
+                    navigate(PATH.restaurantInfo(restaurant.contentid), { state: { restaurant } })
+                  }
                   handleClickBookmark={() => alert("bookmark")}
                   location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
                   title={restaurant.title}
