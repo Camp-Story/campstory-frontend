@@ -142,7 +142,12 @@ export default function CampingSearch() {
             <h4 className="text-base font-bold">지역</h4>
             <div className="grid grid-cols-3 gap-2.5 w-[230px]">
               {AREA.map((area) => (
-                <AreaCheckbox code={area.code} label={area.label} value={area.value} />
+                <AreaCheckbox
+                  key={area.code}
+                  code={area.code}
+                  label={area.label}
+                  value={area.value}
+                />
               ))}
             </div>
           </div>
@@ -156,6 +161,7 @@ export default function CampingSearch() {
             {campingData.length !== 0 &&
               campingData.map((item) => (
                 <SearchCard
+                  key={item.contentId}
                   img={item.firstImageUrl}
                   bookmarked={false}
                   category={item.induty}
