@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCardProps from "types/ReviewCardProps";
 import { PATH } from "@constants/path";
 import SearchBar from "@components/common/main/SearchBar";
+import { useNavigate } from "react-router";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -115,13 +116,14 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function CampingMain() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-[60px]">
       {/* Banner */}
       <div className="relative">
         <img src="/images/camping/camping-banner.png" alt="banner" className="w-full" />
         <SearchBar
-          handleSubmit={() => alert("search!")}
+          handleSubmit={(input) => navigate(PATH.campingSearch, { state: { input } })}
           className="absolute bottom-[60px] left-[50%] -translate-x-[50%]"
         />
       </div>
