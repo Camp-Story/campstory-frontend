@@ -4,6 +4,10 @@ import ReviewCardProps from "types/ReviewCardProps";
 import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { tourApiInstance } from "@utils/axiosInstance";
+import { CommonDetails, EventDetailData, EventDetails, ImageDetails } from "types/EventResponse";
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -41,17 +45,113 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function EventDetail() {
+  const { id } = useParams<{ id: string }>();
+  const [eventDetailData, setEventDetailData] = useState<EventDetailData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchEventImgList = async () => {
+    try {
+      const imgResponse = await tourApiInstance.get("/detailImage1", {
+        params: {
+          _type: "json",
+          contentId: id,
+          imageYN: "Y",
+          subImageYN: "Y",
+          numOfRows: 10,
+        },
+      });
+      const items: ImageDetails[] = imgResponse.data.response.body.items.item;
+      const images = items.map((item) => item.originimgurl);
+      return images;
+    } catch (error) {
+      setError("행사 이미지를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching event images:", error);
+    }
+  };
+
+  const fetchEventDetailData = async () => {
+    try {
+      const introResponse = await tourApiInstance.get("/detailIntro1", {
+        params: {
+          _type: "json",
+          contentId: id,
+          contentTypeId: 15,
+        },
+      });
+
+      const item: EventDetails = Array.isArray(introResponse.data.response.body.items.item)
+        ? introResponse.data.response.body.items.item[0]
+        : introResponse.data.response.body.items.item;
+      const { sponsor1, sponsor1tel, eventenddate, eventstartdate, eventhomepage } = item;
+      return { sponsor1, sponsor1tel, eventenddate, eventstartdate, eventhomepage };
+    } catch (error) {
+      setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching event detail data:", error);
+    }
+  };
+
+  const fetchEventCommonData = async () => {
+    try {
+      const commonResponse = await tourApiInstance.get("/detailCommon1", {
+        params: {
+          _type: "json",
+          contentId: id,
+          contentTypeId: 15,
+          defaultYN: "Y",
+          overviewYN: "Y",
+          areacodeYN: "Y",
+          addrinfoYN: "Y",
+        },
+      });
+
+      const item: CommonDetails = Array.isArray(commonResponse.data.response.body.items.item)
+        ? commonResponse.data.response.body.items.item[0]
+        : commonResponse.data.response.body.items.item;
+      const { title, addr1, overview, contentid, contenttypeid } = item;
+      return { title, addr1, overview, contentid, contenttypeid };
+    } catch (error) {
+      setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching event detail data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const setDetail = async () => {
+      const images = await fetchEventImgList();
+      const detail = await fetchEventDetailData();
+      const common = await fetchEventCommonData();
+
+      if (images && detail && common) {
+        console.log({ images, ...detail, ...common });
+        setEventDetailData({ images, ...detail, ...common });
+      }
+      setIsLoading(false);
+    };
+
+    setDetail();
+  }, [id]);
+
+  if (isLoading) return <p>로딩중...</p>;
+  if (error) return <p>{error}</p>;
+  if (!eventDetailData) return <p>데이터를 불러오지 못했습니다.</p>;
+
   return (
     <>
       <section className="mt-20 w-full flex gap-11 mb-14">
-        <DetailLeft image1={"/images/festival/event-dummy.png"} image2={""} image3={""} />
+        <DetailLeft
+          image1={eventDetailData.images.length > 0 ? eventDetailData.images[0] : ""}
+          image2={eventDetailData.images.length > 1 ? eventDetailData.images[1] : ""}
+          image3={eventDetailData.images.length > 2 ? eventDetailData.images[2] : ""}
+        />
         <DetailRight
-          category={"남상면청년회"}
-          title={"감악산 해맞이 행사"}
-          address={"경상남도 거창군 신원면 덕선리"}
-          phone={"055-940-3424"}
+          category={eventDetailData.sponsor1}
+          title={eventDetailData.title}
+          address={eventDetailData.addr1}
+          phone={eventDetailData.sponsor1tel}
           bookmarked={false}
-          contenttypeid={"15"}
+          contenttypeid={eventDetailData.contenttypeid}
+          overview={eventDetailData.overview}
         />
       </section>
       <NearbyPlacesSection />
