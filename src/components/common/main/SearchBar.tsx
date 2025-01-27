@@ -1,18 +1,30 @@
+import { useState } from "react";
+
 interface SearchBarProps extends React.HtmlHTMLAttributes<HTMLInputElement> {
-  handleSubmit: () => void;
+  handleSubmit: (input: string) => void;
 }
 
 export default function SearchBar({ handleSubmit, ...props }: SearchBarProps) {
+  const [input, setInput] = useState<string>(""); // 검색어 상태 관리
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setInput(e.target.value); // 입력 값 업데이트
+  };
+
+  const onSubmit = () => {
+    handleSubmit(input); // 부모 컴포넌트로 검색어 전달
+    setInput(""); // 입력창 초기화
+  };
+
   return (
     <div {...props}>
       <input
         placeholder="검색어를 입력해주세요."
         className="relative py-3 px-6 w-[892px] rounded-full placeholder-gray-scale-300 focus:outline-gray-scale-0"
+        onChange={handleChange}
       />
-      <button
-        onClick={handleSubmit}
-        className="absolute top-[50%] -translate-y-[50%] right-[20px] p-2"
-      >
+      <button onClick={onSubmit} className="absolute top-[50%] -translate-y-[50%] right-[20px] p-2">
         <svg
           width="25"
           height="25"

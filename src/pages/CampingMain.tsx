@@ -1,4 +1,3 @@
-import Banner from "@components/camping/campingMain/Banner";
 import CategoryCard from "@components/camping/campingMain/CategoryCard";
 import PopularCampCard from "@components/camping/campingMain/PopularCampCard";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
@@ -10,6 +9,7 @@ import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCardProps from "types/ReviewCardProps";
 import { PATH } from "@constants/path";
+import SearchBar from "@components/common/main/SearchBar";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -117,7 +117,14 @@ const ReviewData: ReviewCardProps[] = [
 export default function CampingMain() {
   return (
     <div className="flex flex-col gap-[60px]">
-      <Banner />
+      {/* Banner */}
+      <div className="relative">
+        <img src="/images/camping/camping-banner.png" alt="banner" className="w-full" />
+        <SearchBar
+          handleSubmit={() => alert("search!")}
+          className="absolute bottom-[60px] left-[50%] -translate-x-[50%]"
+        />
+      </div>
       <div>
         <Subtitle>카테고리별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
