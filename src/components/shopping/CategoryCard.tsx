@@ -19,7 +19,7 @@ export default function CategoryCard({ path, src, catName }: CategoryCardProps) 
           <img src={src} alt="category" className="m-3" />
         </div>
         {/* 카테고리 이름 */}
-        <span className="text-body1 text-gray-scale-400 mt-3">{catName}</span>
+        <span className="text-sub-title text-gray-scale-400 mt-3">{catName}</span>
       </button>
     </>
   );
