@@ -58,7 +58,7 @@ export default function RestaurantSearch() {
     try {
       const response = await tourApiInstance.get<ApiResponse>("/searchKeyword1", {
         params: {
-          numOfRows: 30,
+          numOfRows: 10,
           pageNo: 1,
           listYN: "Y",
           arrange: "O",
@@ -128,7 +128,7 @@ export default function RestaurantSearch() {
                   img={restaurant.firstimage}
                   bookmarked={false}
                   category={CATEGORY_MAP[restaurant.cat3] || "카데고리 없음"}
-                  handleClick={() => navigate(PATH.restaurantInfoPath)}
+                  handleClick={() => navigate(PATH.restaurantInfo(restaurant.contentid))}
                   handleClickBookmark={() => alert("bookmark")}
                   location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
                   title={restaurant.title}
