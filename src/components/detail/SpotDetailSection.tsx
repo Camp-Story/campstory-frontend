@@ -45,7 +45,7 @@ export default function SpotDetailSection({ title, category, phone, address }: C
                 stroke-linejoin="round"
               />
             </svg>
-            {phone}
+            {phone.length !== 0 ? phone : "연락처가 없습니다."}
           </span>
         </div>
       </div>
