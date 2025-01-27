@@ -2,10 +2,68 @@ import CheckboxList from "@components/common/search/CheckboxList";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
-
 import { RESTURANT_CATEGORY } from "@constants/filters";
+import { useEffect } from "react";
 
+import { tourApiInstance } from "@utils/axiosInstance";
+
+interface RestaurantResponse {
+  addr1: string;
+  addr2: string;
+  cat1: string;
+  cat2: string;
+  cat3: string;
+  firstimage: string;
+  firstimage2: string;
+  tel: string;
+  title: string;
+}
+
+interface ApiResponse {
+  response: {
+    body: {
+      items: {
+        item: Item[];
+      };
+    };
+  };
+}
 export default function RestaurantSearch() {
+  // const [restaurants, setRestaurants] = useState<RestaurantResponse[]>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string | null>(null);
+
+  const fetchRestaurantsData = async () => {
+    // setIsLoading(true);
+    // setError(null);
+
+    try {
+      const response = await tourApiInstance.get<ApiResponse>("/locationBasedList1", {
+        params: {
+          numOfRows: 50,
+          pageNo: 1,
+          listYN: "Y",
+          arrange: "O",
+          contentTypeId: 39,
+          mapX: "126.981611",
+          mapY: "37.568477",
+          radius: 1000,
+          // modifiedtime: "",
+        },
+      });
+      const items = response.data?.response?.body?.items?.item;
+      console.log(items);
+    } catch (error) {
+      console.log(error);
+    }
+    // finally {
+    //   setIsLoading(false);
+    // }
+  };
+
+  useEffect(() => {
+    fetchRestaurantsData();
+  }, []);
   return (
     <>
       <div className="mt-[100px] mb-[60px]">
