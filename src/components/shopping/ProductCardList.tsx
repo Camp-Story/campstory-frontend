@@ -1,227 +1,78 @@
+import { useCallback, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { naverApiInstance } from "@utils/axiosInstance";
 
-export default function ProductCardList() {
-  const products = [
-    {
-      id: 1,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item01.png",
-    },
-    {
-      id: 2,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item02.png",
-    },
-    {
-      id: 3,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item03.png",
-    },
-    {
-      id: 4,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item04.png",
-    },
-    {
-      id: 5,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item05.png",
-    },
-    {
-      id: 6,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item06.png",
-    },
-    {
-      id: 7,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item07.png",
-    },
-    {
-      id: 8,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item08.png",
-    },
-    {
-      id: 9,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item09.png",
-    },
-    {
-      id: 10,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item10.png",
-    },
-    {
-      id: 1,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item01.png",
-    },
-    {
-      id: 2,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item02.png",
-    },
-    {
-      id: 3,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item03.png",
-    },
-    {
-      id: 4,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item04.png",
-    },
-    {
-      id: 5,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item05.png",
-    },
-    {
-      id: 6,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item06.png",
-    },
-    {
-      id: 7,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item07.png",
-    },
-    {
-      id: 8,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item08.png",
-    },
-    {
-      id: 9,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item09.png",
-    },
-    {
-      id: 10,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item10.png",
-    },
-    {
-      id: 6,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item06.png",
-    },
-    {
-      id: 7,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item07.png",
-    },
-    {
-      id: 8,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item08.png",
-    },
-    {
-      id: 9,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item09.png",
-    },
-    {
-      id: 10,
-      brand: "브랜드 이름",
-      name: "시어플러스57 배틀큐 그릴",
-      discount: "30%",
-      price: "168,000원",
-      img: "/images/shopping/shoppingItems/item10.png",
-    },
-  ];
+interface NaverProductResponse {
+  title: string;
+  link: string;
+  image: string;
+  lprice: string;
+  hprice: string;
+  mallName: string;
+  productId: string;
+  productType: string;
+  brand: string;
+  maker: string;
+  category1: string;
+  category2: string;
+  category3: string;
+  category4: string;
+}
+
+interface NaverSearchResponse {
+  items: NaverProductResponse[];
+}
+
+export default function ProductCardList({ orderBy }: { orderBy: string }) {
+  const [products, setProducts] = useState<NaverProductResponse[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchProductData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await naverApiInstance.get<NaverSearchResponse>("/shop.json", {
+        params: {
+          query: "텐트",
+          display: 20,
+          start: 1,
+          sort: orderBy,
+        },
+      });
+
+      console.log(response.data.items[0]);
+      setProducts(response.data.items);
+    } catch (error) {
+      setError("상품 데이터를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching product data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [orderBy]);
+
+  useEffect(() => {
+    fetchProductData();
+  }, [fetchProductData]);
 
   return (
-    <div className="grid grid-cols-5">
-      {" "}
-      {products.map((product, idx) => (
-        <div className="mt-[40px]">
-          <ProductCard
-            img={product.img}
-            bookmarked={false}
-            key={idx}
-            brandName={product.brand}
-            discount={product.discount}
-            productName={product.name}
-            price={product.price}
-            handleClick={() => alert("click")}
-            handleClickBookmark={() => alert("bookmark")}
-          />
-        </div>
+    <div className="grid grid-cols-5 gap-y-10">
+      {isLoading && <p>로딩중...</p>}
+      {products.map((product) => (
+        <ProductCard
+          key={product.productId}
+          id={product.productId}
+          image={product.image}
+          title={product.title}
+          mallName={product.mallName}
+          hprice={product.hprice}
+          lprice={product.lprice}
+          bookmarked={false}
+          handleClickBookmark={() => alert("bookmark")}
+        />
       ))}
+      {error}
     </div>
   );
 }
