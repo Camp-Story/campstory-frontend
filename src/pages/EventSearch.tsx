@@ -5,8 +5,10 @@ import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 
 import { AREA, EVENT_CATEGORY, EVENT_PROGRESS } from "@constants/filters";
+import { PATH } from "@constants/path";
 import { tourApiInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface EventListResponse {
   addr1: string;
@@ -57,7 +59,7 @@ function getCategoryName(cat3: string): string {
   return categoryMapping[cat3] || "카테고리 없음";
 }
 
-export default function EventSearch() {
+function useFetchEvents() {
   const [events, setEvents] = useState<EventListResponse[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -83,13 +85,11 @@ export default function EventSearch() {
           cat3: "",
         },
       });
-
-      console.log(response.data?.response?.body?.items?.item[0]);
       setEvents(response.data?.response?.body?.items?.item || []);
       setTotalCount(response.data?.response?.body?.totalCount || 0);
     } catch (error) {
       setError("행사 데이터를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching product data:", error);
+      console.error("Error fetching event data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -99,26 +99,27 @@ export default function EventSearch() {
     fetchEventData();
   }, []);
 
+  return { events, totalCount, isLoading, error };
+}
+
+export default function EventSearch() {
+  const { events, totalCount, isLoading, error } = useFetchEvents();
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="mt-[100px] mb-[60px]">
         <SearchInput handleSubmit={() => alert("submit!")} />
       </div>
-
       <div className="flex gap-[34px]">
         <div className="flex flex-col gap-[30px]">
           <SearchMap />
-
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>
             <CheckboxList categories={EVENT_PROGRESS} title="진행/예정" />
-
             <hr />
-
             <CheckboxList categories={EVENT_CATEGORY} title="카테고리" />
-
             <hr />
-
             <h4 className="text-base font-bold">지역</h4>
             <div className="grid grid-cols-3 gap-2.5 w-[230px]">
               {AREA.map((area) => (
@@ -127,7 +128,6 @@ export default function EventSearch() {
             </div>
           </div>
         </div>
-
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
             '행사' 검색 결과 {totalCount}개
@@ -141,7 +141,7 @@ export default function EventSearch() {
                 img={event.firstimage || "https://placehold.co/250x250?text=CAMP+STORY"}
                 bookmarked={false}
                 category={getCategoryName(event.cat3)}
-                handleClick={() => alert(event.title)}
+                handleClick={() => navigate(PATH.eventInfo(event.contentid))}
                 handleClickBookmark={() => alert("Bookmark!")}
                 location={event.addr1 || "주소 정보 없음"}
                 title={event.title}
