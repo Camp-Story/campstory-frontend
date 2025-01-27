@@ -121,8 +121,8 @@ export default function CampingDetail() {
       <SpotAboutSection
         shortIntro={CampingDetailData.lineIntro}
         description={CampingDetailData.featureNm}
-        sbrsCl={CampingDetailData.sbrsCl}
-        posblFcltyCl={CampingDetailData.posblFcltyCl}
+        campingFacilities={CampingDetailData.sbrsCl}
+        nearbyFacilities={CampingDetailData.posblFcltyCl}
         homepage={CampingDetailData.homepage}
       />
       <NearbyPlacesSection />
