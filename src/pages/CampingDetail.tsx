@@ -5,6 +5,17 @@ import ImageSection from "@components/detail/ImageSection";
 import SpotDetailSection from "@components/detail/SpotDetailSection";
 import SpotAboutSection from "@components/detail/SpotAboutSection";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
+import { useParams } from "react-router";
+import { goCampingInstance } from "@utils/axiosInstance";
+import { useEffect, useState } from "react";
+
+interface campingImgListResponse {
+  contentId: string;
+  serialnum: string;
+  imageUrl: string;
+  createdtime: string;
+  modifiedtime: string;
+}
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -42,16 +53,51 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function CampingDetail() {
+  const { id } = useParams();
+  const [campingImgList, setCampingImgList] = useState<campingImgListResponse[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchCampingImgList = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await goCampingInstance.get("/imageList", {
+        params: {
+          contentId: id,
+        },
+      });
+      console.log(response.data.response.body.items.item);
+      setCampingImgList(response.data.response.body.items.item);
+    } catch (error) {
+      setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching camping data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCampingImgList();
+  }, []);
+
   return (
     <>
-      <ImageSection />
+      {isLoading && "로딩중.."}
+      {error}
+      <ImageSection
+        image1={campingImgList[0]?.imageUrl}
+        image2={campingImgList[1]?.imageUrl}
+        image3={campingImgList[2]?.imageUrl}
+        image4={campingImgList[3]?.imageUrl}
+      />
       <SpotDetailSection
         title="가온오토캠핑장"
         category="일반야영장•자동차야영장•글램핑"
         address="강원 횡성군 서원면 서원서로102번길 3-18"
         phone="010-3148-9970"
       />
-      <SpotAboutSection shortIntro="" description="" campingInfo={{ sample: "test" }} />
+      <SpotAboutSection shortIntro="" description="" sbrsEtc="" posblFcltyCl="" homepage="" />
       <NearbyPlacesSection />
       <div className="mb-[200px]">
         <div className="text-[26px] font-bold mb-5">리뷰 모음</div>
