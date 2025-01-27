@@ -38,15 +38,19 @@ interface EventListSearchResponse {
 const categoryMapping: { [key: string]: string } = {
   A02070100: "문화 관광",
   A02070200: "일반",
-  A02081100: "전통공연",
-  A02081200: "연극",
-  A02081300: "뮤지컬",
-  A02081400: "오페라",
-  A02081500: "전시회",
-  A02081600: "박람회",
-  A02081700: "무용",
-  A02081800: "클래식음악회",
-  A02081900: "대중콘서트",
+  A02080100: "전통공연",
+  A02080200: "연극",
+  A02080300: "뮤지컬",
+  A02080400: "오페라",
+  A02080500: "전시회",
+  A02080600: "박람회",
+  A02080700: "무용",
+  A02080800: "클래식음악회",
+  A02080900: "대중콘서트",
+  A02081100: "영화",
+  A02081200: "스포츠경기",
+  A02081300: "기타행사",
+  A02081400: "넌버벌",
 };
 
 function getCategoryName(cat3: string): string {
@@ -64,14 +68,19 @@ export default function EventSearch() {
     setError(null);
 
     try {
-      const response = await tourApiInstance.get<EventListSearchResponse>("/searchFestival1", {
+      const response = await tourApiInstance.get<EventListSearchResponse>("/areaBasedList1", {
         params: {
           _type: "json",
           numOfRows: 10,
           pageNo: 1,
           arrange: "D",
           listYN: "Y",
-          eventStartDate: "20200101",
+          contentTypeId: 15,
+          areaCode: "",
+          sigunguCode: "",
+          cat1: "",
+          cat2: "",
+          cat3: "",
         },
       });
 
