@@ -5,8 +5,10 @@ import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 
 import { AREA, CAMPING_CATEGORY } from "@constants/filters";
+import { PATH } from "@constants/path";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 interface campingDataResponse {
   wtrplCo: string;
@@ -98,13 +100,15 @@ export default function CampingSearch() {
   const [error, setError] = useState<string | null>(null);
   const [count, setCount] = useState<number | null>(null);
 
+  const navigate = useNavigate();
+
   const fetchCampingData = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await goCampingInstance.get("/basedList", {
         params: {
-          numOfRows: 10,
+          numOfRows: 30,
           pageNo: 1,
         },
       });
@@ -167,7 +171,7 @@ export default function CampingSearch() {
                   img={item.firstImageUrl}
                   bookmarked={false}
                   category={item.induty}
-                  handleClick={() => alert("click")}
+                  handleClick={() => navigate(PATH.campingInfo(item.contentId))}
                   handleClickBookmark={() => alert("bookmark")}
                   location={item.addr1}
                   title={item.facltNm}
