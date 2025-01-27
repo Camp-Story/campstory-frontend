@@ -1,5 +1,6 @@
 import { cn } from "@utils/style";
 import { cva, VariantProps } from "class-variance-authority";
+import { useState } from "react";
 
 export const SearchInputVariants = cva(
   `
@@ -26,18 +27,31 @@ export const SearchInputVariants = cva(
 interface SearchInputProps
   extends React.HtmlHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof SearchInputVariants> {
-  handleSubmit: () => void;
+  handleSubmit: (input: string) => void;
 }
 
 export default function SearchInput({ handleSubmit, variant, size, ...props }: SearchInputProps) {
+  const [input, setInput] = useState<string>(""); // 검색어 상태 관리
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value); // 입력 값 업데이트
+  };
+
+  const onSubmit = () => {
+    handleSubmit(input); // 부모 컴포넌트로 검색어 전달
+    setInput(""); // 입력창 초기화
+  };
+
   return (
     <div className={cn(SearchInputVariants({ variant, size }))}>
       <input
         className="bg-inherit w-full outline-none placeholder:text-gray-scale-300 placeholder:text-[15px] text-[15px]"
         placeholder="검색어를 입력해주세요."
+        value={input}
+        onChange={handleChange}
         {...props}
       />
-      <button onClick={handleSubmit}>
+      <button onClick={onSubmit}>
         <svg
           width="25"
           height="25"
