@@ -20,7 +20,11 @@ export default function SearchCard({
   return (
     <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
       <div className="w-[450px] h-[250px] overflow-hidden">
-        <img src={img || "https://placehold.co/450x250?text=CAMP+STORY"} alt="thumbanil" />
+        <img
+          src={img || "https://placehold.co/450x250?text=CAMP+STORY"}
+          alt="thumbanil"
+          className="size-full"
+        />
       </div>
       <div className="px-5 py-[15px] flex flex-col gap-[46px]">
         <div className="flex justify-between">
