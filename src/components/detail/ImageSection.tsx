@@ -16,21 +16,21 @@ export default function ImageSection({ image1, image2, image3, image4 }: Camping
         <div className="col-span-3 h-[196px] bg-gray-scale-100 rounded-xl overflow-hidden">
           <img
             src={image2 || "https://placehold.co/450x250?text=CAMP+STORY"}
-            alt="캠핑장 이미지 1"
+            alt="캠핑장 이미지 2"
             className="w-full h-full object-cover"
           />
         </div>
         <div className="col-span-3 h-[196px] bg-gray-scale-100 rounded-xl overflow-hidden">
           <img
             src={image3 || "https://placehold.co/450x250?text=CAMP+STORY"}
-            alt="캠핑장 이미지 1"
+            alt="캠핑장 이미지 3"
             className="w-full h-full object-cover"
           />
         </div>
         <div className="col-span-3 h-[196px] bg-gray-scale-100 rounded-xl overflow-hidden">
           <img
             src={image4 || "https://placehold.co/450x250?text=CAMP+STORY"}
-            alt="캠핑장 이미지 1"
+            alt="캠핑장 이미지 4"
             className="w-full h-full object-cover"
           />
         </div>

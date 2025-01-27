@@ -5,7 +5,7 @@ import ImageSection from "@components/detail/ImageSection";
 import SpotDetailSection from "@components/detail/SpotDetailSection";
 import SpotAboutSection from "@components/detail/SpotAboutSection";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
 
@@ -15,6 +15,21 @@ interface campingImgListResponse {
   imageUrl: string;
   createdtime: string;
   modifiedtime: string;
+}
+
+interface campingDataResponse {
+  sbrsCl: string;
+  posblFcltyCl: string;
+  induty: string;
+  addr1: string;
+  tel: string;
+  homepage: string;
+  resveUrl: string;
+  featureNm: string;
+  firstImageUrl: string;
+  contentId: string;
+  facltNm: string;
+  lineIntro: string;
 }
 
 const ReviewData: ReviewCardProps[] = [
@@ -54,6 +69,9 @@ const ReviewData: ReviewCardProps[] = [
 
 export default function CampingDetail() {
   const { id } = useParams();
+  const location = useLocation();
+  const CampingDetailData: campingDataResponse = location.state.item;
+
   const [campingImgList, setCampingImgList] = useState<campingImgListResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,6 +87,8 @@ export default function CampingDetail() {
       });
       console.log(response.data.response.body.items.item);
       setCampingImgList(response.data.response.body.items.item);
+      console.log(location.state.item);
+      console.log(CampingDetailData);
     } catch (error) {
       setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching camping data:", error);
@@ -91,13 +111,20 @@ export default function CampingDetail() {
         image3={campingImgList[2]?.imageUrl}
         image4={campingImgList[3]?.imageUrl}
       />
+      {/* {item} */}
       <SpotDetailSection
-        title="가온오토캠핑장"
-        category="일반야영장•자동차야영장•글램핑"
-        address="강원 횡성군 서원면 서원서로102번길 3-18"
-        phone="010-3148-9970"
+        title={CampingDetailData.facltNm}
+        category={CampingDetailData.induty}
+        address={CampingDetailData.addr1}
+        phone={CampingDetailData.tel}
       />
-      <SpotAboutSection shortIntro="" description="" sbrsEtc="" posblFcltyCl="" homepage="" />
+      <SpotAboutSection
+        shortIntro={CampingDetailData.lineIntro}
+        description={CampingDetailData.featureNm}
+        sbrsCl={CampingDetailData.sbrsCl}
+        posblFcltyCl={CampingDetailData.posblFcltyCl}
+        homepage={CampingDetailData.homepage}
+      />
       <NearbyPlacesSection />
       <div className="mb-[200px]">
         <div className="text-[26px] font-bold mb-5">리뷰 모음</div>

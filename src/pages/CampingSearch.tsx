@@ -171,7 +171,9 @@ export default function CampingSearch() {
                   img={item.firstImageUrl}
                   bookmarked={false}
                   category={item.induty}
-                  handleClick={() => navigate(PATH.campingInfo(item.contentId))}
+                  handleClick={() =>
+                    navigate(PATH.campingInfo(item.contentId), { state: { item } })
+                  }
                   handleClickBookmark={() => alert("bookmark")}
                   location={item.addr1}
                   title={item.facltNm}
