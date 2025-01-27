@@ -6,6 +6,13 @@ interface DetailRightProps {
   contenttypeid: string;
   bookmarked: boolean;
   overview: string;
+  opentimefood?: string;
+  firstmenu?: string;
+  infocenterfood?: string;
+  parkingfood?: string;
+  restdatefood?: string;
+  kidsfacility?: string;
+  discountinfo?: string;
 }
 
 export default function DetailRight({
@@ -16,6 +23,11 @@ export default function DetailRight({
   contenttypeid,
   bookmarked = false,
   overview,
+  opentimefood,
+  firstmenu,
+  infocenterfood,
+  parkingfood,
+  restdatefood,
 }: DetailRightProps) {
   return (
     <article className="flex-1 flex flex-col">
@@ -141,9 +153,46 @@ export default function DetailRight({
             </ul>
           </div>
         )}
+        {contenttypeid === "39" && (
+          <div>
+            <h3 className="text-[26px] font-bold mb-3">기본 정보</h3>
+            <ul>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">대표메뉴</strong>
+                  {firstmenu}
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">오픈시간</strong>
+                  {opentimefood}
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">휴무일</strong>
+                  {restdatefood}
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">주차</strong>
+                  {parkingfood}
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="block text-body1 text-gray-scale-400">
+                  <strong className="mr-4 text-gray-scale-500">문의 및 안내</strong>
+                  {infocenterfood}
+                </span>
+              </li>
+            </ul>
+          </div>
+        )}
         <div>
-          <h3 className="text-[26px] font-bold mb-3">개요</h3>
-          <p className="text-body1 text-gray-scale-400">{overview}</p>
+          <h3 className="text-[26px] font-bold mb-2 ">개요</h3>
+          <p className="text-body1 text-gray-scale-400 overflow-hidden">{overview}</p>
         </div>
       </div>
       <div className="w-full h-[318px] bg-gray-scale-100 rounded-xl overflow-hidden self-end">

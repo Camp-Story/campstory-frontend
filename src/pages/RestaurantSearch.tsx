@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { PATH } from "@constants/path";
 import { tourApiInstance } from "@utils/axiosInstance";
+import CategoryMap from "@components/food/CategoryMap";
 
 interface Item {
   addr1: string;
@@ -33,16 +34,6 @@ interface ApiResponse {
     };
   };
 }
-
-const CATEGORY_MAP: Record<string, string> = {
-  A05020100: "한식",
-  A05020200: "서양식",
-  A05020300: "일식",
-  A05020400: "중식",
-  A05020700: "이색음식점",
-  A05020900: "카페/전통찻집",
-  A05021000: "클럽",
-};
 
 export default function RestaurantSearch() {
   const [restaurants, setRestaurants] = useState<Item[]>([]);
@@ -127,7 +118,7 @@ export default function RestaurantSearch() {
                   key={restaurant.contentid}
                   img={restaurant.firstimage}
                   bookmarked={false}
-                  category={CATEGORY_MAP[restaurant.cat3] || "카테고리 없음"}
+                  category={CategoryMap[restaurant.cat3] || "카테고리 없음"}
                   handleClick={() =>
                     navigate(PATH.restaurantInfo(restaurant.contentid), { state: { restaurant } })
                   }
