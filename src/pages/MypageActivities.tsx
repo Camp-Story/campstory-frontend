@@ -1,5 +1,6 @@
 import Post from "@components/mypage/MyPost";
 import MyQuestion from "@components/mypage/MyQuestion";
+import MyComment from "@components/mypage/MyComment";
 
 export default function MypageActivities() {
   return (
@@ -20,6 +21,13 @@ export default function MypageActivities() {
       <div className="mt-[20px] space-y-4">
         <MyQuestion />
         <MyQuestion />
+      </div>
+
+      <h2 className="text-[20px] mt-[30px]">내 댓글</h2>
+
+      <div className="mt-[20px] space-y-4">
+        <MyComment />
+        <MyComment />
       </div>
     </>
   );

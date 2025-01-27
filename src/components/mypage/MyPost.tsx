@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import AreaCard from "@./components/community/community/AreaCard";
 import { PATH } from "@constants/path";
+import AreaCard from "@./components/community/community/AreaCard";
 import TgaList from "@./components/community/TagList";
 
 export default function Post() {
