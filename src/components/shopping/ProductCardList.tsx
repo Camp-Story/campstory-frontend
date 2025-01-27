@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { naverApiInstance } from "@utils/axiosInstance";
-import { NaverProductResponse, NaverSearchResponse } from "types/NaverResponse";
+import { NaverProductResponse, NaverSearchResponse } from "types/NaverShoppingResponse";
 
 export default function ProductCardList({ orderBy }: { orderBy: string }) {
   const [products, setProducts] = useState<NaverProductResponse[]>([]);
