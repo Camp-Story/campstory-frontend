@@ -1,7 +1,7 @@
 import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
 import calculateDiscountRate from "@utils/calculateDiscountRate";
-import { ProductCardProps } from "types/NaverResponse";
+import { ProductCardProps } from "types/NaverShoppingResponse";
 
 export default function ProductCard({
   product,

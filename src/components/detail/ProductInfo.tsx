@@ -1,4 +1,4 @@
-import { NaverProductResponse } from "types/NaverResponse";
+import { NaverProductResponse } from "@types/NaverShoppingResponse";
 
 export default function ProductInfo({ product }: { product: NaverProductResponse }) {
   const { brand, mallName, title, image, link, lprice, hprice } = product;
