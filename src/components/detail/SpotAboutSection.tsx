@@ -5,16 +5,16 @@
 interface CampingDetailProps {
   shortIntro: string;
   description: string;
-  sbrsCl: string;
-  posblFcltyCl: string;
+  campingFacilities: string;
+  nearbyFacilities: string;
   homepage: string;
 }
 
 export default function SpotAboutSection({
   shortIntro,
   description,
-  sbrsCl,
-  posblFcltyCl,
+  campingFacilities,
+  nearbyFacilities,
   homepage,
 }: CampingDetailProps) {
   return (
@@ -36,13 +36,13 @@ export default function SpotAboutSection({
             <li className="mb-3">
               <span className="block text-body1 text-gray-scale-400">
                 <strong className="mr-4 text-gray-scale-500">부대시설</strong>
-                {sbrsCl}
+                {campingFacilities}
               </span>
             </li>
             <li className="mb-3">
               <span className="block text-body1 text-gray-scale-400">
                 <strong className="mr-4 text-gray-scale-500">주변시설</strong>
-                {posblFcltyCl}
+                {nearbyFacilities}
               </span>
             </li>
             <li className="mb-3">

@@ -11,96 +11,29 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 interface campingDataResponse {
-  wtrplCo: string;
-  brazierCl: string;
   sbrsCl: string;
-  sbrsEtc: string;
   posblFcltyCl: string;
-  posblFcltyEtc: string;
-  clturEventAt: string;
-  clturEvent: string;
-  exprnProgrmAt: string;
-  hvofBgnde: string;
-  caravAcmpnyAt: string;
-  toiletCo: string;
-  swrmCo: string;
-  hvofEnddle: string;
   featureNm: string;
   induty: string;
-  lctCl: string;
-  doNm: string;
-  sigunguNm: string;
-  zipcode: string;
   addr1: string;
   addr2: string;
   mapX: string;
   mapY: string;
-  direction: string;
   tel: string;
   homepage: string;
-  resveUrl: string;
-  resveCl: string;
-  manageNmpr: string;
-  gnrlSiteCo: string;
-  autoSiteCo: string;
-  glampSiteCo: string;
-  caravSiteCo: string;
-  indvdlCaravSiteCo: string;
-  sitedStnc: string;
-  siteMg1Width: string;
-  siteMg2Width: string;
-  siteMg3Width: string;
-  siteMg1Vrticl: string;
-  siteMg2Vrticl: string;
-  siteMg3Vrticl: string;
-  siteMg1Co: string;
-  siteMg2Co: string;
-  siteMg3Co: string;
-  siteBottomCl1: string;
-  siteBottomCl2: string;
-  siteBottomCl3: string;
-  siteBottomCl4: string;
-  siteBottomCl5: string;
-  tooltip: string;
-  glampInnerFclty: string;
-  caravInnerFclty: string;
-  prmisnDe: string;
-  operPdCl: string;
-  operDeCl: string;
-  trlerAcmpnyAt: string;
-  intro: string;
-  allar: string;
-  insrncAt: string;
-  trsagntNo: string;
-  exprnProgrm: string;
-  extshrCo: string;
-  frprvtWrppCo: string;
-  frprvtSandCo: string;
-  fireSensorCo: string;
-  themaEnvrnCl: string;
-  mangeDivNm: string;
-  mgcDiv: string;
-  manageSttus: string;
-  eqpmnLendCl: string;
-  animalCmgCl: string;
-  tourEraCl: string;
   firstImageUrl: string;
-  createdtime: string;
-  modifiedtime: string;
   contentId: string;
   facltNm: string;
   lineIntro: string;
-  bizrno: string;
-  facltDivNm: string;
 }
 
 export default function CampingSearch() {
+  const navigate = useNavigate();
+
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
+  const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [count, setCount] = useState<number | null>(null);
-
-  const navigate = useNavigate();
 
   const fetchCampingData = async () => {
     setIsLoading(true);
@@ -112,7 +45,7 @@ export default function CampingSearch() {
           pageNo: 1,
         },
       });
-      console.log(response.data.response.body.items.item);
+      // console.log(response.data.response.body.items.item);
       setCampingData(response.data.response.body.items.item);
       setCount(response.data.response.body.totalCount);
     } catch (error) {
