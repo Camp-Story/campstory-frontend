@@ -8,7 +8,7 @@ import { AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 interface campingDataResponse {
   sbrsCl: string;
@@ -29,20 +29,23 @@ interface campingDataResponse {
 
 export default function CampingSearch() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
   const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [keyword, setKeyword] = useState<string>(location.state.input);
 
-  const fetchCampingData = async () => {
+  const fetchCampingData = async (searchKeyword: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await goCampingInstance.get("/basedList", {
+      const response = await goCampingInstance.get("/searchList", {
         params: {
           numOfRows: 30,
           pageNo: 1,
+          keyword: searchKeyword,
         },
       });
       // console.log(response.data.response.body.items.item);
@@ -57,13 +60,17 @@ export default function CampingSearch() {
   };
 
   useEffect(() => {
-    fetchCampingData();
-  }, []);
+    fetchCampingData(keyword);
+  }, [keyword]);
+
+  const handleSearch = (searchKeyword: string) => {
+    setKeyword(searchKeyword); // 검색어 상태 업데이트
+  };
 
   return (
     <>
       <div className="mt-[100px] mb-[60px]">
-        <SearchInput handleSubmit={() => alert("submit!")} />
+        <SearchInput handleSubmit={(input) => handleSearch(input)} />
       </div>
 
       <div className="flex gap-[34px] pb-5">
@@ -92,7 +99,7 @@ export default function CampingSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            '캠핑' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
+            '{keyword}' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
           </h2>
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
