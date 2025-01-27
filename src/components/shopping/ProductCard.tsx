@@ -1,39 +1,40 @@
 import { PATH } from "@constants/path";
-import { Link } from "react-router";
-import ProductCardProps from "types/ProductCardProps";
+import { useNavigate } from "react-router";
+import calculateDiscountRate from "@utils/calculateDiscountRate";
+import { ProductCardProps } from "types/NaverResponse";
 
 export default function ProductCard({
-  handleClickBookmark,
+  product,
   bookmarked,
-  mallName,
-  title,
-  hprice,
-  lprice,
-  image,
-  id,
+  handleClickBookmark,
 }: ProductCardProps) {
-  const calculateDiscountRate = (hprice: string, lprice: string) => {
-    const highPrice = Number(hprice);
-    const lowPrice = Number(lprice);
-    const discountRate = ((highPrice - lowPrice) / highPrice) * 100;
-    return discountRate.toFixed(0) + "%";
+  const { brand, productId, title, mallName, image, hprice, lprice } = product;
+
+  const navigate = useNavigate();
+
+  const handleNavigateToDetail = (id: string) => {
+    navigate(PATH.shoppingInfo(id), {
+      state: product,
+    });
   };
 
   return (
     <div className="w-56">
       {/* 이미지 영역 */}
-      <Link to={PATH.shoppingInfo(id)} className="block w-full h-56 rounded overflow-hidden border">
+      <div
+        onClick={() => handleNavigateToDetail(productId)}
+        className="block w-full h-56 rounded overflow-hidden border"
+      >
         <img
           className="w-full h-full"
           src={image || "https://placehold.co/450x250?text=CAMP+STORY"}
-          alt="thumbanil"
+          alt="Product Image"
         />
-      </Link>
-
+      </div>
       <div className="mt-3 flex justify-between text-gray-scale-400 text-body2 mb-2">
         {/* 브랜드 및 이름 */}
         <div className="flex flex-col">
-          <div className="text-body2 text-gray-scale-300">{mallName}</div>
+          <div className="text-body2 text-gray-scale-300">{brand || mallName}</div>
           <div className="w-44 whitespace-nowrap overflow-hidden text-ellipsis text-body1 font-medium text-gray-scale-400">
             {title.replace(/<\/?[^>]+(>|$)/g, "")}
           </div>
