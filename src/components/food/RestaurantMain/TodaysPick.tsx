@@ -14,7 +14,7 @@ export default function TodaysPick({ src, title, summary, path }: TodaysPickProp
     <>
       <div className="rounded-lg" onClick={() => navigate(path)}>
         <img src={src} alt="tofu-restaurant" />
-        <span className="text-[32px] font-bold text-left">{title}</span>
+        <span className="text-highlight font-bold text-left">{title}</span>
         <p className="text-gray-scale-200 text-[20px]">{summary}</p>
       </div>
     </>

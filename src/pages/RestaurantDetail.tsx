@@ -4,11 +4,14 @@ import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { PATH } from "@constants/path";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-interface RestaurantDataResponse {}
+interface Item {
+  contentid: string;
+  originimgurl?: string;
+}
 
 interface ApiResponse {
   response: {
@@ -56,9 +59,41 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function FoodDetail() {
-  const { id } = useParams();
-  const location = useLocation();
-  const restaurantDetailData: RestaurantDataResponse = location.state.item;
+  // const [restaurantImg, setrestaurantImgList] = useState<Item[]>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [error, setError] = useState<string | null>(null);
+
+  // const { id } = useParams();
+  const fetchRestaurantsDetail = async () => {
+    // setIsLoading(true);
+    // setError(null);
+
+    try {
+      const responseImg = await tourApiInstance.get<ApiResponse>("/detailImage1", {
+        params: {
+          contentId: "2622715",
+          numOfRows: 10,
+          pageNo: 1,
+          imageYN: "Y",
+          subImageYN: "Y",
+        },
+      });
+      const items = responseImg.data.response.body.items.item;
+      console.log(items);
+      // setrestaurantImgList(items);
+      console.log(items);
+    } catch (error) {
+      // setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
+      console.error("Error fetching camping data:", error);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurantsDetail();
+  }, []);
+
   return (
     <>
       <section className="mt-20 w-full flex gap-11 mb-14">
