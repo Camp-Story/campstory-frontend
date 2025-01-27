@@ -96,6 +96,7 @@ export default function CampingSearch() {
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [count, setCount] = useState<number | null>(null);
 
   const fetchCampingData = async () => {
     setIsLoading(true);
@@ -109,8 +110,7 @@ export default function CampingSearch() {
       });
       console.log(response.data.response.body.items.item);
       setCampingData(response.data.response.body.items.item);
-      console.log(Array.isArray(campingData));
-      console.log(typeof campingData);
+      setCount(response.data.response.body.totalCount);
     } catch (error) {
       setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching camping data:", error);
@@ -154,7 +154,9 @@ export default function CampingSearch() {
         </div>
 
         <div className="flex flex-col gap-[30px]">
-          <h2 className="text-[26px] font-bold text-gray-scale-400">'캠핑' 검색 결과 {}개</h2>
+          <h2 className="text-[26px] font-bold text-gray-scale-400">
+            '캠핑' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
+          </h2>
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             {error}
