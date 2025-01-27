@@ -6,11 +6,27 @@ import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { PATH } from "@constants/path";
 import { useParams } from "react-router";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CategoryMap from "@components/food/CategoryMap";
 
 interface Item {
   contentid: string;
-  originimgurl?: string;
+  originimgurl: string | null;
+  title: string;
+  tel: string;
+  cat3: string;
+  zipcode: string;
+  mapx: string;
+  mapy: string;
+  overview: string;
+  homepage: string;
+  addr1: string;
+  addr2: string;
+  opentimefood: string;
+  parkingfood: string;
+  firstmenu: string;
+  infocenterfood: string;
+  restdatefood: string;
 }
 
 interface ApiResponse {
@@ -59,34 +75,60 @@ const ReviewData: ReviewCardProps[] = [
 ];
 
 export default function FoodDetail() {
-  // const [restaurantImg, setrestaurantImgList] = useState<Item[]>([]);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [error, setError] = useState<string | null>(null);
-
-  // const { id } = useParams();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [restaurantImg, setRestaurantImgList] = useState<Item[]>([]);
+  const [restaurantData, setRestaurantData] = useState<{
+    common: Item[];
+    intro: Item[];
+  }>({ common: [], intro: [] });
+  const { id } = useParams();
   const fetchRestaurantsDetail = async () => {
-    // setIsLoading(true);
-    // setError(null);
+    setIsLoading(true);
+    setError(null);
 
     try {
       const responseImg = await tourApiInstance.get<ApiResponse>("/detailImage1", {
         params: {
-          contentId: "2622715",
+          contentId: id,
           numOfRows: 10,
           pageNo: 1,
           imageYN: "Y",
           subImageYN: "Y",
         },
       });
-      const items = responseImg.data.response.body.items.item;
-      console.log(items);
-      // setrestaurantImgList(items);
-      console.log(items);
+
+      const responseDetailCommon = await tourApiInstance.get<ApiResponse>("/detailCommon1", {
+        params: {
+          contentId: id,
+          catcodeYN: "Y",
+          overviewYN: "Y",
+          addrinfoYN: "Y",
+          mapinfoYN: "Y",
+          defaultYN: "Y",
+        },
+      });
+
+      const responseIntro = await tourApiInstance.get<ApiResponse>("/detailIntro1", {
+        params: {
+          contentId: id,
+          contentTypeId: "39",
+        },
+      });
+      const imgItems = responseImg.data.response.body.items.item;
+      const detailCommonItems = responseDetailCommon.data.response.body.items.item;
+      const introItems = responseIntro.data.response.body.items.item;
+      console.log(imgItems);
+
+      setRestaurantImgList(imgItems);
+      setRestaurantData({ common: detailCommonItems, intro: introItems });
+
+      console.log(detailCommonItems);
     } catch (error) {
-      // setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching camping data:", error);
+      setError("데이터를 불러오는데 실패하였습니다.");
+      console.error("Error fetching data:", error);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -96,15 +138,38 @@ export default function FoodDetail() {
 
   return (
     <>
+      {isLoading && "로딩중.."}
+      {error}
       <section className="mt-20 w-full flex gap-11 mb-14">
-        <DetailLeft image1={"/images/food/sushi-center.png"} image2={""} image3={""} />
+        {Array.isArray(restaurantImg) && restaurantImg.length > 0 ? (
+          <DetailLeft
+            image1={restaurantImg[0]?.originimgurl || "/images/food/restaurants/restaurant2.png"}
+            image2={restaurantImg[1]?.originimgurl || "/images/food/restaurants/restaurant3.png"}
+            image3={restaurantImg[2]?.originimgurl || "/images/food/restaurants/restaurant4.png"}
+          />
+        ) : (
+          <DetailLeft
+            image1={"/images/food/restaurants/restaurant2.png"}
+            image2={"/images/food/restaurants/restaurant3.png"}
+            image3={"/images/food/restaurants/restaurant4.png"}
+          />
+        )}
+
         <DetailRight
-          category={"한식"}
-          title={"강촌식당"}
-          address={"강원특별자치도 양양군 양양읍 안산2길 75"}
-          phone={"033-671-9966"}
+          category={CategoryMap[restaurantData.common[0]?.cat3] || "카테고리 없음"}
+          title={restaurantData.common[0]?.title}
+          address={restaurantData.common[0]?.addr1 || "주소정보 없음"}
+          phone={restaurantData.common[0]?.tel || "전화번호가 등록되어있지 않습니다."}
           bookmarked={true}
           contenttypeid={"39"}
+          overview={restaurantData.common[0]?.overview || "편안하게 방문 부탁드립니다."}
+          opentimefood={restaurantData.intro[0]?.opentimefood || "연중무휴"}
+          firstmenu={restaurantData.intro[0]?.firstmenu || ""}
+          infocenterfood={
+            restaurantData.intro[0]?.infocenterfood || "전화번호가 등록되어있지 않습니다."
+          }
+          parkingfood={restaurantData.intro[0]?.parkingfood || "유로주차장 1시간무료"}
+          restdatefood={restaurantData.intro[0]?.restdatefood || "연중무휴"}
         />
       </section>
       <NearbyPlacesSection />
