@@ -1,34 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { naverApiInstance } from "@utils/axiosInstance";
-
-interface NaverProductResponse {
-  title: string;
-  link: string;
-  image: string;
-  lprice: string;
-  hprice: string;
-  mallName: string;
-  productId: string;
-  productType: string;
-  brand: string;
-  maker: string;
-  category1: string;
-  category2: string;
-  category3: string;
-  category4: string;
-}
-
-interface NaverSearchResponse {
-  items: NaverProductResponse[];
-}
+import { NaverProductResponse, NaverSearchResponse } from "types/NaverResponse";
 
 export default function ProductCardList({ orderBy }: { orderBy: string }) {
   const [products, setProducts] = useState<NaverProductResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProductData = useCallback(async () => {
+  const fetchNaverProductData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -42,7 +22,6 @@ export default function ProductCardList({ orderBy }: { orderBy: string }) {
         },
       });
 
-      console.log(response.data.items[0]);
       setProducts(response.data.items);
     } catch (error) {
       setError("상품 데이터를 가져오는 중 오류가 발생했습니다.");
@@ -53,8 +32,8 @@ export default function ProductCardList({ orderBy }: { orderBy: string }) {
   }, [orderBy]);
 
   useEffect(() => {
-    fetchProductData();
-  }, [fetchProductData]);
+    fetchNaverProductData();
+  }, [fetchNaverProductData]);
 
   return (
     <div className="grid grid-cols-5 gap-y-10">
@@ -62,12 +41,7 @@ export default function ProductCardList({ orderBy }: { orderBy: string }) {
       {products.map((product) => (
         <ProductCard
           key={product.productId}
-          id={product.productId}
-          image={product.image}
-          title={product.title}
-          mallName={product.mallName}
-          hprice={product.hprice}
-          lprice={product.lprice}
+          product={product}
           bookmarked={false}
           handleClickBookmark={() => alert("bookmark")}
         />
