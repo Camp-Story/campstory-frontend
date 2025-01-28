@@ -5,12 +5,15 @@ import Subtitle from "@components/camping/campingMain/Subtitle";
 import PopularCampCardProps from "types/PopularCampingCardProps";
 
 // Swiper 관련 모듈
-import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
+import { Navigation, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewCardProps from "types/ReviewCardProps";
 import { PATH } from "@constants/path";
 import SearchBar from "@components/common/main/SearchBar";
 import { useNavigate } from "react-router";
+import "swiper/css";
+import "swiper/css/navigation";
+// import "swiper/css/pagination";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -147,11 +150,12 @@ export default function CampingMain() {
       <div>
         <Subtitle>인기 캠핑장</Subtitle>
         <Swiper
-          modules={[Navigation, Pagination, A11y, Autoplay]}
+          style={{ width: "100%", height: "auto" }}
+          modules={[Navigation, A11y, Autoplay]}
           spaceBetween={10}
           slidesPerView={4}
           navigation
-          pagination={{ clickable: true }}
+          // pagination={{ clickable: true }}
           // autoplay={{ delay: 2500 }}
         >
           {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
