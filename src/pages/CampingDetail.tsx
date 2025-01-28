@@ -105,12 +105,16 @@ export default function CampingDetail() {
     <>
       {isLoading && "로딩중.."}
       {error}
-      <ImageSection
-        image1={campingImgList[0]?.imageUrl}
-        image2={campingImgList[1]?.imageUrl}
-        image3={campingImgList[2]?.imageUrl}
-        image4={campingImgList[3]?.imageUrl}
-      />
+      {campingImgList !== undefined ? (
+        <ImageSection
+          image1={campingImgList[0]?.imageUrl}
+          image2={campingImgList[1]?.imageUrl}
+          image3={campingImgList[2]?.imageUrl}
+          image4={campingImgList[3]?.imageUrl}
+        />
+      ) : (
+        <ImageSection image1={CampingDetailData.firstImageUrl} />
+      )}
       {/* {item} */}
       <SpotDetailSection
         title={CampingDetailData.facltNm}
