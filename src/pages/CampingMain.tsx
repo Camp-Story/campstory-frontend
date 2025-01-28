@@ -1,16 +1,16 @@
-import CategoryCard from "@components/camping/campingMain/CategoryCard";
 import PopularCampCard from "@components/camping/campingMain/PopularCampCard";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import Subtitle from "@components/camping/campingMain/Subtitle";
 import PopularCampCardProps from "types/PopularCampingCardProps";
+import CategoryCard from "@components/camping/campingMain/CategoryCard";
+import SearchBar from "@components/common/main/SearchBar";
+import ReviewCardProps from "types/ReviewCardProps";
+import { PATH } from "@constants/path";
+import { useNavigate } from "react-router";
 
 // Swiper 관련 모듈
 import { Navigation, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ReviewCardProps from "types/ReviewCardProps";
-import { PATH } from "@constants/path";
-import SearchBar from "@components/common/main/SearchBar";
-import { useNavigate } from "react-router";
 import "swiper/css";
 import "swiper/css/navigation";
 // import "swiper/css/pagination";
@@ -136,18 +136,26 @@ export default function CampingMain() {
       <div>
         <Subtitle>카테고리별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
-          <CategoryCard src="/images/camping/camping-category-1.png" path={PATH.campingSearch}>
-            캠핑
-          </CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-2.png" path={PATH.campingSearch}>
-            글램핑
-          </CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-3.png" path={PATH.campingSearch}>
-            카라반
-          </CategoryCard>
-          <CategoryCard src="/images/camping/camping-category-4.png" path={PATH.campingSearch}>
-            오토캠핑
-          </CategoryCard>
+          <CategoryCard
+            src="/images/camping/camping-category-1.png"
+            criteria="category"
+            value="캠핑"
+          />
+          <CategoryCard
+            src="/images/camping/camping-category-2.png"
+            criteria="category"
+            value="글램핑"
+          />
+          <CategoryCard
+            src="/images/camping/camping-category-3.png"
+            criteria="category"
+            value="카라반"
+          />
+          <CategoryCard
+            src="/images/camping/camping-category-4.png"
+            criteria="category"
+            value="오토캠핑"
+          />
         </div>
       </div>
       <div>
@@ -177,21 +185,11 @@ export default function CampingMain() {
       <div>
         <Subtitle>지역별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
-          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
-            서울
-          </CategoryCard>
-          <CategoryCard src="/images/camping/Jeju.png" path={PATH.campingSearch}>
-            제주도
-          </CategoryCard>
-          <CategoryCard src="/images/camping/Busan.png" path={PATH.campingSearch}>
-            부산
-          </CategoryCard>
-          <CategoryCard src="/images/camping/Gangneung.png" path={PATH.campingSearch}>
-            강릉
-          </CategoryCard>
-          <CategoryCard src="/images/camping/Seoul.png" path={PATH.campingSearch}>
-            인천
-          </CategoryCard>
+          <CategoryCard src="/images/camping/Seoul.png" criteria="area" value="서울" />
+          <CategoryCard src="/images/camping/Jeju.png" criteria="area" value="제주도" />
+          <CategoryCard src="/images/camping/Busan.png" criteria="area" value="부산" />
+          <CategoryCard src="/images/camping/Gangneung.png" criteria="area" value="강릉" />
+          <CategoryCard src="/images/camping/Seoul.png" criteria="area" value="인천" />
         </div>
       </div>
       <div className="mb-[200px]">
