@@ -25,15 +25,17 @@ export default function CampingSearch() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await goCampingInstance.get("/searchList", {
-        params: {
-          numOfRows: 30,
-          pageNo: 1,
-          keyword: searchKeyword,
-        },
-      });
-      setCampingData(response.data.response.body.items.item);
-      setCount(response.data.response.body.totalCount);
+      const endpoint = searchKeyword ? "/searchList" : "/basedList";
+      const params = searchKeyword
+        ? {
+            params: {
+              numOfRows: 30,
+              pageNo: 1,
+              keyword: searchKeyword,
+            },
+          }
+        : { numOfRows: 30, pageNo: 1 };
+      const response = await goCampingInstance.get(endpoint, params);
 
       // console.log(response.data.response.body.items.item);
       setCampingData(response.data.response.body.items.item);
@@ -88,7 +90,8 @@ export default function CampingSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            ' {keyword} ' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
+            {keyword ? `' ${keyword} '` : "전체"} 검색 결과{" "}
+            {Intl.NumberFormat("ko-KR").format(Number(count))}개
           </h2>
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
