@@ -25,7 +25,6 @@ export default function DetailRight({
   overview,
   opentimefood,
   firstmenu,
-  infocenterfood,
   parkingfood,
   restdatefood,
 }: DetailRightProps) {
@@ -179,12 +178,6 @@ export default function DetailRight({
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">주차</strong>
                   {parkingfood}
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="block text-body1 text-gray-scale-400">
-                  <strong className="mr-4 text-gray-scale-500">문의 및 안내</strong>
-                  {infocenterfood}
                 </span>
               </li>
             </ul>
