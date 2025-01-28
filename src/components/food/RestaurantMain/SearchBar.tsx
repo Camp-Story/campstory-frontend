@@ -1,4 +1,6 @@
+import { PATH } from "@constants/path";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 type SearchBarProps = {
   className?: string;
@@ -7,11 +9,24 @@ type SearchBarProps = {
 
 export default function SearchBar({ className, backgroundColor }: SearchBarProps) {
   const [focus, setFocus] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const navigate = useNavigate();
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`${PATH.restaurantSearch}?keyword=${encodeURIComponent(query)}`);
+    }
+  };
   return (
     <div className={className}>
-      <form className=" bg-slate-50 flex mx-auto items-center justify-between rounded-full relative">
+      <form
+        onSubmit={handleSubmit}
+        className=" bg-slate-50 flex mx-auto items-center justify-between rounded-full relative"
+      >
         <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="검색어를 입력하세요"
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
@@ -23,6 +38,9 @@ export default function SearchBar({ className, backgroundColor }: SearchBarProps
               : "bg-white focus:outline-slate-200"
           }`}
         />
+        <button type="submit" className="absolute top-[50%] -translate-y-[50%] right-[20px] p-2">
+          <img src="/SearchIcon.svg" alt="searchIcon" />
+        </button>
       </form>
     </div>
   );
