@@ -9,19 +9,19 @@ import { PATH } from "@constants/path";
 import campingDataResponse from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
   const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [keyword, setKeyword] = useState<string>(location.state.input);
+  const [keyword, setKeyword] = useState<string>(searchParams.get("keyword") || "");
 
-  const fetchCampingData = async (searchKeyword: string) => {
+  const fetchCampingData = async (searchKeyword: string | null) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -32,6 +32,9 @@ export default function CampingSearch() {
           keyword: searchKeyword,
         },
       });
+      setCampingData(response.data.response.body.items.item);
+      setCount(response.data.response.body.totalCount);
+
       // console.log(response.data.response.body.items.item);
       setCampingData(response.data.response.body.items.item);
       setCount(response.data.response.body.totalCount);
@@ -48,6 +51,8 @@ export default function CampingSearch() {
   }, [keyword]);
 
   const handleSearch = (searchKeyword: string) => {
+    searchParams.set("keyword", searchKeyword);
+    setSearchParams(searchParams);
     setKeyword(searchKeyword); // 검색어 상태 업데이트
   };
 
@@ -83,7 +88,7 @@ export default function CampingSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            '{keyword}' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
+            ' {keyword} ' 검색 결과 {Intl.NumberFormat("ko-KR").format(Number(count))}개
           </h2>
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
