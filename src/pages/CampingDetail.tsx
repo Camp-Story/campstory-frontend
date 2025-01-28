@@ -7,7 +7,7 @@ import SpotAboutSection from "@components/detail/SpotAboutSection";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { useLocation, useParams } from "react-router";
 import { goCampingInstance } from "@utils/axiosInstance";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface campingImgListResponse {
   contentId: string;
@@ -76,7 +76,7 @@ export default function CampingDetail() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchCampingImgList = async () => {
+  const fetchCampingImgList = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -95,11 +95,11 @@ export default function CampingDetail() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [CampingDetailData, id, location.state.item]);
 
   useEffect(() => {
     fetchCampingImgList();
-  }, []);
+  }, [fetchCampingImgList]);
 
   return (
     <>
