@@ -2,12 +2,14 @@ import CheckboxList from "@components/common/search/CheckboxList";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
+import CategoryMap from "@components/food/CategoryMap";
+
 import { RESTURANT_CATEGORY } from "@constants/filters";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { PATH } from "@constants/path";
 import { tourApiInstance } from "@utils/axiosInstance";
-import CategoryMap from "@components/food/CategoryMap";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
 
 interface Item {
   addr1: string;
@@ -39,7 +41,10 @@ export default function RestaurantSearch() {
   const [restaurants, setRestaurants] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [keyword, setKeyword] = useState<string>("");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+
   const navigate = useNavigate();
 
   const fetchRestaurantsData = async (searchKeyword: string) => {
@@ -66,9 +71,7 @@ export default function RestaurantSearch() {
       const items = response.data.response.body.items.item;
       // console.log(items[0].addr1);
       console.log(items);
-      if (items) {
-        setRestaurants(items);
-      }
+      setRestaurants(items);
     } catch (error) {
       console.log(error);
       setError("데이터를 불러오는 중 오류가 발생했습니다.");
@@ -78,18 +81,19 @@ export default function RestaurantSearch() {
   };
 
   const handleSearch = (searchKeyword: string) => {
-    setKeyword(searchKeyword); // 검색어 상태 업데이트
-    fetchRestaurantsData(searchKeyword); // 새로운 검색어로 데이터 호출
+    setSearchParams({ keyword: searchKeyword }); // 새로운 검색어로 데이터 호출
   };
 
   useEffect(() => {
-    fetchRestaurantsData(keyword || "서울");
+    if (keyword) {
+      fetchRestaurantsData(keyword);
+    }
   }, [keyword]);
 
   return (
     <>
       <div className="mt-[100px] mb-[60px]">
-        <SearchInput handleSubmit={(input) => handleSearch(input)} />
+        <SearchInput handleSubmit={handleSearch} />
       </div>
 
       <div className="flex gap-[34px] pb-5">
@@ -104,7 +108,7 @@ export default function RestaurantSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            {keyword || "서울"} 검색 결과 {restaurants.length}개
+            "{keyword || "서울"}" 검색 결과 {restaurants.length}개
           </h2>
 
           {isLoading && <p>데이터를 불러오는 중입니다...</p>}
