@@ -6,26 +6,10 @@ import SearchInput from "@components/common/SearchInput";
 
 import { AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
+import campingDataResponse from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-
-interface campingDataResponse {
-  sbrsCl: string;
-  posblFcltyCl: string;
-  featureNm: string;
-  induty: string;
-  addr1: string;
-  addr2: string;
-  mapX: string;
-  mapY: string;
-  tel: string;
-  homepage: string;
-  firstImageUrl: string;
-  contentId: string;
-  facltNm: string;
-  lineIntro: string;
-}
 
 export default function CampingSearch() {
   const navigate = useNavigate();
