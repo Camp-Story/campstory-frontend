@@ -18,38 +18,38 @@ import "swiper/css/navigation";
 const PopularCampingData: PopularCampCardProps[] = [
   {
     rank: 1,
-    src: "https://gocamping.or.kr/upload/camp/100086/9786dCp7UcR4L4AV1bO3JJS0.jpg",
-    category: "글램핑",
-    name: "노마드글램핑",
-    path: PATH.campingInfo("100086"),
-  },
-  {
-    rank: 2,
-    src: "https://gocamping.or.kr/upload/camp/100231/5031zWs3pLvMY7zBvq7xHILf.jpg",
-    category: "카라반",
-    name: "가평 리오카라반",
-    path: PATH.campingInfo("100231"),
-  },
-  {
-    rank: 3,
-    src: "https://gocamping.or.kr/upload/camp/100014/8783jnJVhUEMxHYpQohDroQP.jpg",
-    category: "글램핑",
-    name: "학암포글램핑",
-    path: PATH.campingInfo("100014"),
-  },
-  {
-    rank: 4,
     src: "https://gocamping.or.kr/upload/camp/100143/6658baV6n0C7YWf8c14NbOIG.jpg",
     category: "일반야영장,글램핑",
     name: "포천 라온글램핑&오토캠핑장",
     path: PATH.campingInfo("100143"),
   },
   {
+    rank: 2,
+    src: "https://gocamping.or.kr/upload/camp/100012/7773TzZfFrXfsE7BDqFThHcz.jpg",
+    category: "일반야영장",
+    name: "포에스카라반파크",
+    path: PATH.campingInfo("100012"),
+  },
+  {
+    rank: 3,
+    src: "https://gocamping.or.kr/upload/camp/100086/9786dCp7UcR4L4AV1bO3JJS0.jpg",
+    category: "글램핑",
+    name: "노마드글램핑",
+    path: PATH.campingInfo("100086"),
+  },
+  {
+    rank: 4,
+    src: "https://gocamping.or.kr/upload/camp/100014/8783jnJVhUEMxHYpQohDroQP.jpg",
+    category: "글램핑",
+    name: "학암포글램핑",
+    path: PATH.campingInfo("100014"),
+  },
+  {
     rank: 5,
-    src: "https://gocamping.or.kr/upload/camp/100080/3912Y7geePbtplFwlVbw066o.jpg",
-    category: "자동차야영장",
-    name: "홍천 반딧불캠핑장",
-    path: PATH.campingInfo("100080"),
+    src: "https://gocamping.or.kr/upload/camp/100231/5031zWs3pLvMY7zBvq7xHILf.jpg",
+    category: "카라반",
+    name: "가평 리오카라반",
+    path: PATH.campingInfo("100231"),
   },
   {
     rank: 6,
@@ -60,10 +60,10 @@ const PopularCampingData: PopularCampCardProps[] = [
   },
   {
     rank: 7,
-    src: "https://gocamping.or.kr/upload/camp/100129/8940kAGQyc72YOuu6kCOXHKx.jpg",
-    category: "자동차야영장",
-    name: "둥지캠핑장",
-    path: PATH.campingInfo("100129"),
+    src: "https://gocamping.or.kr/upload/camp/100234/2153uRmKRQ283E8reKpprw7M.jpg",
+    category: "일반야영장,카라반",
+    name: "산마루카라반",
+    path: PATH.campingInfo("100234"),
   },
 ];
 
