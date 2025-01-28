@@ -6,7 +6,7 @@ import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { PATH } from "@constants/path";
 import { useParams } from "react-router";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import CategoryMap from "@components/food/CategoryMap";
 
 interface Item {
@@ -82,8 +82,10 @@ export default function FoodDetail() {
     common: Item[];
     intro: Item[];
   }>({ common: [], intro: [] });
+
   const { id } = useParams();
-  const fetchRestaurantsDetail = async () => {
+
+  const fetchRestaurantsDetail = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -130,11 +132,11 @@ export default function FoodDetail() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchRestaurantsDetail();
-  }, []);
+  }, [fetchRestaurantsDetail]);
 
   return (
     <>
