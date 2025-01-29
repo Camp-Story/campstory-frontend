@@ -13,6 +13,7 @@ interface campingDataResponse {
   contentId: string;
   facltNm: string;
   lineIntro: string;
+  doNm: string;
 }
 
 export default campingDataResponse;
