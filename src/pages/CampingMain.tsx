@@ -139,7 +139,7 @@ export default function CampingMain() {
           <CategoryCard
             src="/images/camping/camping-category-1.png"
             criteria="category"
-            value="일반아영장"
+            value="일반야영장"
           />
           <CategoryCard
             src="/images/camping/camping-category-2.png"
@@ -154,7 +154,7 @@ export default function CampingMain() {
           <CategoryCard
             src="/images/camping/camping-category-4.png"
             criteria="category"
-            value="자동차아영장"
+            value="자동차야영장"
           />
         </div>
       </div>

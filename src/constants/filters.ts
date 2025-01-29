@@ -12,7 +12,7 @@ export const CAMPING_CATEGORY = [
     label: "카라반",
   },
   {
-    value: "자동차아영장",
+    value: "자동차야영장",
     label: "차박",
   },
 ];
