@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 
 interface CategoryCardProps {
   src: string;
-  // handleClick: () => void;
   criteria: string;
   value: string;
 }
@@ -13,7 +12,10 @@ export default function CategoryCard({ src, criteria, value }: CategoryCardProps
   return (
     <div
       onClick={() =>
-        navigate({ pathname: PATH.campingSearch, search: `?keyword=&${criteria}=${value}` })
+        navigate({
+          pathname: PATH.campingSearch,
+          search: `?keyword=&${criteria}=${value === "제주도" ? "제주특별자치도" : value}`,
+        })
       }
     >
       <img src={src} alt="Camping Image" className="hover:brightness-75" />

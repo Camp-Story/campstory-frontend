@@ -139,7 +139,7 @@ export default function CampingMain() {
           <CategoryCard
             src="/images/camping/camping-category-1.png"
             criteria="category"
-            value="캠핑"
+            value="일반아영장"
           />
           <CategoryCard
             src="/images/camping/camping-category-2.png"
@@ -154,7 +154,7 @@ export default function CampingMain() {
           <CategoryCard
             src="/images/camping/camping-category-4.png"
             criteria="category"
-            value="오토캠핑"
+            value="자동차아영장"
           />
         </div>
       </div>
@@ -186,10 +186,10 @@ export default function CampingMain() {
         <Subtitle>지역별 캠핑장</Subtitle>
         <div className="flex gap-2 justify-between items-center">
           <CategoryCard src="/images/camping/Seoul.png" criteria="area" value="서울" />
-          <CategoryCard src="/images/camping/Jeju.png" criteria="area" value="제주도" />
           <CategoryCard src="/images/camping/Busan.png" criteria="area" value="부산" />
-          <CategoryCard src="/images/camping/Gangneung.png" criteria="area" value="강릉" />
-          <CategoryCard src="/images/camping/Seoul.png" criteria="area" value="인천" />
+          <CategoryCard src="/images/camping/Jeju.png" criteria="area" value="제주도" />
+          <CategoryCard src="/images/camping/Gangneung.png" criteria="area" value="강원도" />
+          <CategoryCard src="/images/camping/Seoul.png" criteria="area" value="경기도" />
         </div>
       </div>
       <div className="mb-[200px]">
