@@ -1,18 +1,18 @@
 export const CAMPING_CATEGORY = [
   {
-    value: "regular-campsite",
+    value: "일반야영장",
     label: "일반 야영장",
   },
   {
-    value: "glamping",
+    value: "글램핑",
     label: "글램핑",
   },
   {
-    value: "caravan",
+    value: "카라반",
     label: "카라반",
   },
   {
-    value: "car-campsite",
+    value: "자동차아영장",
     label: "차박",
   },
 ];
