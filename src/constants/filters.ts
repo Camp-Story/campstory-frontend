@@ -135,3 +135,50 @@ export const AREA = [
     label: "경남",
   },
 ];
+
+export const CAMPING_AREA = [
+  {
+    value: "서울시",
+    label: "서울",
+  },
+  {
+    value: "제주특별자치도",
+    label: "제주",
+  },
+  {
+    value: "강원도",
+    label: "강원도",
+  },
+  {
+    value: "부산시",
+    label: "부산",
+  },
+  {
+    value: "전라남도",
+    label: "전남",
+  },
+  {
+    value: "전라북도",
+    label: "전북",
+  },
+  {
+    value: "충청북도",
+    label: "충북",
+  },
+  {
+    value: "충청남도",
+    label: "충남",
+  },
+  {
+    value: "경기도",
+    label: "경기도",
+  },
+  {
+    value: "경상북도",
+    label: "경북",
+  },
+  {
+    value: "경상남도",
+    label: "경남",
+  },
+];
