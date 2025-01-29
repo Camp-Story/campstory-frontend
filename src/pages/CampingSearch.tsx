@@ -70,7 +70,7 @@ export default function CampingSearch() {
   }, [fetchCampingData, keyword]);
 
   const handleSearch = (searchKeyword: string) => {
-    searchParams.append("keyword", searchKeyword);
+    searchParams.set("keyword", searchKeyword);
     setSearchParams(searchParams);
     setKeyword(searchKeyword); // 검색어 상태 업데이트
   };
