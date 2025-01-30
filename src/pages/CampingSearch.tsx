@@ -43,6 +43,11 @@ export default function CampingSearch() {
             }
           : { params: { numOfRows: 100, pageNo: 1 } };
         const response = await goCampingInstance.get(endpoint, params);
+        if (!response.data.response.body.items.item) {
+          setCampingData([]);
+          setCount(0);
+          throw new Error("No search results found.");
+        }
         let data = response.data.response.body.items.item;
         // 카테고리 체크박스 선택되어 있으면 데이터 필터링
         if (categoryFilterList.length !== 0) {
@@ -55,7 +60,11 @@ export default function CampingSearch() {
         setCampingData(data);
         setCount(data.length);
       } catch (error) {
-        setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
+        if (error instanceof Error) {
+          setError("검색 결과가 없습니다.");
+        } else {
+          setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
+        }
         console.error("Error fetching camping data:", error);
       } finally {
         setIsLoading(false);
@@ -157,7 +166,6 @@ export default function CampingSearch() {
             {Intl.NumberFormat("ko-KR").format(Number(count))}개
           </h2>
           {isLoading && "로딩중.."}
-          {error}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             {campingData.length !== 0 ? (
               campingData.map((item) => (
@@ -176,7 +184,7 @@ export default function CampingSearch() {
               ))
             ) : (
               <>
-                <h3 className=" text-sub-title">검색 결과가 없습니다.</h3>
+                <h3 className=" text-sub-title">{error ? error : "검색 결과가 없습니다."}</h3>
               </>
             )}
           </div>
