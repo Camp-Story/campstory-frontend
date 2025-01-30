@@ -2,29 +2,28 @@ import AreaCheckbox from "@components/camping/campingSearch/AreaCheckbox";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
-
+import CategoryCheckbox from "@components/camping/campingSearch/CategoryCheckbox";
 import { CAMPING_AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
 import campingDataResponse from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import CategoryCheckbox from "@components/camping/campingSearch/CategoryCheckbox";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
   const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  // URL Query 관련 State
   const [keyword, setKeyword] = useState<string>(searchParams.get("keyword") || "");
-  const [category, setCategory] = useState<string[]>(
+  const [categoryFilterList, setCategoryFilterList] = useState<string[]>(
     searchParams.get("category") ? searchParams.get("category")!.split(",") : [],
   );
-  const [area, setArea] = useState<string[]>(
+  const [areaFilterList, setAreaFilterList] = useState<string[]>(
     searchParams.get("area") ? searchParams.get("area")!.split(",") : [],
   );
 
@@ -44,14 +43,14 @@ export default function CampingSearch() {
             }
           : { params: { numOfRows: 100, pageNo: 1 } };
         const response = await goCampingInstance.get(endpoint, params);
-        console.log(response.data.response.body.items.item);
-        console.log("category: ", category, "/ area: ", area);
         let data = response.data.response.body.items.item;
-        if (category.length !== 0) {
-          data = filterCampingData(data, "category", category);
+        // 카테고리 체크박스 선택되어 있으면 데이터 필터링
+        if (categoryFilterList.length !== 0) {
+          data = filterCampingData(data, "category", categoryFilterList);
         }
-        if (area.length !== 0) {
-          data = filterCampingData(data, "area", area);
+        // 지역 체크박스 선택되어 있으면 데이터 필터링
+        if (areaFilterList.length !== 0) {
+          data = filterCampingData(data, "area", areaFilterList);
         }
         setCampingData(data);
         setCount(data.length);
@@ -62,38 +61,20 @@ export default function CampingSearch() {
         setIsLoading(false);
       }
     },
-    [area, category],
+    [categoryFilterList, areaFilterList],
   );
 
-  useEffect(() => {
-    fetchCampingData(keyword);
-  }, [fetchCampingData, keyword]);
-
+  // SearchInput 키워드에 따라서 url 변경 & keyword 상태 업데이트
   const handleSearch = (searchKeyword: string) => {
     searchParams.set("keyword", searchKeyword);
     setSearchParams(searchParams);
-    setKeyword(searchKeyword); // 검색어 상태 업데이트
+    setKeyword(searchKeyword);
   };
 
-  // 카테고리에 따른 데이터 필터링 함수
-  const filterCampingData = (
-    campingData: campingDataResponse[],
-    criteria: "category" | "area",
-    category: string[],
-  ) => {
-    const filterKey = criteria === "category" ? "induty" : "doNm";
-    const filteredData = campingData.filter((item) =>
-      category.some((cat) => item[filterKey].includes(cat)),
-    );
-    console.log(filteredData);
-    console.log("category: ", category);
-    return filteredData;
-  };
-
-  // 카테고리 체크박스 체크 여부에 따라 url 변경 및 category, area 상태 변경
+  // 체크박스 체크 여부에 따라 url 변경 & categoryList, areaList 상태 업데이트
   const handleCheckbox = (criteria: "category" | "area", value: string, isChecked: boolean) => {
-    const queryList = criteria === "category" ? [...category] : [...area];
-    const setFunc = criteria === "category" ? setCategory : setArea;
+    const queryList = criteria === "category" ? [...categoryFilterList] : [...areaFilterList];
+    const setFunc = criteria === "category" ? setCategoryFilterList : setAreaFilterList;
     if (isChecked) {
       queryList.push(value);
     } else {
@@ -106,6 +87,23 @@ export default function CampingSearch() {
     setSearchParams(searchParams);
     setFunc(queryList);
   };
+
+  // URL Query에 따라 데이터 필터링
+  const filterCampingData = (
+    campingData: campingDataResponse[],
+    criteria: "category" | "area",
+    category: string[],
+  ) => {
+    const filterKey = criteria === "category" ? "induty" : "doNm";
+    const filteredData = campingData.filter((item) =>
+      category.some((cat) => item[filterKey].includes(cat)),
+    );
+    return filteredData;
+  };
+
+  useEffect(() => {
+    fetchCampingData(keyword);
+  }, [fetchCampingData, keyword]);
 
   return (
     <>
@@ -126,7 +124,7 @@ export default function CampingSearch() {
                   key={campingCategory.value}
                   label={campingCategory.label}
                   value={campingCategory.value}
-                  checked={category.includes(campingCategory.value)}
+                  checked={categoryFilterList.includes(campingCategory.value)}
                   handleChange={({ target }) =>
                     handleCheckbox("category", target.value, target.checked)
                   }
@@ -143,7 +141,7 @@ export default function CampingSearch() {
                   key={campingArea.value}
                   label={campingArea.label}
                   value={campingArea.value}
-                  checked={area.includes(campingArea.value)}
+                  checked={areaFilterList.includes(campingArea.value)}
                   handleChange={({ target }) =>
                     handleCheckbox("area", target.value, target.checked)
                   }
@@ -159,8 +157,8 @@ export default function CampingSearch() {
             {Intl.NumberFormat("ko-KR").format(Number(count))}개
           </h2>
           {isLoading && "로딩중.."}
+          {error}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-            {error}
             {campingData.length !== 0 ? (
               campingData.map((item) => (
                 <SearchCard
@@ -168,12 +166,12 @@ export default function CampingSearch() {
                   img={item.firstImageUrl}
                   bookmarked={false}
                   category={item.induty}
+                  location={item.addr1}
+                  title={item.facltNm}
+                  handleClickBookmark={() => alert("bookmark")}
                   handleClick={() =>
                     navigate(PATH.campingInfo(item.contentId), { state: { item } })
                   }
-                  handleClickBookmark={() => alert("bookmark")}
-                  location={item.addr1}
-                  title={item.facltNm}
                 />
               ))
             ) : (

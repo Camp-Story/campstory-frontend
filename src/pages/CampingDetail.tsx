@@ -85,10 +85,7 @@ export default function CampingDetail() {
           contentId: id,
         },
       });
-      // console.log(response.data.response.body.items.item);
       setCampingImgList(response.data.response.body.items.item);
-      // console.log(location.state.item);
-      // console.log(CampingDetailData);
     } catch (error) {
       setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching camping data:", error);
