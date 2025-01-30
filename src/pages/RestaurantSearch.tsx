@@ -131,7 +131,7 @@ export default function RestaurantSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            "{keyword || "서울"}" 검색 결과 {restaurants?.length ?? 0}개
+            "{keyword || ""}" 검색 결과 {restaurants?.length ?? 0}개
           </h2>
 
           {isLoading && <p>데이터를 불러오는 중입니다...</p>}

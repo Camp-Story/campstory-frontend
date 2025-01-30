@@ -98,7 +98,10 @@ function MainPage() {
 
           {/* 버튼 섹션 */}
           <div className="flex items-center">
-            <button className="ml-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg shadow-md hover:bg-gray-300 transition">
+            <button
+              onClick={() => navigate("/restaurant/information/2839132")}
+              className="ml-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg shadow-md hover:bg-gray-300 transition"
+            >
               추천 맛집 더 알아보기
             </button>
           </div>
@@ -117,26 +120,26 @@ function MainPage() {
           src="/images/food/restaurants/restaurant1.png"
           title="가월리 손두부"
           summary="두부전골,옛날 손두부"
-          path="/restaurant/search"
+          path="/restaurant/information/2875310"
         />
         <TodaysPick
           src="/images/food/restaurants/restaurant2.png"
           title="가음당 본점"
           summary="시누키우동, 돈까스"
-          path="/restaurant/search"
+          path="/restaurant/information/2910497"
         />
         <TodaysPick
           src="/images/food/restaurants/restaurant3.png"
           title="갓포 마코토"
           summary="계절 모둠 사시미, 한우 스키야키"
-          path="/restaurant/search"
+          path="/restaurant/information/2869670"
         />
 
         <TodaysPick
           src="/images/food/restaurants/restaurant4.png"
           title="감꽃당"
           summary="스콘과 에그타르트"
-          path="/restaurant/search"
+          path="/restaurant/information/2622715"
         />
       </div>
     </>
