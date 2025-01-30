@@ -1,17 +1,14 @@
-import { useNavigate } from "react-router";
-
 interface CategoryCardProps {
   src: string;
   catName: string;
-  path: string;
+  onClick: () => void;
 }
 
-export default function CategoryCard({ path, src, catName }: CategoryCardProps) {
-  const navigate = useNavigate();
+export default function CategoryCard({ src, catName, onClick }: CategoryCardProps) {
   return (
     <>
       <button
-        onClick={() => navigate(path)}
+        onClick={onClick}
         className="flex flex-col items-center justify-center p-4 bg-white shadow-md rounded-lg hover:shadow-lg transition"
       >
         <div className="w-15 bg-gray-200 rounded-full">

@@ -3,6 +3,7 @@ import Banner from "@components/food/RestaurantMain/Banner";
 import TodaysPick from "@components/food/RestaurantMain/TodaysPick";
 import Title from "@components/food/RestaurantMain/Title";
 import CategoryCard from "@components/food/RestaurantMain/CategoryCard";
+import { useNavigate } from "react-router";
 
 function MainPage() {
   const categories = [
@@ -10,40 +11,45 @@ function MainPage() {
       id: 1,
       name: "한식",
       image: "/images/food//flag-korea.png",
-      path: "/restaurant/search",
+      cat3: "A05020100",
     },
     {
       id: 2,
       name: "양식",
       image: "/images/food/flag-usa.png",
-      path: "/restaurant/search",
+      cat3: "A05020200",
     },
     {
       id: 3,
       name: "중식",
       image: "/images/food/flag-china.png",
-      path: "/restaurant/search",
+      cat3: "A05020400",
     },
     {
       id: 4,
       name: "일식",
       image: "/images/food/flag-japan.png",
-      path: "/restaurant/search",
+      cat3: "A05020300",
     },
     {
       id: 5,
       name: "이색음식점",
       image: "/images/food/coffee.png",
-      path: "/restaurant/search",
+      cat3: "A05020700",
     },
     {
       id: 6,
       name: "카페/전통찻집",
       image: "/images/food/unique-food.png",
-      path: "/restaurant/search",
+      cat3: "A05020900",
     },
   ];
 
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (cat3: string) => {
+    navigate(`/restaurant/search?cat3=${cat3}`);
+  };
   return (
     <>
       <Banner />
@@ -63,7 +69,7 @@ function MainPage() {
             src={category.image}
             key={category.id}
             catName={category.name}
-            path={category.path}
+            onClick={() => handleCategoryClick(category.cat3)}
           />
         ))}
       </div>
