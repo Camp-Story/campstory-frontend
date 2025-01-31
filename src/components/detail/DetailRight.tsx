@@ -13,6 +13,10 @@ interface DetailRightProps {
   restdatefood?: string;
   kidsfacility?: string;
   discountinfo?: string;
+  addr2?: string;
+  eventhomepage?: string;
+  eventstartdate?: string;
+  eventenddate?: string;
 }
 
 export default function DetailRight({
@@ -27,6 +31,10 @@ export default function DetailRight({
   firstmenu,
   parkingfood,
   restdatefood,
+  addr2,
+  eventhomepage,
+  eventstartdate,
+  eventenddate,
 }: DetailRightProps) {
   return (
     <article className="flex-1 flex flex-col">
@@ -134,19 +142,20 @@ export default function DetailRight({
             <ul>
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
-                  <strong className="mr-4 text-gray-scale-500">행사기간</strong>2025.01.14 -
-                  2025.01.20
+                  <strong className="mr-4 text-gray-scale-500">행사기간</strong>
+                  {eventstartdate} -{eventenddate}
                 </span>
               </li>
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">행사장소</strong>
-                  산57 감악산 정상
+                  {addr2}
                 </span>
               </li>
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
-                  <strong className="mr-4 text-gray-scale-500">홈페이지</strong>www.campstory.com
+                  <strong className="mr-4 text-gray-scale-500">홈페이지</strong>
+                  {eventhomepage}
                 </span>
               </li>
             </ul>
