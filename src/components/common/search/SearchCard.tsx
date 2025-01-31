@@ -18,19 +18,21 @@ export default function SearchCard({
   title,
 }: SearchCardProps) {
   return (
-    <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
-      <div className="w-[450px] h-[250px] overflow-hidden">
+    <article className="w-[450px] flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
+      <div className="h-[250px] overflow-hidden">
         <img
           src={img || "https://placehold.co/450x250?text=CAMP+STORY"}
           alt="thumbanil"
-          className="size-full"
+          className="size-full object-cover"
         />
       </div>
       <div className="px-5 py-[15px] flex flex-col gap-[46px]">
         <div className="flex justify-between">
           <div className="flex flex-col text-gray-scale-300">
             <span className="text-[15px]">{category}</span>
-            <div className="text-sub-title font-bold">{title}</div>
+            <div className="text-sub-title font-bold w-80 whitespace-nowrap text-ellipsis overflow-hidden">
+              {title}
+            </div>
             <div className="flex gap-[7px] items-center">
               <svg
                 width="13"
