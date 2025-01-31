@@ -163,7 +163,17 @@ export default function RestaurantSearch() {
 
       <div className="flex gap-[34px] pb-5">
         <div className="flex flex-col gap-[30px]">
-          <SearchMap />
+          <SearchMap
+            markers={restaurants.map((rest) => ({
+              addr1: rest.addr1,
+              contentid: rest.contentid,
+              facltNm: rest.title,
+              firstImageUrl: rest.firstimage,
+              mapX: rest.mapx,
+              mapY: rest.mapy,
+            }))}
+            type="restaurant"
+          />
 
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>

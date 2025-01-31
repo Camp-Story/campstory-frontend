@@ -49,14 +49,14 @@ export default function CustomMap({ markers, type }: MapProps) {
 
         const content = document.createElement("div");
         content.innerHTML =
-          '<div class="rounded absolute left-0 bottom-14 drop-shadow -translate-x-1/2">' +
+          '<div class="rounded absolute left-0 bottom-14 drop-shadow -translate-x-1/2 w-fit">' +
           '    <div class="after:absolute after:left-1/2 after:-translate-x-1/2 after:border-[10px] after:border-b-0 after:border-x-transparent after:border-white">' +
-          '        <div class="flex justify-between items-center bg-gray-scale-100 py-1 px-2 text-sub-title">' +
+          '        <div class="flex gap-5 justify-between items-center bg-gray-scale-100 py-1 px-2 text-sub-title">' +
           data.facltNm +
-          '<img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png" id="close" class="w-4 h-4 hover:cursor-pointer" />' +
+          '<div class="w-4 h-4 hover:cursor-pointer p-0.5" id="close"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png" /></div>' +
           "        </div>" +
           '        <div class="p-2 overflow-hidden bg-white flex flex-col gap-1">' +
-          '            <div class="img w-full">' +
+          '            <div class="w-full">' +
           `<img src="${data.firstImageUrl}">` +
           "           </div>" +
           '            <div class="desc flex flex-col text-[15px]">' +
