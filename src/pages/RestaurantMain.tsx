@@ -74,7 +74,7 @@ function MainPage() {
         ))}
       </div>
 
-      {/* 스시시 */}
+      {/* 스시 */}
       <div className="flex flex-col sm:flex-row items-center overflow-hidden max-w-3xl mx-auto mt-20 p-4">
         {/* 이미지 섹션 */}
         <div className="w-auto relative hover:brightness-75">
