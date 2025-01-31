@@ -9,7 +9,7 @@ import {
 import CustomMap from "./CustomMap";
 import { MapProps } from "types/common";
 
-export default function SearchMap({ markers }: MapProps) {
+export default function SearchMap({ markers, type }: MapProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +27,7 @@ export default function SearchMap({ markers }: MapProps) {
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
         </DialogHeader>
-        <CustomMap markers={markers} />
+        <CustomMap markers={markers} type={type} />
       </DialogContent>
     </Dialog>
   );
