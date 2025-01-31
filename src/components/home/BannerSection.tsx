@@ -1,3 +1,11 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "components/ui/select";
+
 function SearchForm() {
   return (
     <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-4/5 py-8 px-12 bg-white rounded-xl drop-shadow-custom flex items-end gap-4">
@@ -24,15 +32,25 @@ function SearchForm() {
         />
       </div>
       <div className="flex flex-col gap-4 w-50">
-        <label htmlFor="people" className="text-sub-title font-bold text-gray-scale-400">
-          인원
-        </label>
-        <input
-          type="number"
-          id="people"
-          placeholder="인원 2"
-          className="w-full px-5 py-4 rounded text-body1 bg-gray-scale-100 focus:outline-none"
-        />
+        <label className="text-sub-title font-bold text-gray-scale-400">지역</label>
+        <Select>
+          <SelectTrigger className="w-[200px] px-5 py-4 text-body1">
+            <SelectValue placeholder="지역 선택" className="text-body1" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="서울시">서울</SelectItem>
+            <SelectItem value="제주특별자치도">제주</SelectItem>
+            <SelectItem value="부산시">부산</SelectItem>
+            <SelectItem value="강원도">강원도</SelectItem>
+            <SelectItem value="경기도">경기도</SelectItem>
+            <SelectItem value="전라남도">전남</SelectItem>
+            <SelectItem value="전라북도">전북</SelectItem>
+            <SelectItem value="충청남도">충남</SelectItem>
+            <SelectItem value="충청북도">충북</SelectItem>
+            <SelectItem value="경상남도">경남</SelectItem>
+            <SelectItem value="경상북도">경북</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <button className="flex-1 py-4 bg-secondary-300 text-body1 text-gray-scale-0 rounded hover:bg-secondary-500 transition">
         검색
