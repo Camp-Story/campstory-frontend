@@ -158,6 +158,8 @@ export default function EventDetail() {
           addr2={eventDetailData.addr2}
           eventhomepage={eventDetailData.homepage}
           overview={eventDetailData.overview}
+          mapX={eventDetailData.mapx}
+          mapY={eventDetailData.mapy}
         />
       </section>
       <NearbyPlacesSection />
