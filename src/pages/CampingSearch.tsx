@@ -7,7 +7,7 @@ import { CAMPING_AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
 import campingDataResponse from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
 export default function CampingSearch() {
@@ -26,6 +26,11 @@ export default function CampingSearch() {
   const [areaFilterList, setAreaFilterList] = useState<string[]>(
     searchParams.get("area") ? searchParams.get("area")!.split(",") : [],
   );
+
+  // 감시 대상 지정하기
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+  // const [pageNumber, setPageNumber] = useState<number>(1);
+  //  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const fetchCampingData = useCallback(
     async (searchKeyword: string | null) => {
@@ -73,6 +78,8 @@ export default function CampingSearch() {
     [categoryFilterList, areaFilterList],
   );
 
+  // const fetchNextData = () => {};
+
   // SearchInput 키워드에 따라서 url 변경 & keyword 상태 업데이트
   const handleSearch = (searchKeyword: string) => {
     searchParams.set("keyword", searchKeyword);
@@ -113,6 +120,26 @@ export default function CampingSearch() {
   useEffect(() => {
     fetchCampingData(keyword);
   }, [fetchCampingData, keyword]);
+
+  // IntersectionObserver 객체 생성
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          console.log("화면 끝!", entries[0]);
+        }
+      },
+      { threshold: 0 },
+    );
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -188,6 +215,7 @@ export default function CampingSearch() {
               </>
             )}
           </div>
+          <div ref={loadMoreRef} className="bg-slate-100 h-40" />
         </div>
       </div>
     </>
