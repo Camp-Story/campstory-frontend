@@ -4,8 +4,8 @@ import CategoryCheckbox from "@./components/food/RestaurantSearch/CategoryCheckb
 interface CheckboxListProps {
   title: string;
   categories: FilterCategory[];
-  selectedValue?: string[];
-  onChange?: (value: string) => void;
+  selectedValue: string[];
+  onChange: (updated: string[]) => void;
 }
 
 export default function CheckboxList({
@@ -14,18 +14,11 @@ export default function CheckboxList({
   selectedValue = [],
   onChange,
 }: CheckboxListProps) {
-  const handleCheckboxChange = (value: string) => {
-    if (!onChange) return;
+  const handleToggle = (value: string) => {
+    const found = selectedValue.includes(value);
+    const updated = found ? selectedValue.filter((v) => v !== value) : [...selectedValue, value];
 
-    let updatedValues = [...selectedValue];
-
-    if (updatedValues.includes(value)) {
-      updatedValues = updatedValues.filter((v) => v !== value); //  선택 해제
-    } else {
-      updatedValues.push(value); // 선택 추가
-    }
-
-    onChange(updatedValues.join(",")); // 배열을 콤마(,)로 구분하여 전달
+    onChange(updated);
   };
 
   return (
@@ -38,7 +31,7 @@ export default function CheckboxList({
             value={category.value}
             key={category.value}
             checked={selectedValue.includes(category.value)}
-            onChange={() => handleCheckboxChange(category.value)}
+            onChange={() => handleToggle(category.value)}
           />
         ))}
       </ul>

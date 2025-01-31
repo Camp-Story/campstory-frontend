@@ -43,99 +43,117 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
 
 export default function RestaurantSearch() {
   const [restaurants, setRestaurants] = useState<Item[]>([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
 
-  const selectedCategories = useMemo(
-    () => searchParams.get("cat3")?.split(",") || [],
-    [searchParams],
-  );
+  // cat3 파라미터를 배열로 변환
+  const cat3Param = searchParams.get("cat3") ?? "";
+  const selectedCategories = useMemo(() => cat3Param.split(",").filter(Boolean), [cat3Param]);
 
   const navigate = useNavigate();
 
-  //필터 적용시 받아온 데이터에서 필터.
-  const filterRestaurantData = useCallback(() => {
-    if (selectedCategories.length === 0) return items;
-    // 선택된 카테고리와 일치하는 데이터만 반환
-    return items.filter((item) => selectedCategories.includes(item.cat3));
-  });
+  const fetchRestaurantsData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
 
-  const fetchRestaurantsData = useCallback(
-    async (searchKeyword: string) => {
-      setIsLoading(true);
-      setError(null);
+    try {
+      const endpoint = keyword ? "/searchKeyword1" : "/areaBasedList1";
+      const params = keyword
+        ? {
+            params: {
+              numOfRows: "30",
+              pageNo: "",
+              listYN: "Y",
+              arrange: "O",
+              contentTypeId: 39,
+              areaCode: "",
+              sigunguCode: "",
+              cat1: "",
+              cat2: "",
+              cat3: "",
+              keyword: keyword,
+            },
+          }
+        : {
+            params: {
+              numOfRows: 100,
+              pageNo: "",
+              listYN: "Y",
+              arrange: "O",
+              contentTypeId: 39,
+              areaCode: "",
+              sigunguCode: "",
+              cat1: "",
+              cat2: "",
+              cat3: "",
+            },
+          };
 
-      try {
-        const endpoint = searchKeyword ? "/searchKeyword1" : "/areaBasedList1";
-        const params = searchKeyword
-          ? {
-              params: {
-                numOfRows: "30",
-                pageNo: "",
-                listYN: "Y",
-                arrange: "O",
-                contentTypeId: 39,
-                areaCode: "",
-                sigunguCode: "",
-                cat1: "",
-                cat2: "",
-                cat3: selectedCategories.length > 0 ? selectedCategories.join(",") : "",
-                keyword: searchKeyword,
-              },
-            }
-          : {
-              params: {
-                numOfRows: 100,
-                pageNo: "",
-                listYN: "Y",
-                arrange: "O",
-                contentTypeId: 39,
-                areaCode: "",
-                sigunguCode: "",
-                cat1: "",
-                cat2: "",
-                cat3: selectedCategories.length > 0 ? selectedCategories.join(",") : "",
-              },
-            };
-        const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
+      const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
 
-        const items = response.data.response.body.items.item || [];
+      const items = response.data.response.body.items.item || [];
 
-        const filteredItems = filterRestaurantData(items, selectedCategories);
-
-        console.log("After filtering : ", filterRestaurantData);
-        setRestaurants(filteredItems);
-      } catch (error) {
-        console.log(error);
-        setError("데이터를 불러오는 중 오류가 발생했습니다.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [selectedCategories],
-  );
+      console.log(items);
+      setRestaurants(items);
+    } catch (error) {
+      console.log(error);
+      setError("데이터를 불러오는 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [keyword]);
 
   const handleSearch = (searchKeyword: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("keyword", searchKeyword);
-    setSearchParams(newParams); // 새로운 검색어로 데이터 호출
+    // 기존 파라미터를 복사
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    // keyword 파라미터 갱신
+    if (searchKeyword) {
+      newParams.set("keyword", searchKeyword);
+    } else {
+      newParams.delete("keyword");
+    }
+
+    // 이미 선택되어 있는 카테고리 유지
+    if (selectedCategories.length > 0) {
+      newParams.set("cat3", selectedCategories.join(","));
+    }
+
+    setSearchParams(newParams);
   };
 
-  const handleFilterChange = (value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (value) {
-      newParams.set("cat3", value);
+  const filterRestaurantData = useCallback(() => {
+    if (selectedCategories.length === 0) {
+      setFilteredRestaurants(restaurants);
+    } else {
+      const filtered = restaurants.filter((item) => selectedCategories.includes(item.cat3));
+      setFilteredRestaurants(filtered);
+    }
+  }, [restaurants, selectedCategories]);
+
+  const handleCategoryChange = (updated: string[]) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    if (updated.length > 0) {
+      newParams.set("cat3", updated.join(","));
     } else {
       newParams.delete("cat3");
     }
-    setSearchParams({ keyword, cat3: value });
+
+    setSearchParams(newParams);
   };
+
   useEffect(() => {
-    fetchRestaurantsData(keyword);
-  }, [fetchRestaurantsData, keyword]);
+    fetchRestaurantsData();
+  }, [fetchRestaurantsData]);
+
+  useEffect(() => {
+    filterRestaurantData();
+  }, [restaurants, selectedCategories, filterRestaurantData]);
 
   return (
     <>
@@ -153,23 +171,23 @@ export default function RestaurantSearch() {
               title="카테고리"
               categories={CATEGORY_OPTIONS}
               selectedValue={selectedCategories}
-              onChange={(value) => handleFilterChange(value)}
+              onChange={handleCategoryChange}
             />
           </div>
         </div>
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            {keyword || ""} 검색 결과 {restaurants?.length ?? 0}개
+            {keyword || ""} 검색 결과 {filteredRestaurants?.length ?? 0}개
           </h2>
 
           {isLoading && <p>데이터를 불러오는 중입니다...</p>}
 
           {error && <p className="text-red-500">{error}</p>}
 
-          {!isLoading && !error && Array.isArray(restaurants) && restaurants.length > 0 ? (
+          {!isLoading && !error && filteredRestaurants.length > 0 ? (
             <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-              {restaurants.map((restaurant) => (
+              {filteredRestaurants.map((restaurant) => (
                 <SearchCard
                   key={restaurant.contentid}
                   img={restaurant.firstimage}
