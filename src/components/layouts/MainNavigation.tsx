@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export default function MainNavigation() {
   return (
-    <nav className="flex items-center justify-between">
+    <nav className="w-[1440px] mx-auto px-main flex items-center justify-between">
       <h1>
         <Link to={PATH.home}>
           <img src="/images/campstory-logo.png" />
