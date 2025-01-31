@@ -163,7 +163,17 @@ export default function EventSearch() {
       </div>
       <div className="flex gap-[34px]">
         <div className="flex flex-col gap-[30px]">
-          <SearchMap />
+          <SearchMap
+            markers={events.map((event) => ({
+              addr1: event.addr1,
+              contentid: event.contentid,
+              facltNm: event.title,
+              firstImageUrl: event.firstimage,
+              mapX: event.mapx,
+              mapY: event.mapy,
+            }))}
+            type="event"
+          />
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>
             <CheckboxList categories={EVENT_PROGRESS} title="진행/예정" />
