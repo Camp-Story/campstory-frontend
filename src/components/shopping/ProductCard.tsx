@@ -27,7 +27,7 @@ export default function ProductCard({
       >
         <img
           className="w-full h-full"
-          src={image || "https://placehold.co/450x250?text=CAMP+STORY"}
+          src={image || "https://placehold.co/230x230?text=CAMP+STORY"}
           alt="Product Image"
         />
       </div>
