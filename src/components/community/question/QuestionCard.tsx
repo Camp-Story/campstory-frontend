@@ -11,7 +11,7 @@ export default function QuestionCard({ handleClick }: QuestionCardProps) {
       <div onClick={handleClick} className="flex flex-col gap-3 hover:cursor-pointer">
         <UserProfile nickname="사용자 닉네임" profileUrl="" />
         {/* card */}
-        <div className="flex flex-col gap-4 bg-gray-scale-0 w-[600px] p-[20px] rounded-sm drop-shadow-custom">
+        <div className="flex flex-col gap-4 bg-gray-scale-0 w-[600px] p-[20px] rounded-lg drop-shadow-custom">
           <div className="flex gap-4 items-center">
             <div className="text-primary-500 font-bold text-[26px]">Q.</div>
             <div className="text-body1 font-medium text-gray-scale-400">
