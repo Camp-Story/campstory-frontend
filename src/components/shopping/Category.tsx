@@ -1,16 +1,16 @@
 interface CategoryProps {
-  path: string;
   src: string;
   catName: string;
+  onClick: () => void;
 }
 
-export default function Category({ path, src, catName }: CategoryProps) {
+export default function Category({ src, catName, onClick }: CategoryProps) {
   return (
-    <div onClick={() => alert(path)}>
+    <div onClick={onClick}>
       <div className="flex flex-col items-center justify-center text-center rounded-full bg-gray-scale-100 w-[63px] h-[63px]">
         <img
           src={src}
-          alt=""
+          alt="Category Image"
           className="flex flex-col items-center justify-center text-center w-[40px] h-[40px]"
         />
       </div>

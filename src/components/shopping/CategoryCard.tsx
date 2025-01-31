@@ -1,17 +1,24 @@
+import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
 
 interface CategoryCardProps {
   src: string;
   catName: string;
-  path: string;
 }
 
-export default function CategoryCard({ path, src, catName }: CategoryCardProps) {
+export default function CategoryCard({ src, catName }: CategoryCardProps) {
   const navigate = useNavigate();
+
+  const handleNavigateToSearch = (keyword: string) => {
+    if (keyword.trim()) {
+      navigate(`${PATH.shoppingSearch}?keyword=${encodeURIComponent(keyword)}`);
+    }
+  };
+
   return (
     <>
       <button
-        onClick={() => navigate(path)}
+        onClick={() => handleNavigateToSearch(catName)}
         className="flex flex-col items-center justify-center py-[40px] px-[60px] bg-white drop-shadow-custom rounded-xl hover:shadow-lg transition"
       >
         <div className="w-15 bg-gray-200 rounded-full">
