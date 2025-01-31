@@ -70,4 +70,6 @@ export interface EventDetailData {
   eventenddate: string;
   overview: string;
   images: string[];
+  mapx: string;
+  mapy: string;
 }

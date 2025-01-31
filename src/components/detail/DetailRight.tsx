@@ -1,3 +1,5 @@
+import SpotMapSection from "./SpotMapSection";
+
 interface DetailRightProps {
   category: string;
   title: string;
@@ -6,6 +8,8 @@ interface DetailRightProps {
   contenttypeid: string;
   bookmarked: boolean;
   overview: string;
+  mapX: string;
+  mapY: string;
   opentimefood?: string;
   firstmenu?: string;
   infocenterfood?: string;
@@ -27,6 +31,8 @@ export default function DetailRight({
   contenttypeid,
   bookmarked = false,
   overview,
+  mapX,
+  mapY,
   opentimefood,
   firstmenu,
   parkingfood,
@@ -198,7 +204,7 @@ export default function DetailRight({
         </div>
       </div>
       <div className="w-full h-[318px] bg-gray-scale-100 rounded-xl overflow-hidden self-end">
-        <img src="/images/map-mid.png" alt="[임시] 지도 이미지" className="w-full object-cover" />
+        <SpotMapSection mapX={mapX} mapY={mapY} />
       </div>
     </article>
   );
