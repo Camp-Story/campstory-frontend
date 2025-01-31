@@ -6,6 +6,7 @@ import RecommendCard from "@components/shopping/RecommendCard";
 import ReviewCardProps from "types/ReviewCardProps";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import ProductCard from "@components/shopping/ProductCard";
+import { useNavigate } from "react-router";
 
 const RecommendProductData = [
   {
@@ -244,13 +245,25 @@ const ReviewData = [
 ];
 
 export default function ShoppingMain() {
+  const navigate = useNavigate();
+
+  const handleNavigateToSearch = (keyword: string) => {
+    if (keyword.trim()) {
+      navigate(`${PATH.shoppingSearch}?keyword=${encodeURIComponent(keyword)}`);
+    }
+  };
+
+  const handleSearch = (searchKeyword: string) => {
+    handleNavigateToSearch(searchKeyword);
+  };
+
   return (
     <div className="flex flex-col gap-[60px]">
       {/* Banner */}
       <div className="relative">
         <img src="/images/shopping/shopping-banner.png" alt="banner" className="w-full" />
         <SearchBar
-          handleSubmit={() => alert("search!")}
+          handleSubmit={() => alert("")}
           className="absolute bottom-[60px] left-[50%] -translate-x-[50%]"
         />
       </div>
@@ -259,35 +272,15 @@ export default function ShoppingMain() {
       <div>
         <div className="flex justify-between items-center">
           <SubTitle>카테고리별 분류</SubTitle>
-          <button className="text-info-500">더보기</button>
+          <button className="text-sub-title text-info-500">더보기</button>
         </div>
         <div className="flex gap-0 justify-between">
-          <CategoryCard
-            src="/images/shopping/food.png"
-            catName="먹거리"
-            path={PATH.shoppingSearch}
-          />
-          <CategoryCard src="/images/shopping/tent.png" catName="텐트" path={PATH.shoppingSearch} />
-          <CategoryCard
-            src="/images/shopping/sleeping-bag.png"
-            catName="침낭"
-            path={PATH.shoppingSearch}
-          />
-          <CategoryCard
-            src="/images/shopping/brazier.png"
-            catName="화로대"
-            path={PATH.shoppingSearch}
-          />
-          <CategoryCard
-            src="/images/shopping/camping-furniture.png"
-            catName="캠핑 가구"
-            path={PATH.shoppingSearch}
-          />
-          <CategoryCard
-            src="/images/shopping/bonfire.png"
-            catName="소모품"
-            path={PATH.shoppingSearch}
-          />
+          <CategoryCard src="/images/shopping/food.png" catName="먹거리" />
+          <CategoryCard src="/images/shopping/tent.png" catName="텐트" />
+          <CategoryCard src="/images/shopping/sleeping-bag.png" catName="침낭" />
+          <CategoryCard src="/images/shopping/brazier.png" catName="화로대" />
+          <CategoryCard src="/images/shopping/camping-furniture.png" catName="캠핑 가구" />
+          <CategoryCard src="/images/shopping/bonfire.png" catName="소모품" />
         </div>
       </div>
 
@@ -295,7 +288,7 @@ export default function ShoppingMain() {
       <div>
         <div className="flex justify-between items-center">
           <SubTitle>오늘의 추천 상품</SubTitle>
-          <button className="text-info-500">더보기</button>
+          <button className="text-sub-title text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {RecommendProductData.map((product) => (
@@ -313,7 +306,7 @@ export default function ShoppingMain() {
       <div>
         <div className="flex justify-between items-center">
           <SubTitle>신상품</SubTitle>
-          <button className="text-info-500">더보기</button>
+          <button className="text-sub-title text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {NewProductData.map((product) => (
@@ -332,7 +325,7 @@ export default function ShoppingMain() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E8F6F1] w-screen h-[450px] -z-10"></div>
         <div className="flex justify-between items-center">
           <SubTitle>최저가 득템!</SubTitle>
-          <button className="text-info-500">더보기</button>
+          <button className="text-sub-title text-info-500">더보기</button>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {DiscountProductData.map((product) => (
@@ -350,7 +343,7 @@ export default function ShoppingMain() {
       <div>
         <div className="flex justify-between items-center">
           <SubTitle>포토 리뷰 모음집</SubTitle>
-          <button className="text-info-500">더보기</button>
+          <button className="text-sub-title text-info-500">더보기</button>
         </div>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
           {ReviewData.map((item: ReviewCardProps, idx: number) => (
