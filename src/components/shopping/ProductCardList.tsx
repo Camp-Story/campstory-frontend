@@ -3,19 +3,25 @@ import ProductCard from "./ProductCard";
 import { naverApiInstance } from "@utils/axiosInstance";
 import { NaverProductResponse, NaverSearchResponse } from "types/NaverShoppingResponse";
 
-export default function ProductCardList({ orderBy }: { orderBy: string }) {
+export default function ProductCardList({
+  orderBy,
+  keyword,
+}: {
+  orderBy: string;
+  keyword: string;
+}) {
   const [products, setProducts] = useState<NaverProductResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchNaverProductData = useCallback(async () => {
     setIsLoading(true);
-    setError(null);
+    setErrorMessage(null);
 
     try {
       const response = await naverApiInstance.get<NaverSearchResponse>("/shop.json", {
         params: {
-          query: "텐트",
+          query: keyword,
           display: 20,
           start: 1,
           sort: orderBy,
@@ -24,12 +30,12 @@ export default function ProductCardList({ orderBy }: { orderBy: string }) {
 
       setProducts(response.data.items);
     } catch (error) {
-      setError("상품 데이터를 가져오는 중 오류가 발생했습니다.");
+      setErrorMessage("상품 데이터를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching product data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy]);
+  }, [orderBy, keyword]);
 
   useEffect(() => {
     fetchNaverProductData();
@@ -46,7 +52,7 @@ export default function ProductCardList({ orderBy }: { orderBy: string }) {
           handleClickBookmark={() => alert("bookmark")}
         />
       ))}
-      {error}
+      {errorMessage}
     </div>
   );
 }
