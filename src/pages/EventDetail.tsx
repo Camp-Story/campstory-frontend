@@ -125,7 +125,6 @@ export default function EventDetail() {
       const common = await fetchEventCommonData();
 
       if (images && detail && common) {
-        console.log({ images, ...detail, ...common });
         setEventDetailData({ images, ...detail, ...common });
       }
       setIsLoading(false);

@@ -4,7 +4,6 @@ import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 
-
 import { PATH } from "@constants/path";
 import { useParams } from "react-router";
 import { tourApiInstance } from "@utils/axiosInstance";
@@ -122,12 +121,9 @@ export default function FoodDetail() {
       const imgItems = responseImg.data.response.body.items.item;
       const detailCommonItems = responseDetailCommon.data.response.body.items.item;
       const introItems = responseIntro.data.response.body.items.item;
-      console.log(1, detailCommonItems);
 
       setRestaurantImgList(imgItems);
       setRestaurantData({ common: detailCommonItems, intro: introItems });
-
-      console.log(detailCommonItems);
     } catch (error) {
       setError("데이터를 불러오는데 실패하였습니다.");
       console.error("Error fetching data:", error);
