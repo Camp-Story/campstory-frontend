@@ -108,8 +108,8 @@ export default function EventDetail() {
       const item: CommonDetails = Array.isArray(commonResponse.data.response.body.items.item)
         ? commonResponse.data.response.body.items.item[0]
         : commonResponse.data.response.body.items.item;
-      const { title, addr1, overview, contentid, contenttypeid } = item;
-      return { title, addr1, overview, contentid, contenttypeid };
+      const { title, addr1, addr2, homepage, overview, contentid, contenttypeid } = item;
+      return { title, addr1, addr2, homepage, overview, contentid, contenttypeid };
     } catch (error) {
       setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching event detail data:", error);
@@ -151,6 +151,10 @@ export default function EventDetail() {
           phone={eventDetailData.sponsor1tel}
           bookmarked={false}
           contenttypeid={eventDetailData.contenttypeid}
+          eventstartdate={eventDetailData.eventstartdate}
+          eventenddate={eventDetailData.eventenddate}
+          addr2={eventDetailData.addr2}
+          eventhomepage={eventDetailData.homepage}
           overview={eventDetailData.overview}
         />
       </section>
