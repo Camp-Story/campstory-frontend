@@ -97,7 +97,6 @@ export default function RestaurantSearch() {
 
       const items = response.data.response.body.items.item || [];
 
-      console.log(items);
       setRestaurants(items);
     } catch (error) {
       console.log(error);
