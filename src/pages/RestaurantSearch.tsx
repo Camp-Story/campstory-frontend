@@ -80,7 +80,7 @@ export default function RestaurantSearch() {
           }
         : {
             params: {
-              numOfRows: 100,
+              numOfRows: 1000,
               pageNo: "",
               listYN: "Y",
               arrange: "O",
