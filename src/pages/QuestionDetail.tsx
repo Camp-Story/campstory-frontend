@@ -13,7 +13,7 @@ export default function QuestionDetail() {
   }
 
   return (
-    <div className="w-[832px] mx-auto mt-[100px] flex flex-col gap-[30px]">
+    <div className="w-[832px] mx-auto mt-14 flex flex-col gap-[30px]">
       <div className="relative">
         <QuestionDetailCard />
         <button

@@ -8,15 +8,15 @@ import { useNavigate } from "react-router";
 export default function QuestionMain() {
   const navigate = useNavigate();
   return (
-    <>
+    <div className="mt-14 px-4">
       {/* SearchBar */}
-      <div className="mt-[100px] mb-[60px]">
+      <div className="mb-[60px]">
         <SearchInput handleSubmit={() => alert("submit!")} />
       </div>
 
       <div className="flex gap-[50px] justify-between items-center mb-[30px]">
         {/* OrderRadio */}
-        <div className="flex gap-5 text-sm">
+        <div className="flex gap-5 text-sub-title">
           <OrderRadio label="최신순" value="recent" defaultChecked />
           <OrderRadio label="인기순" value="popular" />
         </div>
@@ -33,7 +33,7 @@ export default function QuestionMain() {
 
         {/* Button */}
         <button
-          className="px-3 py-2 ml-auto text-white text-sm bg-primary-500 rounded"
+          className="px-3 py-2 ml-auto text-white text-body1 bg-primary-500 rounded"
           onClick={() => navigate(PATH.questionCreate)}
         >
           질문 작성하기
@@ -41,12 +41,12 @@ export default function QuestionMain() {
       </div>
 
       {/* QuestionCards */}
-      <div className="grid grid-cols-2 gap-[30px] justify-between">
+      <div className="grid grid-cols-2 gap-x-7 gap-y-10 justify-between">
         <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
         <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
         <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
         <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
       </div>
-    </>
+    </div>
   );
 }
