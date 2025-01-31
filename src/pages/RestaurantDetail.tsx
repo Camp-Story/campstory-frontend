@@ -3,6 +3,8 @@ import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
+
+
 import { PATH } from "@constants/path";
 import { useParams } from "react-router";
 import { tourApiInstance } from "@utils/axiosInstance";
@@ -11,7 +13,7 @@ import CategoryMap from "@components/food/CategoryMap";
 
 interface Item {
   contentid: string;
-  originimgurl: string | null;
+  originimgurl: string;
   title: string;
   tel: string;
   cat3: string;
@@ -146,8 +148,8 @@ export default function FoodDetail() {
         {restaurantImg !== undefined ? (
           <DetailLeft
             image1={restaurantImg[0]?.originimgurl}
-            image2={restaurantImg[1]?.originimgurl || "/images/food/restaurants/restaurant3.png"}
-            image3={restaurantImg[2]?.originimgurl || "/images/food/restaurants/restaurant4.png"}
+            image2={restaurantImg[1]?.originimgurl}
+            image3={restaurantImg[2]?.originimgurl}
           />
         ) : (
           <DetailLeft
