@@ -5,18 +5,13 @@ interface EventCategoryCardProps {
   src: string;
   path: string;
   children: ReactNode;
-  keyword: string; // 추가된 키워드 props
+  cat3: string; // 추가된 키워드 props
 }
 
-export default function EventCategoryCard({
-  src,
-  path,
-  children,
-  keyword,
-}: EventCategoryCardProps) {
+export default function EventCategoryCard({ src, path, children, cat3 }: EventCategoryCardProps) {
   const navigate = useNavigate();
   return (
-    <div onClick={() => navigate(`${path}?keyword=${keyword}`)}>
+    <div onClick={() => navigate(`${path}?cat3=${cat3}`)}>
       {" "}
       {/* URL에 키워드 추가 */}
       <img src={src} alt="Camping Image" className="hover:brightness-75" />
