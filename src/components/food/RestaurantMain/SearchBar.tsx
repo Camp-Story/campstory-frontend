@@ -30,7 +30,7 @@ export default function SearchBar({ className, backgroundColor }: SearchBarProps
           placeholder="검색어를 입력하세요"
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          className={`py-3 px-6 w-[800px] font-semibold rounded-full  ${
+          className={`py-3 px-6 w-[892px] font-semibold rounded-full  ${
             backgroundColor
               ? focus
                 ? "bg-white placeholder-slate-600  focus:outline-green-700"

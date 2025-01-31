@@ -1,13 +1,12 @@
-import CheckboxList from "@components/common/search/CheckboxList";
+import CheckboxList from "@components/food/RestaurantSearch/CheckboxList";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 import CategoryMap from "@components/food/CategoryMap";
 
-// import { RESTURANT_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 
@@ -49,9 +48,20 @@ export default function RestaurantSearch() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
-  const selectedCategory = searchParams.get("cat3") || "";
+  const categoryFilterList = useMemo(
+    () => searchParams.get("category")?.split(",") || [],
+    [searchParams],
+  );
+
+  const selectedCategories = useMemo(() => searchParams.get("cat3") || "", [searchParams]);
 
   const navigate = useNavigate();
+
+  //필터 적용시 받아온 데이터에서 필터.
+  const filterRestaurantData = (items: Item[], selectedCategories: string[]) => {
+    if (selectedCategories.length === 0) return items; // 필터가 없으면 전체 데이터 반환
+    return items.filter((item) => selectedCategories.includes(item.cat3)); // 선택된 카테고리와 일치하는 데이터만 반환
+  };
 
   const fetchRestaurantsData = useCallback(
     async (searchKeyword: string) => {
@@ -72,7 +82,7 @@ export default function RestaurantSearch() {
                 sigunguCode: "",
                 cat1: "",
                 cat2: "",
-                cat3: selectedCategory,
+                cat3: selectedCategories,
                 keyword: searchKeyword,
               },
             }
@@ -87,14 +97,17 @@ export default function RestaurantSearch() {
                 sigunguCode: "",
                 cat1: "",
                 cat2: "",
-                cat3: selectedCategory,
+                cat3: selectedCategories,
               },
             };
         const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
 
-        const items = response.data.response.body.items.item || []; // itmes의 배열이 데이타가 없을시 undefined 렌더링 오류 방지
-        // console.log(items[0].addr1);
+        let items = response.data.response.body.items.item || [];
         console.log(items);
+        // 카테고리 체크박스 선택되어 있으면 데이터 필터링
+        if (categoryFilterList.length !== 0) {
+          items = filterRestaurantData(items, "category", categoryFilterList);
+        }
         setRestaurants(items);
       } catch (error) {
         console.log(error);
@@ -103,7 +116,7 @@ export default function RestaurantSearch() {
         setIsLoading(false);
       }
     },
-    [selectedCategory],
+    [selectedCategories],
   );
 
   const handleSearch = (searchKeyword: string) => {
@@ -140,7 +153,7 @@ export default function RestaurantSearch() {
             <CheckboxList
               title="카테고리"
               categories={CATEGORY_OPTIONS}
-              selectedValue={selectedCategory}
+              selectedValue={selectedCategories}
               onChange={(value) => handleFilterChange(value)}
             />
           </div>
