@@ -3,14 +3,27 @@ interface FilterCategory {
   label: string;
 }
 
-interface MapMarker {
-  title: string;
+interface TourApiResponse {
+  addr1: string;
+  firstImageUrl: string;
+  facltNm: string;
+  contentid: string;
   mapX: string;
   mapY: string;
 }
 
-interface MapProps {
-  markers: MapMarker[];
+interface MapMarker {
+  id: string;
+  title: string;
+  mapX: string;
+  mapY: string;
+  addr: string;
+  img: string;
 }
 
-export type { FilterCategory, MapMarker, MapProps };
+interface MapProps {
+  markers: TourApiResponse[];
+  type: "camping" | "event" | "restaurant";
+}
+
+export type { FilterCategory, MapMarker, MapProps, TourApiResponse };

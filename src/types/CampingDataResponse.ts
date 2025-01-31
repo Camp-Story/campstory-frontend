@@ -1,4 +1,6 @@
-interface campingDataResponse {
+import { TourApiResponse } from "./common";
+
+interface campingDataResponse extends TourApiResponse {
   sbrsCl: string;
   posblFcltyCl: string;
   featureNm: string;

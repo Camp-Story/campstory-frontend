@@ -1,11 +1,27 @@
-import { MapProps } from "types/common";
+import { MapProps, TourApiResponse } from "types/common";
 import { useEffect, useRef } from "react";
 import { PATH } from "@constants/path";
+import { useNavigate } from "react-router";
 
 const { kakao } = window;
 
-export default function CustomMap({ markers }: MapProps) {
+export default function CustomMap({ markers, type }: MapProps) {
+  const navigate = useNavigate();
   const container = useRef(null);
+
+  const NavigateTo = (item: TourApiResponse) => {
+    switch (type) {
+      case "camping":
+        navigate(PATH.campingInfo(item.contentid), { state: { item } });
+        break;
+      case "event":
+        navigate(PATH.eventInfo(item.contentid));
+        break;
+      case "restaurant":
+        navigate(PATH.restaurantInfo(item.contentid));
+        break;
+    }
+  };
 
   useEffect(() => {
     const { mapX: centerX, mapY: centerY } = markers[0];
@@ -26,6 +42,7 @@ export default function CustomMap({ markers }: MapProps) {
 
     clusterer.addMarkers(
       markers.map((data) => {
+        console.log(data);
         const markerPosition = new kakao.maps.LatLng(Number(data.mapY), Number(data.mapX));
         const marker = new kakao.maps.Marker({
           map,
@@ -41,16 +58,16 @@ export default function CustomMap({ markers }: MapProps) {
           '<div class="rounded absolute left-0 bottom-14 drop-shadow -translate-x-1/2">' +
           '    <div class="after:absolute after:left-1/2 after:-translate-x-1/2 after:border-[10px] after:border-b-0 after:border-x-transparent after:border-white">' +
           '        <div class="flex justify-between items-center bg-gray-scale-100 py-1 px-2 text-sub-title">' +
-          data.title +
+          data.facltNm +
           '<img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png" id="close" class="w-4 h-4 hover:cursor-pointer" />' +
           "        </div>" +
           '        <div class="p-2 overflow-hidden bg-white flex flex-col gap-1">' +
           '            <div class="img w-full">' +
-          `<img src="${data.img}">` +
+          `<img src="${data.firstImageUrl}">` +
           "           </div>" +
           '            <div class="desc flex flex-col text-[15px]">' +
-          `                <div class="ellipsis">${data.addr}</div>` +
-          `<a href=${PATH.campingInfo(data.id)} class="text-primary-500 mt-3 ml-auto">바로가기</a>` +
+          `                <div class="ellipsis">${data.addr1}</div>` +
+          `<div id="navigation" class="text-primary-500 mt-3 ml-auto">바로가기</div>` +
           "            </div>" +
           "        </div>" +
           "    </div>" +
@@ -66,6 +83,9 @@ export default function CustomMap({ markers }: MapProps) {
         });
         content.querySelector("#close")?.addEventListener("click", function () {
           overlay.setMap(null);
+        });
+        content.querySelector("#navigation")?.addEventListener("click", function () {
+          NavigateTo(data);
         });
 
         return marker;

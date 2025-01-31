@@ -122,13 +122,7 @@ export default function CampingSearch() {
 
       <div className="flex gap-[34px] pb-5">
         <div className="flex flex-col gap-[30px]">
-          <SearchMap
-            markers={campingData.map((data) => ({
-              title: data.facltNm,
-              mapX: data.mapX,
-              mapY: data.mapY,
-            }))}
-          />
+          <SearchMap markers={campingData} type="camping" />
 
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-bold">필터</h3>
