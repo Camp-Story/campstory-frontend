@@ -263,7 +263,7 @@ export default function ShoppingMain() {
       <div className="relative">
         <img src="/images/shopping/shopping-banner.png" alt="banner" className="w-full" />
         <SearchBar
-          handleSubmit={() => alert("")}
+          handleSubmit={(input) => handleSearch(input)}
           className="absolute bottom-[60px] left-[50%] -translate-x-[50%]"
         />
       </div>
