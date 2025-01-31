@@ -3,4 +3,14 @@ interface FilterCategory {
   label: string;
 }
 
-export type { FilterCategory };
+interface MapMarker {
+  title: string;
+  mapX: string;
+  mapY: string;
+}
+
+interface MapProps {
+  markers: MapMarker[];
+}
+
+export type { FilterCategory, MapMarker, MapProps };

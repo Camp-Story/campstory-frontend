@@ -7,8 +7,9 @@ import {
   DialogTrigger,
 } from "@components/ui/Dialog";
 import CustomMap from "./CustomMap";
+import { MapProps } from "types/common";
 
-export default function SearchMap() {
+export default function SearchMap({ markers }: MapProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,7 +27,7 @@ export default function SearchMap() {
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
         </DialogHeader>
-        <CustomMap />
+        <CustomMap markers={markers} />
       </DialogContent>
     </Dialog>
   );
