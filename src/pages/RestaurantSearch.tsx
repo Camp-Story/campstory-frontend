@@ -48,19 +48,19 @@ export default function RestaurantSearch() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
-  const categoryFilterList = useMemo(
-    () => searchParams.get("category")?.split(",") || [],
+
+  const selectedCategories = useMemo(
+    () => searchParams.get("cat3")?.split(",") || [],
     [searchParams],
   );
-
-  const selectedCategories = useMemo(() => searchParams.get("cat3") || "", [searchParams]);
 
   const navigate = useNavigate();
 
   //필터 적용시 받아온 데이터에서 필터.
   const filterRestaurantData = (items: Item[], selectedCategories: string[]) => {
-    if (selectedCategories.length === 0) return items; // 필터가 없으면 전체 데이터 반환
-    return items.filter((item) => selectedCategories.includes(item.cat3)); // 선택된 카테고리와 일치하는 데이터만 반환
+    if (selectedCategories.length === 0) return items;
+    // 선택된 카테고리와 일치하는 데이터만 반환
+    return items.filter((item) => selectedCategories.includes(item.cat3));
   };
 
   const fetchRestaurantsData = useCallback(
@@ -102,13 +102,12 @@ export default function RestaurantSearch() {
             };
         const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
 
-        let items = response.data.response.body.items.item || [];
-        console.log(items);
-        // 카테고리 체크박스 선택되어 있으면 데이터 필터링
-        if (categoryFilterList.length !== 0) {
-          items = filterRestaurantData(items, "category", categoryFilterList);
-        }
-        setRestaurants(items);
+        const items = response.data.response.body.items.item || [];
+
+        const filteredItems = filterRestaurantData(items, selectedCategories);
+
+        console.log("After filtering : ", filterRestaurantData);
+        setRestaurants(filteredItems);
       } catch (error) {
         console.log(error);
         setError("데이터를 불러오는 중 오류가 발생했습니다.");
