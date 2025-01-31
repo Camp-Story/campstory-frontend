@@ -1,41 +1,48 @@
-import AreaCheckbox from "@components/common/search/AreaCheckbox";
+// EventSearch.tsx
 import CheckboxList from "@components/common/search/CheckboxList";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
+import EventAreaCheckbox from "@components/event/EventAreaCheckbox";
+import EVENT_CATEGORY_MAP from "@components/event/EventCategoryMap";
 
-import { AREA, EVENT_CATEGORY, EVENT_PROGRESS } from "@constants/filters";
+import { AREA, EVENT_PROGRESS } from "@constants/filters";
 import { PATH } from "@constants/path";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
 
-interface EventListResponse {
+interface Item {
   addr1: string;
+  addr2: string;
   cat1: string;
   cat2: string;
   cat3: string;
-  contentid: string;
-  contenttypeid: string;
-  eventstartdate: string;
-  eventenddate: string;
   firstimage: string;
+  firstimage2: string;
+  tel: string;
+  title: string;
+  contentid: string;
   mapx: string;
   mapy: string;
-  mlevel: string;
-  title: string;
 }
 
-interface EventListSearchResponse {
+interface ApiResponse {
   response: {
     body: {
       items: {
-        item: EventListResponse[];
+        item: Item[];
       };
       totalCount: number;
     };
   };
 }
+
+const CATEGORY_OPTIONS = Object.entries(EVENT_CATEGORY_MAP).map(([code, label]) => ({
+  value: code,
+  label,
+}));
 
 const categoryMapping: { [key: string]: string } = {
   A02070100: "문화 관광",
@@ -59,98 +66,95 @@ function getCategoryName(cat3: string): string {
   return categoryMapping[cat3] || "카테고리 없음";
 }
 
-function useFetchEvents(searchKeyword: string) {
-  const [events, setEvents] = useState<EventListResponse[]>([]);
-  const [totalCount, setTotalCount] = useState<number>(0);
+export default function EventSearch() {
+  const [events, setEvents] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [selectedArea, setSelectedArea] = useState<number | null>(null);
 
-  const keywordMapping: {
-    [key: string]: { cat1?: string; cat2?: string; cat3?: string; areaCode?: string };
-  } = {
-    문화관광: { cat1: "A02", cat2: "A0207", cat3: "A02070100" },
-    일반: { cat1: "A02", cat2: "A0207", cat3: "A02070200" },
-    전통공연: { cat1: "A02", cat2: "A0208", cat3: "A02080100" },
-    연극: { cat1: "A02", cat2: "A0208", cat3: "A02080200" },
-    뮤지컬: { cat1: "A02", cat2: "A0208", cat3: "A02080300" },
-    오페라: { cat1: "A02", cat2: "A0208", cat3: "A02080400" },
-    전시회: { cat1: "A02", cat2: "A0208", cat3: "A02080500" },
-    박람회: { cat1: "A02", cat2: "A0208", cat3: "A02080600" },
-    무용: { cat1: "A02", cat2: "A0208", cat3: "A02080700" },
-    클래식음악회: { cat1: "A02", cat2: "A0208", cat3: "A02080800" },
-    대중콘서트: { cat1: "A02", cat2: "A0208", cat3: "A02080900" },
-    영화: { cat1: "A02", cat2: "A0208", cat3: "A02081100" },
-    스포츠경기: { cat1: "A02", cat2: "A0208", cat3: "A02081200" },
-    기타행사: { cat1: "A02", cat2: "A0208", cat3: "A02081300" },
-    넌버벌: { cat1: "A02", cat2: "A0208", cat3: "A02081400" },
-    서울: { areaCode: "1" },
-    제주: { areaCode: "39" },
-    강원도: { areaCode: "32" },
-    전남: { areaCode: "38" },
-    전북: { areaCode: "37" },
-    충북: { areaCode: "33" },
-    충남: { areaCode: "34" },
-    경기도: { areaCode: "31" },
-    부산: { areaCode: "6" },
-    // 더 많은 키워드와 매핑을 여기에 추가하세요.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  const selectedCategory = searchParams.get("cat3") || "";
+
+  const navigate = useNavigate();
+
+  const fetchEventsData = useCallback(
+    async (searchKeyword: string, selectedCat3: string, areaCode: number | null) => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        let response;
+
+        if (searchKeyword) {
+          response = await tourApiInstance.get<ApiResponse>("/searchKeyword1", {
+            params: {
+              pageNo: 1,
+              numOfRows: 10,
+              listYN: "Y",
+              arrange: "R",
+              contentTypeId: 15,
+              keyword: searchKeyword,
+              cat3: selectedCat3,
+              areaCode: areaCode || "", // 선택된 지역 코드 추가
+            },
+          });
+        } else {
+          response = await tourApiInstance.get<ApiResponse>("/areaBasedList1", {
+            params: {
+              numOfRows: 10,
+              pageNo: 1,
+              _type: "json",
+              listYN: "Y",
+              arrange: "R",
+              contentTypeId: 15,
+              areaCode: areaCode || "", // 선택된 지역 코드 추가
+              sigunguCode: "",
+              cat1: "",
+              cat2: "",
+              cat3: selectedCat3,
+            },
+          });
+        }
+
+        const items = response.data.response.body.items.item || [];
+        const totalCount = response.data.response.body.totalCount;
+        setEvents(items);
+        setTotalCount(totalCount);
+      } catch (error) {
+        console.log(error);
+        setError("데이터를 불러오는 중 오류가 발생했습니다.");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
+
+  const handleSearch = (searchKeyword: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("keyword", searchKeyword);
+    setSearchParams(newParams);
   };
 
-  const fetchEventData = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    let params = {
-      _type: "json",
-      numOfRows: 10,
-      pageNo: 1,
-      arrange: "R",
-      listYN: "Y",
-      contentTypeId: 15,
-      areaCode: "",
-      sigunguCode: "",
-      cat1: "",
-      cat2: "",
-      cat3: "",
-    };
-
-    if (keywordMapping[searchKeyword]) {
-      params = { ...params, ...keywordMapping[searchKeyword] };
+  const handleFilterChange = (value: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set("cat3", value);
+    } else {
+      newParams.delete("cat3");
     }
+    setSearchParams(newParams);
+  };
 
-    try {
-      const response = await tourApiInstance.get<EventListSearchResponse>("/areaBasedList1", {
-        params,
-      });
-      setEvents(response.data?.response?.body?.items?.item || []);
-      setTotalCount(response.data?.response?.body?.totalCount || 0);
-    } catch (error) {
-      setError("행사 데이터를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching event data:", error);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleAreaChange = (code: number) => {
+    setSelectedArea(selectedArea === code ? null : code);
   };
 
   useEffect(() => {
-    fetchEventData();
-  }, [searchKeyword]);
-
-  return { events, totalCount, isLoading, error };
-}
-
-export default function EventSearch() {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const initialKeyword = queryParams.get("keyword") || ""; // 쿼리 파라미터에서 키워드 읽기
-
-  const [keyword, setKeyword] = useState<string>(initialKeyword);
-  const { events, totalCount, isLoading, error } = useFetchEvents(keyword);
-  const navigate = useNavigate();
-
-  const handleSearch = (searchKeyword: string) => {
-    setKeyword(searchKeyword);
-    navigate(`${PATH.eventSearch}?keyword=${searchKeyword}`); // URL에 키워드 반영
-  };
+    fetchEventsData(keyword, selectedCategory, selectedArea);
+  }, [fetchEventsData, keyword, selectedCategory, selectedArea]);
 
   return (
     <>
@@ -164,36 +168,56 @@ export default function EventSearch() {
             <h3 className="text-xl font-bold">필터</h3>
             <CheckboxList categories={EVENT_PROGRESS} title="진행/예정" />
             <hr />
-            <CheckboxList categories={EVENT_CATEGORY} title="카테고리" />
+            <CheckboxList
+              title="카테고리"
+              categories={CATEGORY_OPTIONS}
+              selectedValue={selectedCategory}
+              onChange={(value) => handleFilterChange(value)}
+            />
             <hr />
             <h4 className="text-base font-bold">지역</h4>
             <div className="grid grid-cols-3 gap-2.5 w-[230px]">
               {AREA.map((area) => (
-                <AreaCheckbox code={area.code} label={area.label} value={area.value} />
+                <EventAreaCheckbox
+                  key={area.areaCode}
+                  code={area.areaCode}
+                  label={area.label}
+                  value={area.value}
+                  selectedArea={selectedArea}
+                  onAreaChange={handleAreaChange}
+                />
               ))}
             </div>
           </div>
         </div>
+
         <div className="flex flex-col gap-[30px]">
-          <h2 className="text-[26px] font-bold text-gray-scale-400">
-            '{keyword || "행사"}' 검색 결과 {totalCount}개
-          </h2>
-          <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-            {isLoading && <p>로딩 중...</p>}
-            {error && <p>에러 발생: {error}</p>}
-            {events.map((event) => (
-              <SearchCard
-                key={event.contentid}
-                img={event.firstimage || "https://placehold.co/250x250?text=CAMP+STORY"}
-                bookmarked={false}
-                category={getCategoryName(event.cat3)}
-                handleClick={() => navigate(PATH.eventInfo(event.contentid))}
-                handleClickBookmark={() => alert("Bookmark!")}
-                location={event.addr1 || "주소 정보 없음"}
-                title={event.title}
-              />
-            ))}
-          </div>
+          <h2 className="text-[26px] font-bold text-gray-scale-400">검색 결과 {totalCount}개</h2>
+
+          {isLoading && <p>데이터를 불러오는 중입니다...</p>}
+
+          {error && <p className="text-red-500">{error}</p>}
+
+          {!isLoading && !error && events.length > 0 ? (
+            <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
+              {events.map((event) => (
+                <SearchCard
+                  key={event.contentid}
+                  img={event.firstimage}
+                  bookmarked={false}
+                  category={getCategoryName(event.cat3)}
+                  handleClick={() =>
+                    navigate(PATH.eventInfo(event.contentid), { state: { event } })
+                  }
+                  handleClickBookmark={() => alert("bookmark")}
+                  location={`${event.addr1}`}
+                  title={event.title}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
+          )}
         </div>
       </div>
     </>
