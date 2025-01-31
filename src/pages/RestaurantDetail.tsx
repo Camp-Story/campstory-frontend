@@ -122,7 +122,7 @@ export default function FoodDetail() {
       const imgItems = responseImg.data.response.body.items.item;
       const detailCommonItems = responseDetailCommon.data.response.body.items.item;
       const introItems = responseIntro.data.response.body.items.item;
-      console.log(imgItems);
+      console.log(1, detailCommonItems);
 
       setRestaurantImgList(imgItems);
       setRestaurantData({ common: detailCommonItems, intro: introItems });
@@ -140,10 +140,13 @@ export default function FoodDetail() {
     fetchRestaurantsDetail();
   }, [fetchRestaurantsDetail]);
 
+  if (isLoading) return <p>로딩중...</p>;
+  if (error) return <p>{error}</p>;
+  if (!restaurantData.intro.length || !restaurantData.common.length)
+    return <p>데이터를 불러오지 못했습니다.</p>;
+
   return (
     <>
-      {isLoading && "로딩중.."}
-      {error}
       <section className="mt-20 w-full flex gap-11 mb-14">
         {restaurantImg !== undefined ? (
           <DetailLeft
@@ -171,6 +174,8 @@ export default function FoodDetail() {
           firstmenu={restaurantData.intro[0]?.firstmenu || ""}
           parkingfood={restaurantData.intro[0]?.parkingfood || "유료 주차장 1시간무료"}
           restdatefood={restaurantData.intro[0]?.restdatefood || "연중무휴"}
+          mapX={restaurantData.common[0].mapx}
+          mapY={restaurantData.common[0].mapy}
         />
       </section>
       <NearbyPlacesSection />
