@@ -57,11 +57,11 @@ export default function RestaurantSearch() {
   const navigate = useNavigate();
 
   //필터 적용시 받아온 데이터에서 필터.
-  const filterRestaurantData = (items: Item[], selectedCategories: string[]) => {
+  const filterRestaurantData = useCallback(() => {
     if (selectedCategories.length === 0) return items;
     // 선택된 카테고리와 일치하는 데이터만 반환
     return items.filter((item) => selectedCategories.includes(item.cat3));
-  };
+  });
 
   const fetchRestaurantsData = useCallback(
     async (searchKeyword: string) => {
@@ -82,7 +82,7 @@ export default function RestaurantSearch() {
                 sigunguCode: "",
                 cat1: "",
                 cat2: "",
-                cat3: selectedCategories,
+                cat3: selectedCategories.length > 0 ? selectedCategories.join(",") : "",
                 keyword: searchKeyword,
               },
             }
@@ -97,7 +97,7 @@ export default function RestaurantSearch() {
                 sigunguCode: "",
                 cat1: "",
                 cat2: "",
-                cat3: selectedCategories,
+                cat3: selectedCategories.length > 0 ? selectedCategories.join(",") : "",
               },
             };
         const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
