@@ -77,7 +77,7 @@ function MainPage() {
       {/* 스시시 */}
       <div className="flex flex-col sm:flex-row items-center overflow-hidden max-w-3xl mx-auto mt-20 p-4">
         {/* 이미지 섹션 */}
-        <div className="w-auto relative">
+        <div className="w-auto relative hover:brightness-75">
           <img
             src="/images/food/sushi-center.png"
             alt="초밥 요리"
@@ -115,7 +115,7 @@ function MainPage() {
         />
       </div>
 
-      <div className="flex justify-between sm:h-auto lg:h-auto gap-4 my-10">
+      <div className="flex justify-between sm:h-auto lg:h-auto gap-4 my-10 ">
         <TodaysPick
           src="/images/food/restaurants/restaurant1.png"
           title="가월리 손두부"
