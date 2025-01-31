@@ -52,28 +52,28 @@ export default function EventMain() {
           <EventCategoryCard
             src="/images/festival/event-category-1.png"
             path={PATH.eventSearch}
-            keyword="일반"
+            cat3="A02070200"
           >
             일반
           </EventCategoryCard>
           <EventCategoryCard
             src="/images/festival/event-category-2.png"
             path={PATH.eventSearch}
-            keyword="문화관광"
+            cat3="A02070100"
           >
             문화 관광
           </EventCategoryCard>
           <EventCategoryCard
             src="/images/festival/event-category-3.png"
             path={PATH.eventSearch}
-            keyword="박람회"
+            cat3="A02080600"
           >
             박람회
           </EventCategoryCard>
           <EventCategoryCard
             src="/images/festival/event-category-4.png"
             path={PATH.eventSearch}
-            keyword="전시회"
+            cat3="A02080500"
           >
             전시회
           </EventCategoryCard>
