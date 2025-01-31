@@ -64,7 +64,8 @@ export interface EventDetailData {
   sponsor1: string;
   sponsor1tel: string;
   addr1: string;
-  eventhomepage: string;
+  addr2: string;
+  homepage: string;
   eventstartdate: string;
   eventenddate: string;
   overview: string;
