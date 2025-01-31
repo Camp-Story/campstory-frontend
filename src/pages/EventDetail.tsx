@@ -102,14 +102,16 @@ export default function EventDetail() {
           overviewYN: "Y",
           areacodeYN: "Y",
           addrinfoYN: "Y",
+          mapinfoYN: "Y",
         },
       });
 
       const item: CommonDetails = Array.isArray(commonResponse.data.response.body.items.item)
         ? commonResponse.data.response.body.items.item[0]
         : commonResponse.data.response.body.items.item;
-      const { title, addr1, addr2, homepage, overview, contentid, contenttypeid } = item;
-      return { title, addr1, addr2, homepage, overview, contentid, contenttypeid };
+      const { title, addr1, addr2, homepage, overview, contentid, contenttypeid, mapx, mapy } =
+        item;
+      return { title, addr1, addr2, homepage, overview, contentid, contenttypeid, mapx, mapy };
     } catch (error) {
       setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching event detail data:", error);

@@ -2,12 +2,16 @@
 //   [key: string]: T;
 // }
 
+import SpotMapSection from "./SpotMapSection";
+
 interface CampingDetailProps {
   shortIntro: string;
   description: string;
   campingFacilities: string;
   nearbyFacilities: string;
   homepage: string;
+  mapX: string;
+  mapY: string;
 }
 
 export default function SpotAboutSection({
@@ -16,6 +20,8 @@ export default function SpotAboutSection({
   campingFacilities,
   nearbyFacilities,
   homepage,
+  mapX,
+  mapY,
 }: CampingDetailProps) {
   return (
     <section className="grid grid-cols-12 mb-14">
@@ -56,7 +62,7 @@ export default function SpotAboutSection({
         </div>
       </div>
       <div className="col-start-7 -col-end-1 w-full h-[400px] bg-gray-scale-100 rounded-xl overflow-hidden">
-        <img src="/images/map-large.png" alt="[임시] 지도 이미지" className="w-full object-cover" />
+        <SpotMapSection mapX={mapX} mapY={mapY} />
       </div>
     </section>
   );
