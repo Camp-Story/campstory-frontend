@@ -23,7 +23,7 @@ export default function RecommendCard({
       {/* 이미지 */}
       <div
         onClick={() => handleNavigateToDetail(productId)}
-        className="block w-60 h-60 rounded overflow-hidden border"
+        className="block w-60 h-60 rounded-lg overflow-hidden border"
       >
         <img
           className="w-full h-full"
@@ -62,7 +62,7 @@ export default function RecommendCard({
         </div>
         {/* 할인율 & 가격 */}
         <div className="flex justify-end text-sub-title font-bold">
-          <span className="text-sub-title font-bold">
+          <span className="text-2xl font-bold">
             {hprice && (
               <span className="text-secondary-300 mr-2">
                 {calculateDiscountRate(hprice, lprice)}
