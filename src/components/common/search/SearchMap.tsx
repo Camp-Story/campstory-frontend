@@ -9,6 +9,12 @@ import {
 import CustomMap from "./CustomMap";
 import { MapProps } from "types/common";
 
+const LABEL = {
+  camping: "캠핑",
+  event: "행사",
+  restaurant: "음식점",
+};
+
 export default function SearchMap({ markers, type }: MapProps) {
   return (
     <Dialog>
@@ -24,8 +30,10 @@ export default function SearchMap({ markers, type }: MapProps) {
       </DialogTrigger>
       <DialogContent className="h-full">
         <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
-          <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
+          <DialogTitle>{`${LABEL[type]} 지도 상세보기`}</DialogTitle>
+          <DialogDescription>
+            지도에서 한눈에 확인하고, 위치별 정보를 바로 확인하세요!
+          </DialogDescription>
         </DialogHeader>
         <CustomMap markers={markers} type={type} />
       </DialogContent>
