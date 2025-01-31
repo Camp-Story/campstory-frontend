@@ -8,7 +8,7 @@ export default function CommentInput({ handleSubmit }: CommentInputProps) {
       <input
         type="text"
         placeholder="댓글을 남겨보세요"
-        className="border border-gray-scale-200 placeholder-gray-scale-300 rounded-full py-3 px-8 w-[832px]"
+        className="border border-gray-scale-200 placeholder-gray-scale-300 rounded-full py-3 px-8 w-full"
       />
       <button onClick={handleSubmit} className="-m-[56px] top-[20px]">
         <svg

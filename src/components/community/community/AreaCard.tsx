@@ -12,7 +12,7 @@ export default function AreaCard({ location, thumbnail, title }: AreaCardProps) 
         alt="camp thumbnail"
         className="rounded-full w-[34px] h-[34px]"
       />
-      <div className="flex flex-col gap-[3px]">
+      <div className="flex flex-col">
         <span className="font-bold text-[13px] text-gray-scale-400">{title}</span>
         <span className="text-[11px] text-gray-scale-400">{location}</span>
       </div>
