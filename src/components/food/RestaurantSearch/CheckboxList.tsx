@@ -20,12 +20,12 @@ export default function CheckboxList({
     let updatedValues = [...selectedValue];
 
     if (updatedValues.includes(value)) {
-      updatedValues = updatedValues.filter((v) => v !== value); // ✅ 선택 해제
+      updatedValues = updatedValues.filter((v) => v !== value); //  선택 해제
     } else {
-      updatedValues.push(value); // ✅ 선택 추가
+      updatedValues.push(value); // 선택 추가
     }
 
-    onChange(updatedValues.join(",")); // ✅ 배열을 콤마(,)로 구분하여 전달
+    onChange(updatedValues.join(",")); // 배열을 콤마(,)로 구분하여 전달
   };
 
   return (
