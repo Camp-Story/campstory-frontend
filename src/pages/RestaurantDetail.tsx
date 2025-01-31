@@ -143,11 +143,17 @@ export default function FoodDetail() {
       {isLoading && "로딩중.."}
       {error}
       <section className="mt-20 w-full flex gap-11 mb-14">
-        {Array.isArray(restaurantImg) && restaurantImg.length > 0 && (
+        {restaurantImg !== undefined ? (
           <DetailLeft
-            image1={restaurantImg[0]?.originimgurl || "/images/food/restaurants/restaurant2.png"}
+            image1={restaurantImg[0]?.originimgurl}
             image2={restaurantImg[1]?.originimgurl || "/images/food/restaurants/restaurant3.png"}
             image3={restaurantImg[2]?.originimgurl || "/images/food/restaurants/restaurant4.png"}
+          />
+        ) : (
+          <DetailLeft
+            image1={"/images/food/restaurants/restaurant2.png"}
+            image2={"/images/food/restaurants/restaurant3.png"}
+            image3={"/images/food/restaurants/restaurant4.png"}
           />
         )}
 
