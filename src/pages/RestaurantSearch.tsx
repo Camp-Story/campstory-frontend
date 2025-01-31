@@ -48,7 +48,7 @@ export default function RestaurantSearch() {
   const [error, setError] = useState<string | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword") || "서울";
+  const keyword = searchParams.get("keyword") || "";
   const selectedCategory = searchParams.get("cat3") || "";
 
   const navigate = useNavigate();
@@ -59,21 +59,38 @@ export default function RestaurantSearch() {
       setError(null);
 
       try {
-        const response = await tourApiInstance.get<ApiResponse>("/searchKeyword1", {
-          params: {
-            numOfRows: "30",
-            pageNo: "",
-            listYN: "Y",
-            arrange: "O",
-            contentTypeId: 39,
-            areaCode: "",
-            sigunguCode: "",
-            cat1: "",
-            cat2: "",
-            cat3: selectedCategory,
-            keyword: searchKeyword,
-          },
-        });
+        const endpoint = searchKeyword ? "/searchKeyword1" : "/areaBasedList1";
+        const params = searchKeyword
+          ? {
+              params: {
+                numOfRows: "30",
+                pageNo: "",
+                listYN: "Y",
+                arrange: "O",
+                contentTypeId: 39,
+                areaCode: "",
+                sigunguCode: "",
+                cat1: "",
+                cat2: "",
+                cat3: selectedCategory,
+                keyword: searchKeyword,
+              },
+            }
+          : {
+              params: {
+                numOfRows: 100,
+                pageNo: "",
+                listYN: "Y",
+                arrange: "O",
+                contentTypeId: 39,
+                areaCode: "",
+                sigunguCode: "",
+                cat1: "",
+                cat2: "",
+                cat3: selectedCategory,
+              },
+            };
+        const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
 
         const items = response.data.response.body.items.item || []; // itmes의 배열이 데이타가 없을시 undefined 렌더링 오류 방지
         // console.log(items[0].addr1);
@@ -131,7 +148,7 @@ export default function RestaurantSearch() {
 
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
-            "{keyword || ""}" 검색 결과 {restaurants?.length ?? 0}개
+            {keyword || ""} 검색 결과 {restaurants?.length ?? 0}개
           </h2>
 
           {isLoading && <p>데이터를 불러오는 중입니다...</p>}
