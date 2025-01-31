@@ -30,6 +30,8 @@ interface campingDataResponse {
   contentId: string;
   facltNm: string;
   lineIntro: string;
+  mapX: string;
+  mapY: string;
 }
 
 const ReviewData: ReviewCardProps[] = [
@@ -125,6 +127,8 @@ export default function CampingDetail() {
         campingFacilities={CampingDetailData.sbrsCl}
         nearbyFacilities={CampingDetailData.posblFcltyCl}
         homepage={CampingDetailData.homepage}
+        mapX={CampingDetailData.mapX}
+        mapY={CampingDetailData.mapY}
       />
       <NearbyPlacesSection />
       <div className="mb-[200px]">
