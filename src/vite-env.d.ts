@@ -9,3 +9,8 @@ interface ImportMeta {
     VITE_KAKAO_API_KEY: string;
   };
 }
+
+interface Window {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  kakao: any;
+}
