@@ -24,14 +24,9 @@ export default function CustomMap({ markers, type }: MapProps) {
   };
 
   useEffect(() => {
-    const { mapX: centerX, mapY: centerY } = markers[0];
-
     const options = {
-      center: new kakao.maps.LatLng(
-        Number(centerY) || 37.56637787425258,
-        Number(centerX) || 126.97827585270615,
-      ),
-      level: 10,
+      center: new kakao.maps.LatLng(36.134327437166306, 127.90256066256774),
+      level: 13,
     };
     const map = new kakao.maps.Map(container.current, options);
     const clusterer = new kakao.maps.MarkerClusterer({
@@ -42,12 +37,11 @@ export default function CustomMap({ markers, type }: MapProps) {
 
     clusterer.addMarkers(
       markers.map((data) => {
-        console.log(data);
         const markerPosition = new kakao.maps.LatLng(Number(data.mapY), Number(data.mapX));
         const marker = new kakao.maps.Marker({
           map,
           position: markerPosition,
-          title: data.title,
+          title: data.facltNm,
           clickable: true,
         });
 
