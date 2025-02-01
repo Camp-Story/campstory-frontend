@@ -6,6 +6,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useEffect } from "react";
+import { fetchWeatherData } from "@service/fetchWeatherData";
 
 function renderEventContent(eventInfo: { timeText: string; event: { title: string } }) {
   return (
@@ -44,6 +46,10 @@ function Home() {
     console.log(response.data);
     console.log(tour.data);
   };
+
+  useEffect(() => {
+    fetchWeatherData("128.5455030841", "35.8736658721");
+  }, []);
 
   return (
     <div className="flex flex-col gap-2">
