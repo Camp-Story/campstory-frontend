@@ -15,7 +15,6 @@ export default function CampingSearch() {
   const [searchParams, setSearchParams] = useSearchParams();
   // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
-  const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -49,7 +48,6 @@ export default function CampingSearch() {
         const newData = response.data.response.body.items?.item || [];
         if (!newData.length && page === 1) {
           setCampingData([]);
-          setCount(0);
           throw new Error("No search results found.");
         }
         let data = newData;
@@ -63,10 +61,8 @@ export default function CampingSearch() {
         }
         if (page === 1) {
           setCampingData(data);
-          setCount(data.length);
         } else {
           setCampingData((prev) => [...prev, ...data]);
-          setCount((prev) => prev + data.length);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -201,7 +197,7 @@ export default function CampingSearch() {
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">
             {keyword ? `' ${keyword} '` : "전체"} 검색 결과{" "}
-            {Intl.NumberFormat("ko-KR").format(Number(count))}개
+            {Intl.NumberFormat("ko-KR").format(Number(campingData.length))}개
           </h2>
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
