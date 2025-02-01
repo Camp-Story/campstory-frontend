@@ -18,6 +18,7 @@ export default function CampingSearch() {
   const [count, setCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   // URL Query 관련 State
   const [keyword, setKeyword] = useState<string>(searchParams.get("keyword") || "");
   const [categoryFilterList, setCategoryFilterList] = useState<string[]>(
@@ -29,31 +30,29 @@ export default function CampingSearch() {
 
   // 감시 대상 지정하기
   const loadMoreRef = useRef<HTMLDivElement>(null);
-  // const [pageNumber, setPageNumber] = useState<number>(1);
   //  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const fetchCampingData = useCallback(
-    async (searchKeyword: string | null) => {
+    async (searchKeyword: string | null, page: number) => {
       setIsLoading(true);
       setError(null);
       try {
         const endpoint = searchKeyword ? "/searchList" : "/basedList";
-        const params = searchKeyword
-          ? {
-              params: {
-                numOfRows: 100,
-                pageNo: 1,
-                keyword: searchKeyword,
-              },
-            }
-          : { params: { numOfRows: 100, pageNo: 1 } };
+        const params = {
+          params: {
+            numOfRows: 50,
+            pageNo: page,
+            ...(searchKeyword && { keyword: searchKeyword }),
+          },
+        };
         const response = await goCampingInstance.get(endpoint, params);
-        if (!response.data.response.body.items.item) {
+        const newData = response.data.response.body.items?.item || [];
+        if (!newData.length && page === 1) {
           setCampingData([]);
           setCount(0);
           throw new Error("No search results found.");
         }
-        let data = response.data.response.body.items.item;
+        let data = newData;
         // 카테고리 체크박스 선택되어 있으면 데이터 필터링
         if (categoryFilterList.length !== 0) {
           data = filterCampingData(data, "category", categoryFilterList);
@@ -62,8 +61,13 @@ export default function CampingSearch() {
         if (areaFilterList.length !== 0) {
           data = filterCampingData(data, "area", areaFilterList);
         }
-        setCampingData(data);
-        setCount(data.length);
+        if (page === 1) {
+          setCampingData(data);
+          setCount(data.length);
+        } else {
+          setCampingData((prev) => [...prev, ...data]);
+          setCount((prev) => prev + data.length);
+        }
       } catch (error) {
         if (error instanceof Error) {
           setError("검색 결과가 없습니다.");
@@ -78,10 +82,10 @@ export default function CampingSearch() {
     [categoryFilterList, areaFilterList],
   );
 
-  // const fetchNextData = () => {};
-
   // SearchInput 키워드에 따라서 url 변경 & keyword 상태 업데이트
   const handleSearch = (searchKeyword: string) => {
+    setPageNumber(1);
+    setCampingData([]);
     searchParams.set("keyword", searchKeyword);
     setSearchParams(searchParams);
     setKeyword(searchKeyword);
@@ -92,8 +96,12 @@ export default function CampingSearch() {
     const queryList = criteria === "category" ? [...categoryFilterList] : [...areaFilterList];
     const setFunc = criteria === "category" ? setCategoryFilterList : setAreaFilterList;
     if (isChecked) {
+      setPageNumber(1);
+      setCampingData([]);
       queryList.push(value);
     } else {
+      setPageNumber(1);
+      setCampingData([]);
       const index = queryList.indexOf(value);
       if (index !== -1) {
         queryList.splice(index, 1);
@@ -118,15 +126,17 @@ export default function CampingSearch() {
   };
 
   useEffect(() => {
-    fetchCampingData(keyword);
-  }, [fetchCampingData, keyword]);
+    fetchCampingData(keyword, pageNumber);
+    console.log("pageNumber", pageNumber);
+  }, [fetchCampingData, keyword, pageNumber]);
 
   // IntersectionObserver 객체 생성
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isLoading) {
           console.log("화면 끝!", entries[0]);
+          setPageNumber((prev) => prev + 1);
         }
       },
       { threshold: 0 },
@@ -136,10 +146,11 @@ export default function CampingSearch() {
     }
     return () => {
       if (loadMoreRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(loadMoreRef.current);
       }
     };
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
