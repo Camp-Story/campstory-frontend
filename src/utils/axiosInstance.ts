@@ -27,6 +27,14 @@ const tourApiInstance = axios.create({
   },
 });
 
+const weatherApiInstance = axios.create({
+  baseURL: "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0",
+  params: {
+    serviceKey: import.meta.env.VITE_WEATHER_API_KEY,
+    dataType: "json",
+  },
+});
+
 const naverApiInstance = axios.create({
   baseURL: "/v1/search",
   headers: {
@@ -36,4 +44,4 @@ const naverApiInstance = axios.create({
   },
 });
 
-export { apiInstance, goCampingInstance, tourApiInstance, naverApiInstance };
+export { apiInstance, goCampingInstance, tourApiInstance, naverApiInstance, weatherApiInstance };
