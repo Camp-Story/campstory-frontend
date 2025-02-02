@@ -1,7 +1,6 @@
 import { weatherApiInstance } from "@utils/axiosInstance";
 import KmaCoordConverter, { GridCoord } from "@utils/KmaCoordConverter";
 
-// 사용 예시
 const converter = new KmaCoordConverter();
 
 // // 위경도를 기상청 좌표로 변환 (서울시청 좌표)
