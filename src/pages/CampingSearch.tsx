@@ -218,7 +218,10 @@ export default function CampingSearch() {
               ))
             ) : (
               <>
-                <h3 className=" text-sub-title">{error ? error : "검색 결과가 없습니다."}</h3>
+                <h3 className=" text-sub-title">
+                  {!isLoading && error}
+                  {/* {!isLoading && error ? error : "검색 결과가 없습니다."} */}
+                </h3>
               </>
             )}
           </div>
