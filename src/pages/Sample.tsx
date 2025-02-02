@@ -7,7 +7,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useEffect } from "react";
-import { fetchWeatherData } from "@service/fetchWeatherData";
+import { fetchWeatherData } from "@utils/fetchWeatherData";
 
 function renderEventContent(eventInfo: { timeText: string; event: { title: string } }) {
   return (
