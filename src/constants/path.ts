@@ -9,7 +9,7 @@ export const PATH = {
   information: "/mypage/information",
   reservedList: "/mypage/reserved-list",
   bookmark: "/mypage/bookmark",
-  activities: "/mypage/activites",
+  activities: "/mypage/activities",
 
   // capming
   camping: "/camping",
