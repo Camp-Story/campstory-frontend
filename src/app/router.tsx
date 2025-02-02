@@ -11,11 +11,14 @@ import QUESTION_ROUTES from "./routes/QUESTION_ROUTES";
 import AUTH_ROUTES from "./routes/AUTH_ROUTES";
 import AuthMyPageLayout from "@components/layouts/AuthMyPageLayout";
 import AUTH_MYPAGE_ROUTES from "./routes/AUTH_MYPAGE_ROUTES";
+import { checkAuthLoader, tokenLoader } from "@utils/authToken";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: tokenLoader,
+    shouldRevalidate: () => true, // 항상 재검증
     children: [
       {
         path: "",
@@ -47,6 +50,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <AuthMyPageLayout />,
+        loader: checkAuthLoader,
         children: [
           {
             path: "/",
