@@ -20,7 +20,7 @@ export default function Info() {
   };
 
   return (
-    <div className="rounded-lg ml-[46px]">
+    <div className="rounded-lg">
       <h1 className="text-sub-title font-bold mb-6">내 정보 관리</h1>
 
       <div className="grid grid-cols-2 gap-4">

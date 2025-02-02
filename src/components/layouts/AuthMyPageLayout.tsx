@@ -3,8 +3,8 @@ import { NavLink, Outlet } from "react-router";
 
 export default function AuthMyPageLayout() {
   return (
-    <div className="flex items-start px-main mt-[100px] w-[1440px] mx-auto">
-      <div className="flex flex-col mr-[100px] py-1 divide-y-2 border-2 rounded w-[260px]">
+    <div className="flex px-main items-start mt-[100px] w-[1440px] mx-auto">
+      <div className="self-start flex flex-col mr-[100px] py-1 divide-y-2 border-2 rounded w-[260px]">
         <NavLink
           to={PATH.information}
           className={({ isActive }) =>

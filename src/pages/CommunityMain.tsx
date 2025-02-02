@@ -33,7 +33,7 @@ export default function CommunityMain() {
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-x-8 gap-y-12">
+      <div className="grid grid-cols-2 gap-x-20 gap-y-16">
         <PostCard />
         <PostCard />
         <PostCard />
