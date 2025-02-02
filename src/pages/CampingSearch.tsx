@@ -26,9 +26,8 @@ export default function CampingSearch() {
   const [areaFilterList, setAreaFilterList] = useState<string[]>(
     searchParams.get("area") ? searchParams.get("area")!.split(",") : [],
   );
-
-  // 감시 대상 지정하기
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  // infinite scroll 관련
+  const loadMoreRef = useRef<HTMLDivElement>(null); // 감시 대상 지정하기
   //  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const fetchCampingData = useCallback(
@@ -126,7 +125,7 @@ export default function CampingSearch() {
     console.log("pageNumber", pageNumber);
   }, [fetchCampingData, keyword, pageNumber]);
 
-  // IntersectionObserver 객체 생성
+  // infinite scroll을 위한 IntersectionObserver 객체 생성
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
