@@ -62,6 +62,12 @@ class FormValidator {
     return undefined;
   }
 
+  // 생일 유효성 검사
+  validateBirthDate(birth: string): string | undefined {
+    const birthRegex = /^[0-9]{4}-?[0-9]{2}-?[0-9]{2}$/;
+    return validateRegex(birth.replace(/-/g, ""), birthRegex, ERROR_MESSAGES.BIRTH_DATE);
+  }
+
   // 전화번호 유효성 검사
   validatePhone(phone: string): string | undefined {
     const phoneRegex = /^01[016789]-?[0-9]{3,4}-?[0-9]{4}$/;
