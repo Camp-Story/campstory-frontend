@@ -12,6 +12,8 @@ import AUTH_ROUTES from "./routes/AUTH_ROUTES";
 import AuthMyPageLayout from "@components/layouts/AuthMyPageLayout";
 import AUTH_MYPAGE_ROUTES from "./routes/AUTH_MYPAGE_ROUTES";
 import { checkAuthLoader, tokenLoader } from "@utils/authToken";
+import { logoutAction } from "@pages/Logout";
+import { PATH } from "@constants/path";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
             children: AUTH_MYPAGE_ROUTES,
           },
         ],
+      },
+      {
+        path: PATH.logout,
+        action: logoutAction,
       },
     ],
   },
