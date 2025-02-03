@@ -34,15 +34,12 @@ function FoodCategoryItem({ src, category, catId }: FoodCategoryProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate({
-      pathname: PATH.restaurantSearch,
-      search: `search?cat3=${catId}`,
-    });
+    navigate(`${PATH.restaurantSearch}?cat3=${catId}`);
   };
 
   return (
     <li className="col-span-2">
-      <div onClick={handleClick} className="block rounded-full overflow-hidden">
+      <div onClick={handleClick} className="block rounded-full overflow-hidden cursor-pointer">
         <img src={src} alt="음식 카테고리 이미지" className="mb-2" />
       </div>
       <h4 className="text-center text-sub-title font-bold text-gray-scale-400">{category}</h4>
