@@ -9,7 +9,7 @@ export default function CategoryCard({ src, catName, onClick }: CategoryCardProp
     <>
       <button
         onClick={onClick}
-        className="flex flex-col items-center justify-center p-4 bg-white shadow-md rounded-lg hover:brightness-75 transition"
+        className="flex flex-col items-center justify-center h-[196px] mt-7 bg-white shadow-md rounded-lg hover:brightness-75 transition"
       >
         <div className="w-15 bg-gray-200 rounded-full">
           {/* 아이콘/이미지 */}
