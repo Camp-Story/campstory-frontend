@@ -7,6 +7,7 @@ import FormValidator from "@utils/FormValidator";
 import InputField from "@components/ui/InputField";
 import AuthResponse from "types/AuthResponse";
 import { useMemo } from "react";
+import { useAuth } from "@hooks/useAuth/useAuth";
 
 const TOKEN_EXPIRY_HOURS = 1;
 
@@ -26,6 +27,7 @@ const initializeFormData = () => ({
 export default function Login() {
   const navigate = useNavigate();
   const formValidator = useMemo(() => new FormValidator(), []);
+  const { login } = useAuth();
 
   const {
     formData,
@@ -60,6 +62,7 @@ export default function Login() {
 
         const resData = response.data;
         setAuthToken(resData.token);
+        login(resData.user);
 
         navigate(PATH.home);
       }
