@@ -15,7 +15,7 @@ export default function EventCategoryCard({ src, path, children, cat3 }: EventCa
       {" "}
       {/* URL에 키워드 추가 */}
       <img src={src} alt="Camping Image" className="hover:brightness-75" />
-      <div className="text-[26px] text-gray-scale-400 font-bold my-4">{children}</div>
+      <div className="text-[26px] text-gray-scale-400 font-bold mt-4">{children}</div>
     </div>
   );
 }

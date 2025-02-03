@@ -77,17 +77,15 @@ export default function EventCalendarSection() {
 
   return (
     <div className="flex h-[461px]">
-      <div className="w-[400px] h-[461px] border border-gray-scale-300 p-2 rounded mr-[20px] bg-white drop-shadow">
+      <div className="w-[400px] h-[461px] border border-gray-scale-100 p-2 rounded mr-[20px] bg-white drop-shadow">
         <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" height="100%" />
       </div>
       <div className="flex flex-col">
-        <div className="text-highlight font-impact text-gray-scale-500 mb-2">
-          축제 일정 한눈에 보기
-        </div>
-        <div className="text-[20px] text-gray-scale-400 mb-[37px]">
+        <div className="text-highlight font-impact text-gray-scale-500">축제 일정 한눈에 보기</div>
+        <div className="text-[20px] text-gray-scale-400 mb-9">
           월별 축제 일정을 한눈에 확인하고, 원하는 축제를 놓치지 마세요.
         </div>
-        <div className="text-[20px] text-gray-scale-400 font-bold mb-[20px]">
+        <div className="text-[20px] text-gray-scale-400 font-bold mb-7">
           {getFormattedTodayDate()}
         </div>
         <div className="grid grid-cols-2 gap-4">
