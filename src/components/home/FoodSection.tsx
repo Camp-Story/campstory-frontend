@@ -25,7 +25,7 @@ const FOOD_CATEGORY: FoodCategoryProps[] = [
   },
   {
     src: "/images/main/main-food-japan.png",
-    category: "일본",
+    category: "일식",
     catId: "A05020300",
   },
 ];
