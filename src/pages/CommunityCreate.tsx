@@ -7,11 +7,13 @@ import { apiInstance } from "@utils/axiosInstance";
 
 export default function CommunityCreate() {
   const navigate = useNavigate();
+  const JWT = import.meta.env.VITE_API_BASE_JWTTOKEN;
   const [isLogined, setIsLogined] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -55,8 +57,13 @@ export default function CommunityCreate() {
 
     try {
       const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
+
+      const titleAndContent = JSON.stringify({
+        title: title,
+        content: content,
+      });
+      formData.append("title", titleAndContent);
+
       formData.append("channelId", "67a021790b62dc0dc6cc8e69");
       formData.append("tags", JSON.stringify(selectedTags));
 
@@ -73,6 +80,7 @@ export default function CommunityCreate() {
       await apiInstance.post("/posts/create", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${JWT}`,
         },
       });
 
@@ -91,6 +99,17 @@ export default function CommunityCreate() {
           setImageFile(file);
         }}
       />
+
+      <div className="my-4">
+        <label className="block mb-1 text-sm font-medium">제목</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-scale-200 rounded-sm focus:outline-none"
+          placeholder="게시글 제목을 입력하세요"
+        />
+      </div>
 
       <div className="flex flex-col gap-[15px]">
         <h2 className="text-sub-title">장소 선택</h2>

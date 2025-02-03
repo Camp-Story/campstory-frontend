@@ -8,6 +8,10 @@ export type Tag = "clean" | "kind" | "convenience";
 interface TagProps {
   tag: Tag;
   isCheckbox?: boolean;
+
+  checked?: boolean;
+
+  onChange?: (chekced: boolean) => void;
 }
 
 const TAGS = {
@@ -25,13 +29,24 @@ const TAGS = {
   },
 };
 
-export default function Tag({ tag, isCheckbox }: TagProps) {
+export default function Tag({ tag, isCheckbox, checked = false, onChange }: TagProps) {
   const { label, icon } = TAGS[tag];
+
+  const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(event.target.checked);
+  };
 
   return (
     <div className="flex gap-2 items-center w-fit">
       {isCheckbox && (
-        <input id={tag} type="checkbox" value="" className="hidden peer" defaultChecked />
+        <input
+          id={tag}
+          type="checkbox"
+          value=""
+          className="hidden peer"
+          checked={checked}
+          onChange={handleCheckChange}
+        />
       )}
       <label
         htmlFor={tag}
