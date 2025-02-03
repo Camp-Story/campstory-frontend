@@ -59,7 +59,7 @@ export default function Info() {
   };
 
   return (
-    <div className="rounded-lg">
+    <div className="rounded-lg w-[740px]">
       <div className="flex justify-between items-center">
         <h1 className="text-sub-title font-bold mb-6">내 정보 관리</h1>
         <div
