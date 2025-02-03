@@ -20,10 +20,14 @@ export default function QuestionCard() {
           <div className="flex items-start gap-5">
             <div className="flex gap-4 items-start">
               <div className="text-primary-500 -mt-1.5 font-bold text-[26px]">Q.</div>
-              <div className="w-10/12 text-body1 font-medium text-gray-scale-400">
-                안녕하세요~ 보통 캠핑장 매점에서 구매하는 주류는 가격이 어떻게 될까용?긴 문장 테스트
-                입니다. 긴 문장 테스트 입니다. 긴 문장 테스트 입니다. 긴 문장 테스트 입니다. 긴 문장
-                테스트 입니다.
+              <div className="flex flex-col gap-2 w-[660px]">
+                <div className="text-body1 font-semibold text-gray-scale-400">
+                  안녕하세요~ 보통 캠핑장 매점에서 구매하는 주류는 가격이 어떻게 될까용?
+                </div>
+                <div className="text-body1 font-medium text-gray-scale-400">
+                  상세내용상세내용상세내용상세내용상세내용상세내용상세내용
+                  상세내용상세내용상세내용상세내용상세내용상세내용상세내용
+                </div>
               </div>
             </div>
             <div className="text-body2 ml-auto text-gray-scale-300">2025.01.24</div>
