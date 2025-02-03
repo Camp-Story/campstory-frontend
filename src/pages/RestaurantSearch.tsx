@@ -9,6 +9,7 @@ import { tourApiInstance } from "@utils/axiosInstance";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
+import useBookMark from "@hooks/useBookmark";
 
 interface Item {
   addr1: string;
@@ -42,6 +43,8 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
 }));
 
 export default function RestaurantSearch() {
+  const { handleClickLike, isBookmarked } = useBookMark("67a0cdcb037ce21a11b8708d");
+
   const [restaurants, setRestaurants] = useState<Item[]>([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -196,20 +199,29 @@ export default function RestaurantSearch() {
 
           {!isLoading && !error && filteredRestaurants.length > 0 ? (
             <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-              {filteredRestaurants.map((restaurant) => (
-                <SearchCard
-                  key={restaurant.contentid}
-                  img={restaurant.firstimage}
-                  bookmarked={false}
-                  category={CategoryMap[restaurant.cat3] || "카테고리 없음"}
-                  handleClick={() =>
-                    navigate(PATH.restaurantInfo(restaurant.contentid), { state: { restaurant } })
-                  }
-                  handleClickBookmark={() => alert("bookmark")}
-                  location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
-                  title={restaurant.title}
-                />
-              ))}
+              {filteredRestaurants.map((restaurant) => {
+                const bookmarked = isBookmarked(restaurant.contentid);
+                return (
+                  <SearchCard
+                    key={restaurant.contentid}
+                    img={restaurant.firstimage}
+                    bookmarked={!!bookmarked}
+                    category={CategoryMap[restaurant.cat3] || "카테고리 없음"}
+                    handleClick={() =>
+                      navigate(PATH.restaurantInfo(restaurant.contentid), { state: { restaurant } })
+                    }
+                    handleClickBookmark={(e) =>
+                      handleClickLike(
+                        e,
+                        !!bookmarked,
+                        bookmarked ? bookmarked._id : restaurant.contentid,
+                      )
+                    }
+                    location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
+                    title={restaurant.title}
+                  />
+                );
+              })}
             </div>
           ) : (
             <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
