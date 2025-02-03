@@ -74,6 +74,27 @@ export default function Login() {
     }
   };
 
+  const VITE_KAKAO_API_KEY: string = import.meta.env.VITE_KAKAO_API_KEY;
+  const VITE_GOOGLE_CLIENT_ID: string = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const VITE_NAVER_API_ID_KEY: string = import.meta.env.VITE_NAVER_API_ID_KEY;
+  const REDIRECT_URI = `${window.location.origin}${PATH.oauthRedirect}`;
+  const kakao_link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${VITE_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+  const google_link = `https://accounts.google.com/o/oauth2/auth?client_id=${VITE_GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid email profile`;
+  const naver_link = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${VITE_NAVER_API_ID_KEY}&redirect_uri=${REDIRECT_URI}&state=naver`;
+
+  
+  const loginWithKakao = () => {
+    window.location.href = kakao_link;
+  };
+
+  const loginWithGoolge = () => {
+    window.location.href = google_link;
+  };
+
+  const loginWithNaver = () => {
+    window.location.href = naver_link;
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center">
       <div className="mt-[100px] flex flex-col items-center">
@@ -135,6 +156,17 @@ export default function Login() {
           >
             회원가입
           </Link>
+        </div>
+        <div className="place-self-center">
+          <button className="text-[#F29B30]" onClick={loginWithKakao}>
+            카카오&nbsp;&nbsp;
+          </button>
+          <button className="text-[#1CA673]" onClick={loginWithNaver}>
+            네이버&nbsp;&nbsp;
+          </button>
+          <button className="text-[#D9D9D9]" onClick={loginWithGoolge}>
+            구글&nbsp;
+          </button>
         </div>
       </div>
     </div>

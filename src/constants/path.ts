@@ -6,6 +6,7 @@ export const PATH = {
   signUp: "/sign-up",
   login: "/login",
   logout: "/logout",
+  oauthRedirect: "/oauth-redirect",
   mypage: "/mypage",
   information: "/mypage/information",
   reservedList: "/mypage/reserved-list",
