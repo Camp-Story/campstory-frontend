@@ -139,7 +139,7 @@ export default function Login() {
         </form>
         {submitError && <p className="mt-4 text-sm text-red-500">{submitError}</p>}
 
-        <div className="flex justify-center mt-5 gap-5">
+        <div className="flex justify-center my-5 gap-5">
           <button
             // to={PATH.findId}
             className="text-sm/6 text-gray-scale-400 hover:font-semibold"
@@ -159,15 +159,24 @@ export default function Login() {
             회원가입
           </Link>
         </div>
-        <div className="place-self-center">
-          <button className="text-[#F29B30]" onClick={loginWithKakao}>
-            카카오&nbsp;&nbsp;
+        <div className="flex items-center justify-center gap-4">
+          <button
+            className="w-12 h-12 rounded-full bg-[#FEE500] text-body1 text-gray-scale-400"
+            onClick={loginWithKakao}
+          >
+            카카오
           </button>
-          <button className="text-[#1CA673]" onClick={loginWithNaver}>
-            네이버&nbsp;&nbsp;
+          <button
+            className="w-12 h-12 rounded-full bg-[#03C75A] text-body1 text-gray-scale-0"
+            onClick={loginWithNaver}
+          >
+            네이버
           </button>
-          <button className="text-[#D9D9D9]" onClick={loginWithGoolge}>
-            구글&nbsp;
+          <button
+            className="w-12 h-12 rounded-full bg-[#efefef] text-body1 text-gray-scale-400"
+            onClick={loginWithGoolge}
+          >
+            구글
           </button>
         </div>
       </div>
