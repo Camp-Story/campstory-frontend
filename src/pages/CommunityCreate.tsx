@@ -20,6 +20,7 @@ export default function CommunityCreate() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
+    //토큰이 없으면 로그인 페이지로 이동
     if (!token) {
       navigate("/login");
       return;
@@ -43,6 +44,7 @@ export default function CommunityCreate() {
     return <div className="text-gray-scale-200 text-xl">Loading...</div>;
   }
 
+  //로그인 상태 다시 체크
   if (!isLogined) {
     return navigate("/login");
   }
