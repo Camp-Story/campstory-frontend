@@ -13,7 +13,7 @@ import useBookMark from "@hooks/useBookmark";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
-  const { handleClickLike, isBookmarked } = useBookMark("67a0630b4f5b541065debe95");
+  const { handleClickLike, isBookmarked } = useBookMark("67a0cdbe037ce21a11b87089");
   const [searchParams, setSearchParams] = useSearchParams();
   // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
