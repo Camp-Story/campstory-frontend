@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router";
+import { Outlet, useLoaderData, useSubmit } from "react-router";
 import MainNavigation from "./MainNavigation";
 import "swiper/css";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import { getTokenDuration } from "@utils/authToken";
 
 export default function RootLayout() {
   const token = useLoaderData();
+  const submit = useSubmit();
 
   useEffect(() => {
     if (!token) {
@@ -13,16 +14,16 @@ export default function RootLayout() {
     }
 
     if (token === "EXPIRED") {
-      alert("토큰이 만료되었습니다.");
+      submit(null, { action: "/logout", method: "post" });
       return;
     }
 
     const tokenDuration = getTokenDuration();
 
     setTimeout(() => {
-      alert("토큰이 만료되었습니다.");
+      submit(null, { action: "/logout", method: "post" });
     }, tokenDuration);
-  }, [token]);
+  }, [token, submit]);
 
   return (
     <div className="min-h-dvh">

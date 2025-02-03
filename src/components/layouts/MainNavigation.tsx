@@ -1,26 +1,7 @@
 import { PATH } from "@constants/path";
-import { apiInstance } from "@utils/axiosInstance";
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 export default function MainNavigation({ token }: { token: string }) {
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    try {
-      await apiInstance.post("/logout");
-      console.log("Logout API call success");
-    } catch (err) {
-      console.error("Logout API call failed", err);
-    }
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-
-    navigate("/");
-  };
-
   return (
     <nav className="w-[1440px] mx-auto px-main flex items-center justify-between">
       <h1>
@@ -63,12 +44,13 @@ export default function MainNavigation({ token }: { token: string }) {
           >
             <img src="/public/vite.svg" alt="프로필 이미지" className="size-full object-cover" />
           </Link>
-          <form
-            onSubmit={handleSubmit}
+          <Form
+            action={PATH.logout}
+            method="post"
             className="bg-gray-scale-100 text-center px-5 py-2 rounded text-gray-scale-400 cursor-pointer"
           >
             <button type="submit">로그아웃</button>
-          </form>
+          </Form>
         </div>
       )}
     </nav>
