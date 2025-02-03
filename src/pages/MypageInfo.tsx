@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@hooks/useAuth/useAuth";
 
-type UserInfoState = {
+export type UserInfoState = {
   nickName: string;
   fullName: string;
   phone: string;
@@ -9,7 +9,7 @@ type UserInfoState = {
 };
 
 export default function Info() {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, modifyUser } = useAuth();
   const [userInfo, setUserInfo] = useState<UserInfoState>(
     (JSON.parse(user?.fullName || "") as UserInfoState) || {
       nickName: "",
@@ -24,9 +24,26 @@ export default function Info() {
     setUserInfo({ ...userInfo, [field]: value });
   };
 
+  const handleClick = () => {
+    if (isReadMode) {
+      setIsReadMode(false);
+    } else {
+      setIsReadMode(true);
+      saveUserInfo();
+    }
+  };
+
+  const saveUserInfo = () => {
+    modifyUser(userInfo);
+  };
+
   useEffect(() => {
     updateUser();
   }, []);
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(user?.fullName || "") as UserInfoState);
+  }, [user]);
 
   return (
     <div className="rounded-lg">
@@ -34,7 +51,7 @@ export default function Info() {
         <h1 className="text-sub-title font-bold mb-6">내 정보 관리</h1>
         <div
           className="border border-primary-500 px-2 py-1 rounded text-body1 bg-primary-500 text-white hover:brightness-95 cursor-pointer"
-          onClick={() => setIsReadMode((prev) => !prev)}
+          onClick={handleClick}
         >
           {isReadMode ? "수정하기" : "저장하기"}
         </div>
