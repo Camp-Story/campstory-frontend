@@ -5,7 +5,7 @@ export type Tag = "reservation" | "payment" | "member" | "campingGear" | "campsi
 interface TagProps {
   tag: Tag;
   isCheckbox?: boolean;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TAGS = {
@@ -31,6 +31,7 @@ const TAGS = {
 
 export default function Tag({ tag, isCheckbox, handleChange }: TagProps) {
   const { label } = TAGS[tag];
+  const onChangeHandler = handleChange || (() => {});
 
   return (
     <div className="flex gap-2 items-center w-fit">
@@ -39,7 +40,7 @@ export default function Tag({ tag, isCheckbox, handleChange }: TagProps) {
           id={tag}
           type="checkbox"
           value={tag}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => onChangeHandler(e)}
           className="hidden peer"
           // defaultChecked
         />
