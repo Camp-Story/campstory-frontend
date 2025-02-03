@@ -39,7 +39,7 @@ export default function MainNavigation({ token }: { token: string }) {
       ) : (
         <div className="flex gap-5 items-center text-sub-title font-normal">
           <Link
-            to={PATH.activities}
+            to={PATH.information}
             className="w-10 h-10 rounded-full bg-gray-scale-100 flex items-center justify-center overflow-hidden"
           >
             <img src="/public/vite.svg" alt="프로필 이미지" className="size-full object-cover" />
