@@ -49,8 +49,31 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return Promise.reject({ ok: false });
   };
 
+  const updateUserImage = async (file: File) => {
+    const token = localStorage.getItem("token");
+
+    const response = await apiInstance.post(
+      "/users/upload-photo",
+      {
+        isCover: false,
+        image: file,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      return Promise.resolve({ ok: true });
+    }
+    return Promise.reject({ ok: false });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, updateUser, modifyUser }}>
+    <AuthContext.Provider value={{ user, login, logout, updateUser, modifyUser, updateUserImage }}>
       {children}
     </AuthContext.Provider>
   );
