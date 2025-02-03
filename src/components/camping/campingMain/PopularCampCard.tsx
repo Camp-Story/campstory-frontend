@@ -1,26 +1,11 @@
-import campingDataResponse from "types/CampingDataResponse";
-import { useNavigate } from "react-router";
 import PopularCampCardProps from "types/PopularCampingCardProps";
-import { goCampingInstance } from "@utils/axiosInstance";
+import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
 
 export default function PopularCampCard({ rank, src, category, name, path }: PopularCampCardProps) {
-  const navigate = useNavigate();
+  const { searchAndNavigate } = useSearchAndNavigateCamping();
 
-  const handleClick = async () => {
-    try {
-      const response = await goCampingInstance.get("/searchList", {
-        params: {
-          numOfRows: 1,
-          pageNo: 1,
-          keyword: name,
-        },
-      });
-      const campingData: campingDataResponse[] = response.data.response.body.items.item;
-      // console.log(campingData);
-      navigate(path, { state: { item: campingData[0] } });
-    } catch (error) {
-      console.error("Error fetching camping data:", error);
-    }
+  const handleClick = () => {
+    searchAndNavigate(name, path);
   };
 
   return (

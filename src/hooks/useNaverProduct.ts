@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { naverApiInstance } from "@utils/axiosInstance";
 import { NaverProductResponse, NaverSearchResponse } from "types/NaverShoppingResponse";
+
 const useNaverProduct = (keyword: string, count: number, orderBy: string = "sim") => {
   const [products, setProducts] = useState<NaverProductResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
