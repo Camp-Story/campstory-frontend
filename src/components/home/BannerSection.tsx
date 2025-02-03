@@ -84,7 +84,7 @@ function SearchForm() {
       </div>
       <button
         onClick={handleSubmit}
-        className="flex-1 py-4 h-[50px] bg-secondary-300 text-body1 text-gray-scale-0 rounded hover:bg-secondary-500 transition"
+        className="flex-1 py-4 h-[50px] bg-secondary-300 text-body1 text-gray-scale-0 rounded hover:bg-secondary-300/80 transition"
       >
         검색
       </button>
