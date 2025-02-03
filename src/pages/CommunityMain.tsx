@@ -12,6 +12,7 @@ interface Post {
   title: string;
   content: string;
   image?: string;
+  createdAt: string;
 }
 
 export default function CommunityMain() {
@@ -21,10 +22,8 @@ export default function CommunityMain() {
 
   useEffect(() => {
     apiInstance
-      .get<Post[]>("/posts/channels/67a021790b62dc0dc6cc8e69")
+      .get<Post[]>("/posts/channel/67a021790b62dc0dc6cc8e69")
       .then((res) => {
-        console.log("res.data =", res.data);
-        console.log("Array.isArray(res.data) =", Array.isArray(res.data));
         setPosts(res.data);
       })
       .catch((err) => {
@@ -77,6 +76,7 @@ export default function CommunityMain() {
               title={realTitle}
               content={realContent}
               img={post.image}
+              time={post.createdAt}
             />
           );
         })}
