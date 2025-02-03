@@ -42,14 +42,15 @@ export default function DetailRight({
   eventstartdate,
   eventenddate,
 }: DetailRightProps) {
-  const formatDate = (str) => `${str.slice(0, 4)}년 ${str.slice(4, 6)}월 ${str.slice(6, 8)}일`;
+  const formatDate = (str: string) =>
+    `${str.slice(0, 4)}년 ${str.slice(4, 6)}월 ${str.slice(6, 8)}일`;
 
   return (
     <article className="flex-1 flex flex-col">
       <div className="flex-1 flex flex-col gap-8">
         <div className="flex justify-between">
           <div className="flex flex-col gap-7">
-            <div className="">
+            <div className="w-96">
               <span className="text-sub-title text-gray-scale-300">{category}</span>
               <h3 className="text-highlight">{title}</h3>
             </div>
@@ -151,7 +152,8 @@ export default function DetailRight({
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">행사기간</strong>
-                  {formatDate(eventstartdate)} -{formatDate(eventenddate)}
+                  {eventstartdate && formatDate(eventstartdate)}
+                  {eventenddate && " - " + formatDate(eventenddate)}
                 </span>
               </li>
               <li className="mb-3">
