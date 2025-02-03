@@ -42,6 +42,8 @@ export default function DetailRight({
   eventstartdate,
   eventenddate,
 }: DetailRightProps) {
+  const formatDate = (str) => `${str.slice(0, 4)}년 ${str.slice(4, 6)}월 ${str.slice(6, 8)}일`;
+
   return (
     <article className="flex-1 flex flex-col">
       <div className="flex-1 flex flex-col gap-8">
@@ -149,7 +151,7 @@ export default function DetailRight({
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">행사기간</strong>
-                  {eventstartdate} -{eventenddate}
+                  {formatDate(eventstartdate)} -{formatDate(eventenddate)}
                 </span>
               </li>
               <li className="mb-3">
@@ -161,7 +163,7 @@ export default function DetailRight({
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">홈페이지</strong>
-                  {eventhomepage}
+                  {eventhomepage?.replace(/<\/?[^>]+(>|$)/g, "")}
                 </span>
               </li>
             </ul>
@@ -180,7 +182,7 @@ export default function DetailRight({
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">오픈시간</strong>
-                  {opentimefood}
+                  {opentimefood?.replace(/<\/?[^>]+(>|$)/g, "")}
                 </span>
               </li>
               <li className="mb-3">
@@ -199,8 +201,10 @@ export default function DetailRight({
           </div>
         )}
         <div>
-          <h3 className="text-[26px] font-bold mb-2 ">개요</h3>
-          <p className="text-body1 text-gray-scale-400 overflow-hidden">{overview}</p>
+          <h3 className="text-[26px] font-bold mb-2">개요</h3>
+          <p className="w-full max-h-16 whitespace-pre-line text-ellipsis text-body1 text-gray-scale-400 overflow-hidden">
+            {overview}
+          </p>
         </div>
       </div>
       <div className="w-full h-[318px] bg-gray-scale-100 rounded-xl overflow-hidden self-end">
