@@ -15,13 +15,13 @@ interface Post {
   image?: string;
   createdAt: string;
   likes: number;
-  
 }
 
 export default function CommunityMain() {
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState<Post[]>([]);
+  const [sortOrder, setSortOrder] = useState<"recent" | "popular">("recent");
 
   useEffect(() => {
     apiInstance
@@ -34,6 +34,17 @@ export default function CommunityMain() {
       });
   }, []);
 
+  const sortedPosts = [...posts].sort((a, b) => {
+    if (sortOrder === "recent") {
+      // 최신순: 생성시간 내림차순 (최근 것이 먼저)
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    } else if (sortOrder === "popular") {
+      // 인기순: 좋아요 수 내림차순 (좋아요가 많은 것이 먼저)
+      return b.likes - a.likes;
+    }
+    return 0;
+  });
+
   return (
     <>
       <div className="mt-14 mb-[60px]">
@@ -42,8 +53,13 @@ export default function CommunityMain() {
 
       <div className="flex gap-[50px] justify-between items-center mb-[30px]">
         <div className="flex gap-5 text-sub-title">
-          <OrderRadio label="최신순" value="recent" defaultChecked />
-          <OrderRadio label="인기순" value="popular" />
+          <OrderRadio
+            label="최신순"
+            value="recent"
+            defaultChecked
+            onChange={() => setSortOrder("recent")}
+          />
+          <OrderRadio label="인기순" value="popular" onChange={() => setSortOrder("popular")} />
         </div>
 
         <div className="flex gap-[5px]">
@@ -61,7 +77,7 @@ export default function CommunityMain() {
       </div>
 
       <div className="grid grid-cols-2 gap-x-20 gap-y-16">
-        {posts.map((post) => {
+        {sortedPosts.map((post) => {
           let realTitle = "";
           let realContent = "";
 
