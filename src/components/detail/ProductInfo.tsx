@@ -11,7 +11,7 @@ export default function ProductInfo({ product }: { product: NaverProductResponse
   };
 
   return (
-    <section className="flex justify-between">
+    <section className="flex justify-between mb-20 gap-16">
       <article className="w-[500px] h-[500px] border-2 rounded-xl bg-gray-scale-100 overflow-hidden">
         <img
           src={
@@ -22,9 +22,9 @@ export default function ProductInfo({ product }: { product: NaverProductResponse
           className="w-full h-full object-cover"
         />
       </article>
-      <article className="w-[550px] flex flex-col justify-between">
+      <article className="flex-1 flex flex-col justify-between">
         <div className="flex justify-between">
-          <div className="w-[400px]">
+          <div className="w-[500px]">
             <span className="text-sub-title text-gray-scale-300 mb-2">{brand || mallName}</span>
             <h4 className="text-title mb-4">{title.replace(/<\/?[^>]+(>|$)/g, "")}</h4>
             <span className="text-title font-bold">

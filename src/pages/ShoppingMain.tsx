@@ -260,16 +260,16 @@ export default function ShoppingMain() {
   return (
     <div className="flex flex-col gap-[60px]">
       {/* Banner */}
-      <div className="relative">
+      <section className="relative">
         <img src="/images/shopping/shopping-banner.png" alt="banner" className="w-full" />
         <SearchBar
           handleSubmit={(input) => handleSearch(input)}
           className="absolute bottom-[60px] left-[50%] -translate-x-[50%]"
         />
-      </div>
+      </section>
 
       {/* Category */}
-      <div>
+      <section>
         <div className="flex justify-between items-center">
           <SubTitle>카테고리별 분류</SubTitle>
           <button className="text-sub-title text-info-500">더보기</button>
@@ -282,10 +282,10 @@ export default function ShoppingMain() {
           <CategoryCard src="/images/shopping/camping-furniture.png" catName="캠핑 가구" />
           <CategoryCard src="/images/shopping/bonfire.png" catName="소모품" />
         </div>
-      </div>
+      </section>
 
       {/* Recommend */}
-      <div>
+      <section>
         <div className="flex justify-between items-center">
           <SubTitle>오늘의 추천 상품</SubTitle>
           <button className="text-sub-title text-info-500">더보기</button>
@@ -300,10 +300,10 @@ export default function ShoppingMain() {
             />
           ))}
         </div>
-      </div>
+      </section>
 
       {/* NewProduct */}
-      <div>
+      <section>
         <div className="flex justify-between items-center">
           <SubTitle>신상품</SubTitle>
           <button className="text-sub-title text-info-500">더보기</button>
@@ -318,10 +318,10 @@ export default function ShoppingMain() {
             />
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Sale */}
-      <div className="relative">
+      <section className="relative">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E8F6F1] w-screen h-[450px] -z-10"></div>
         <div className="flex justify-between items-center">
           <SubTitle>최저가 득템!</SubTitle>
@@ -337,10 +337,10 @@ export default function ShoppingMain() {
             />
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Review */}
-      <div>
+      <section>
         <div className="flex justify-between items-center">
           <SubTitle>포토 리뷰 모음집</SubTitle>
           <button className="text-sub-title text-info-500">더보기</button>
@@ -357,7 +357,7 @@ export default function ShoppingMain() {
             />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
