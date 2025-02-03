@@ -10,13 +10,15 @@ export default function TodaySection({
   contentId,
 }: TodaySectionProps) {
   return (
-    <section className="flex mx-[106px] my-[100px] h-[400px]">
+    <section className="flex mx-[105px] h-[400px]">
       <div className="flex-1 mr-[70px]">
-        <div className="text-highlight text-[52px] text-gray-scale-500 mb-[20px]">{title}</div>
+        <div className="text-highlight font-impact text-[52px] text-gray-scale-500 mb-[20px]">
+          {title}
+        </div>
         <div className="text-[20px] text-gray-scale-300 mb-14 max-h-[72px] overflow-y-auto">
           {subTitle}
         </div>
-        <div className="flex items-center text-[20px] text-gray-scale-300 font-bold mb-12">
+        <div className="flex items-center text-[20px] text-gray-scale-300 mb-12">
           {tag.map((t, index) => (
             <div key={index} className="flex items-center mr-4">
               <img
