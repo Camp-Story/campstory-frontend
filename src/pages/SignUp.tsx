@@ -60,7 +60,12 @@ export default function SignUp() {
         password: formData.password,
         birthDate,
         phone: formData.phone.replace(/-/g, ""),
-        fullName: formData.fullName,
+        fullName: JSON.stringify({
+          fullName: formData.fullName,
+          birthDate,
+          phone: formData.phone.replace(/-/g, ""),
+          nickName: formData.fullName,
+        }),
       });
 
       if (response.status === 200 || response.status === 201) {
