@@ -2,7 +2,7 @@ import SearchBar from "./SearchBar";
 
 export default function Banner() {
   return (
-    <div className="relative">
+    <div className="relative mt-[10px]">
       <img
         src="/images/festival/festival-banner.png"
         alt="festival banner"
