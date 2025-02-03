@@ -8,6 +8,7 @@ import EVENT_CATEGORY_MAP from "@components/event/EventCategoryMap";
 
 import { AREA, EVENT_PROGRESS } from "@constants/filters";
 import { PATH } from "@constants/path";
+import useBookMark from "@hooks/useBookmark";
 import { tourApiInstance } from "@utils/axiosInstance";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
@@ -72,6 +73,8 @@ export default function EventSearch() {
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [selectedArea, setSelectedArea] = useState<number | null>(null);
+
+  const { handleClickLike, isBookmarked } = useBookMark("67a0cdd7037ce21a11b87091");
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
@@ -210,20 +213,29 @@ export default function EventSearch() {
 
           {!isLoading && !error && events.length > 0 ? (
             <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
-              {events.map((event) => (
-                <SearchCard
-                  key={event.contentid}
-                  img={event.firstimage}
-                  bookmarked={false}
-                  category={getCategoryName(event.cat3)}
-                  handleClick={() =>
-                    navigate(PATH.eventInfo(event.contentid), { state: { event } })
-                  }
-                  handleClickBookmark={() => alert("bookmark")}
-                  location={`${event.addr1}`}
-                  title={event.title}
-                />
-              ))}
+              {events.map((event) => {
+                const bookmarked = isBookmarked(event.contentid);
+                return (
+                  <SearchCard
+                    key={event.contentid}
+                    img={event.firstimage}
+                    bookmarked={!!bookmarked}
+                    category={getCategoryName(event.cat3)}
+                    handleClick={() =>
+                      navigate(PATH.eventInfo(event.contentid), { state: { event } })
+                    }
+                    handleClickBookmark={(e) =>
+                      handleClickLike(
+                        e,
+                        !!bookmarked,
+                        bookmarked ? bookmarked._id : event.contentid,
+                      )
+                    }
+                    location={`${event.addr1}`}
+                    title={event.title}
+                  />
+                );
+              })}
             </div>
           ) : (
             <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
