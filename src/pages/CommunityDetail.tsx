@@ -6,19 +6,64 @@ import TgaList from "@components/community/TagList";
 import UserProfile from "@components/community/UserProfile";
 import { PATH } from "@constants/path";
 import { useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { apiInstance } from "@utils/axiosInstance";
+
+import getRelativeTime from "@utils/getRelativeTime";
+
+interface PostDetail {
+  _id: string;
+  title: string;
+  content: string;
+  image?: string;
+  createdAt: string;
+}
 
 export default function CommunityDefault() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+
+  const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!id) return;
+
+    apiInstance
+      .get<PostDetail>(`/posts/${id}`)
+      .then((res) => {
+        setPostDetail(res.data);
+      })
+      .catch((err) => {
+        console.error("게시글 불러오기 실패:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [id]);
 
   if (!id) {
-    return <>잘못된 접근입니다.</>;
+    return <div className="text-gray-scale-200 text-xl">잘못된 접근입니다.</div>;
+  }
+
+  if (loading || !postDetail) {
+    return <div className="text-gray-scale-200 text-xl">Loading...</div>;
+  }
+
+  let realTitle = "";
+  let realContent = "";
+  try {
+    const parsed = JSON.parse(postDetail.title);
+    if (parsed.title) realTitle = parsed.title || postDetail.title;
+    if (parsed.content) realContent = parsed.content || postDetail.content;
+  } catch {
+    realTitle = postDetail.title;
   }
 
   return (
     <div className="w-[1000px] mx-auto mt-14 cursor-pointer flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <UserProfile nickname="한라봉" profileUrl="" />
+        <UserProfile nickname={realTitle} profileUrl="" />
         <button
           onClick={() => navigate(PATH.communityModify(id))}
           className="py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
@@ -31,7 +76,7 @@ export default function CommunityDefault() {
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <div className="flex-shrink-0 w-[480px] h-[400px] rounded-lg overflow-hidden">
           <img
-            src="/images/community/communityPostItem.png"
+            src={postDetail.image || "/images/community/communityPostItem.png"}
             alt="thumbnail"
             className="size-full object-cover"
           />
@@ -40,16 +85,13 @@ export default function CommunityDefault() {
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 items-center text-[15px] text-gray-scale-500">
               <span>작성일</span>
-              <span className="font-medium">2025.01.14</span>
+              <span className="font-medium">
+                {new Date(postDetail.createdAt).toLocaleDateString()}
+              </span>
             </div>
             <TgaList tags={["clean", "kind", "convenience"]} />
             <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
-            <div className="text-[15px] text-gray-scale-400">
-              안녕하세요. 이번엔 스노우라인 캠핑 빌리지에 다녀왔습니다. 정말 좋네요 추천합니다!
-              다음엔 어디를 다녀올까요. 추천해주세요. 어디든 재밌게 갈 수 있습니다. 액티비티를
-              경험할 수 있는 곳이었으면 좋겠어요. 추가적으로 강아지와 함께 갈 수 있는 곳이면 더
-              좋아요! 캠핑 고수님들 도와주세요!!!
-            </div>
+            <div className="text-[15px] text-gray-scale-400">{realContent}</div>
           </div>
 
           <AdditionalInfo
@@ -57,7 +99,7 @@ export default function CommunityDefault() {
             isLiked={false}
             likeCount={10}
             viewCount={115}
-            time="24분"
+            time={getRelativeTime(postDetail.createdAt)}
             handleClickBookmark={() => alert("click bookmark")}
             handleClickLike={() => alert("click like")}
           />

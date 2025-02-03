@@ -47,8 +47,8 @@ export default function PostCard({ postId, title = "", content = "", img, time }
       <AdditionalInfo
         bookmarked
         isLiked
-        likeCount={10}
-        viewCount={115}
+        likeCount={20}
+        viewCount={120}
         time={time}
         handleClickBookmark={() => alert("click bookmark")}
         handleClickLike={() => alert("click like")}
