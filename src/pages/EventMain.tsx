@@ -45,7 +45,7 @@ export default function EventMain() {
       <Banner />
       <div>
         <SubTitle
-          mainText="다양한 축제, 새로운 즐거움"
+          mainText="다양한 축제, 색다른 즐거움"
           subText="음식, 음악, 자연, 문화가 어우러진 축제의 세계를 만나보세요"
         />
         <div className="flex gap-4 justify-between items-center">
