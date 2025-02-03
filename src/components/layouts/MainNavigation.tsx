@@ -1,7 +1,11 @@
 import { PATH } from "@constants/path";
-import { Form, Link } from "react-router-dom";
+import { useAuth } from "@hooks/useAuth/useAuth";
+import { Link } from "react-router-dom";
 
 export default function MainNavigation({ token }: { token: string }) {
+  const { user } = useAuth();
+  const fullName = JSON.parse(user?.fullName || "{}").fullName;
+
   return (
     <nav className="w-[1440px] mx-auto px-main flex items-center justify-between">
       <h1>
@@ -37,21 +41,16 @@ export default function MainNavigation({ token }: { token: string }) {
           </Link>
         </div>
       ) : (
-        <div className="flex gap-5 items-center text-sub-title font-normal">
-          <Link
-            to={PATH.information}
-            className="w-10 h-10 rounded-full bg-gray-scale-100 flex items-center justify-center overflow-hidden"
-          >
-            <img src="/public/vite.svg" alt="프로필 이미지" className="size-full object-cover" />
-          </Link>
-          <Form
-            action={PATH.logout}
-            method="post"
-            className="bg-gray-scale-100 text-center px-5 py-2 rounded text-gray-scale-400 cursor-pointer"
-          >
-            <button type="submit">로그아웃</button>
-          </Form>
-        </div>
+        <Link to={PATH.information} className="flex gap-3 items-center text-sub-title font-normal">
+          <div className="w-10 h-10 rounded-full bg-gray-scale-100 flex items-center justify-center overflow-hidden">
+            <img
+              src={user?.image || "https://placehold.co/40x40?text=CAMP+STORY"}
+              alt="프로필 이미지"
+              className="size-full object-cover"
+            />
+          </div>
+          <h2>{fullName}</h2>
+        </Link>
       )}
     </nav>
   );
