@@ -3,57 +3,72 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router";
 import CampingSpotItemType from "../../types/CampingSpotItemType";
 import { PATH } from "@constants/path";
+import PopularCampCardProps from "types/PopularCampingCardProps";
+import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
 
-const DUMMY_SPOTS: CampingSpotItemType[] = [
+const PopularCampingData: PopularCampCardProps[] = [
   {
-    path: "",
-    src: "/images/camping/camping-category-1.png",
-    name: "속초 밤하늘 글램핑",
-    category: "글램핑•펜션•오토캠핑",
+    rank: 1,
+    src: "https://gocamping.or.kr/upload/camp/100143/6658baV6n0C7YWf8c14NbOIG.jpg",
+    category: "일반야영장,글램핑",
+    name: "포천 라온글램핑&오토캠핑장",
+    path: PATH.campingInfo("100143"),
   },
   {
-    path: "",
-    src: "",
-    name: "속초 밤하늘 글램핑",
+    rank: 2,
+    src: "https://gocamping.or.kr/upload/camp/100012/7773TzZfFrXfsE7BDqFThHcz.jpg",
+    category: "일반야영장",
+    name: "포에스카라반파크",
+    path: PATH.campingInfo("100012"),
+  },
+  {
+    rank: 3,
+    src: "https://gocamping.or.kr/upload/camp/100086/9786dCp7UcR4L4AV1bO3JJS0.jpg",
     category: "글램핑",
+    name: "노마드글램핑",
+    path: PATH.campingInfo("100086"),
   },
   {
-    path: "",
-    src: "",
-    name: "속초 밤하늘 글램핑",
-    category: "글램핑•펜션",
+    rank: 4,
+    src: "https://gocamping.or.kr/upload/camp/100014/8783jnJVhUEMxHYpQohDroQP.jpg",
+    category: "글램핑",
+    name: "학암포글램핑",
+    path: PATH.campingInfo("100014"),
   },
   {
-    path: "/",
-    src: "",
-    name: "속초 밤하늘 글램핑",
-    category: "캠핑",
+    rank: 5,
+    src: "https://gocamping.or.kr/upload/camp/100231/5031zWs3pLvMY7zBvq7xHILf.jpg",
+    category: "카라반",
+    name: "가평 리오카라반",
+    path: PATH.campingInfo("100231"),
   },
   {
-    path: "",
-    src: "",
-    name: "속초 밤하늘 글램핑",
-    category: "글램핑•펜션•오토캠핑",
+    rank: 6,
+    src: "https://gocamping.or.kr/upload/camp/100002/20339geHYKzGA9OjsoC0nFwX.jpg",
+    category: "일반야영장",
+    name: "힐링피아 카라반 글램핑 풀 캠핑장",
+    path: PATH.campingInfo("100002"),
   },
   {
-    path: "",
-    src: "",
-    name: "속초 밤하늘 글램핑",
-    category: "글램핑•펜션•오토캠핑",
-  },
-  {
-    path: "",
-    src: "",
-    name: "속초 밤하늘 글램핑",
-    category: "글램핑•펜션•오토캠핑",
+    rank: 7,
+    src: "https://gocamping.or.kr/upload/camp/100234/2153uRmKRQ283E8reKpprw7M.jpg",
+    category: "일반야영장,카라반",
+    name: "산마루카라반",
+    path: PATH.campingInfo("100234"),
   },
 ];
 
 function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
+  const { searchAndNavigate } = useSearchAndNavigateCamping();
+
+  const handleClick = () => {
+    searchAndNavigate(name, path);
+  };
+
   return (
-    <li>
-      <Link
-        to={path || "/"}
+    <article>
+      <div
+        onClick={handleClick}
         className="block w-56 h-56 rounded-xl bg-gray-scale-100 mb-4 overflow-hidden"
       >
         <img
@@ -61,10 +76,10 @@ function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
           alt="캠핑장 이미지"
           className="w-full h-full object-cover"
         />
-      </Link>
+      </div>
       <h3 className="text-sub-title font-bold mb-1">{name}</h3>
       <p className="text-gray-scale-300">{category}</p>
-    </li>
+    </article>
   );
 }
 
@@ -82,7 +97,7 @@ export default function TopCampingSpotsSection() {
         navigation
         pagination={{ clickable: true }}
       >
-        {DUMMY_SPOTS.map((item) => (
+        {PopularCampingData.map((item) => (
           <SwiperSlide key={item.src}>
             <CampingSpotItem
               path={item.path}
