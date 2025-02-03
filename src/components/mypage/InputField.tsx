@@ -5,7 +5,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function InputField({ error, label, name, ...props }: InputFieldProps) {
   return (
-    <div className="relative">
+    <div>
       <label htmlFor={name} className="text-body1">
         {label}
       </label>
