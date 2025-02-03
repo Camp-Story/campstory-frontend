@@ -1,12 +1,26 @@
 import ProductInfo from "@components/detail/ProductInfo";
+import RelatedProducts from "@components/shopping/RelatedProducts";
+import { NaverProductResponse } from "types/NaverShoppingResponse";
 import { useLocation } from "react-router";
+import ProductCategories from "@components/shopping/ProductCategories";
 
 export default function ShoppingDetail() {
   const location = useLocation();
+  const product = location.state as NaverProductResponse;
 
   return (
-    <div className="w-[1100px] mx-auto mt-20">
-      <ProductInfo product={location.state} />
+    <div className="w-[1200px] mx-auto mt-20">
+      <ProductInfo product={product} />
+      <ProductCategories product={product} />
+      <RelatedProducts
+        title="비슷한 상품"
+        category={product.category1 + product.category2 + product.category3}
+      />
+      <hr />
+      <RelatedProducts
+        title="BRAND"
+        category={product.brand || product.title.replace(/<\/?[^>]+(>|$)/g, "").slice(0, 2)}
+      />
     </div>
   );
 }
