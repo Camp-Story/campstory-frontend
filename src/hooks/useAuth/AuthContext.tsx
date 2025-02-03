@@ -7,7 +7,7 @@ interface AuthContextType {
   login: (userData: User) => void;
   logout: () => void;
   updateUser: () => void;
-  modifyUser: (userData: UserInfoState) => void;
+  modifyUser: (userData: UserInfoState) => Promise<{ ok: boolean }>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

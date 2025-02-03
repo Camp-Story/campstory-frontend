@@ -38,9 +38,12 @@ const useForm = ({ initialFormData, initialErrors = {}, validator }: UseFormOpti
           return validator.validateBirthMonth(value);
         case "birthDay":
           return validator.validateBirthDay(value);
+        case "birthDate":
+          return validator.validateBirthDate(value);
         case "phone":
           return validator.validatePhone(value);
         case "fullName":
+        case "nickName":
           return validator.validateFullName(value);
         default:
           return undefined;

@@ -42,7 +42,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       },
     );
 
-    setUser(response.data);
+    if (response.status === 200) {
+      setUser(response.data);
+      return Promise.resolve({ ok: true });
+    }
+    return Promise.reject({ ok: false });
   };
 
   return (
