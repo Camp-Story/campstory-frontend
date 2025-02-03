@@ -1,41 +1,36 @@
 import { PATH } from "@constants/path";
-import { Link } from "react-router";
-import ProductItemType from "types/ProductItem";
+import useNaverProduct from "@hooks/useNaverProduct";
+import { NaverProductResponse } from "types/NaverShoppingResponse";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router";
+import calculateDiscountRate from "@utils/calculateDiscountRate";
 
-const DUMMY_PRODUCTS: ProductItemType[] = [
-  {
-    name: "제네스 미니 쉘터",
-    discount: "18",
-    price: "330,000",
-    image: "/images/main/main-festival-left.png",
-    brand: "위오",
-  },
-  {
-    name: "기절 침낭 + 패우치",
-    price: "69,000",
-    image: "/images/main/main-festival-left.png",
-    brand: "홈랩",
-  },
-  {
-    name: "캠핑 불멍 화로대",
-    discount: "16",
-    price: "24,400",
-    image: "/images/main/main-festival-left.png",
-    brand: "알래스카블랙",
-  },
-];
+function ShoppingItem({ product }: { product: NaverProductResponse }) {
+  const { brand, productId, title, mallName, image, hprice, lprice } = product;
 
-function ShoppingItem({ name, discount, price, image, brand }: ProductItemType) {
+  const navigate = useNavigate();
+
+  const handleNavigateToDetail = (id: string) => {
+    navigate(PATH.shoppingInfo(id), {
+      state: product,
+    });
+  };
+
   return (
-    <div className="relative flex-1 h-[492px] bg-gray-scale-100 rounded-xl overflow-hidden">
+    <div
+      onClick={() => handleNavigateToDetail(productId)}
+      className="relative flex-1 h-[492px] bg-gray-scale-100 rounded-xl overflow-hidden border-2"
+    >
       <img src={image} alt="캠핑 배경" className="h-[492px] object-cover" />
       <div className="absolute inset-0 w-full bg-gradient-to-b from-gray-scale-500 to-gray-scale-0 opacity-50"></div>
       <Link to="/" className="absolute inset-0 p-7 flex flex-col text-gray-scale-0">
-        <span className="text-body1 text-gray-scale-200 mb-1">{brand}</span>
-        <h4 className="text-sub-title mb-2">{name}</h4>
+        <span className="text-body1 text-gray-scale-100 mb-1">{brand || mallName}</span>
+        <h4 className="text-sub-title mb-2">{title.replace(/<\/?[^>]+(>|$)/g, "")}</h4>
         <span className="text-sub-title">
-          {discount && <strong className="text-secondary-300 mr-2">{discount}%</strong>}
-          {price}원
+          {hprice && (
+            <span className="text-secondary-300 mr-2">{calculateDiscountRate(hprice, lprice)}</span>
+          )}
+          {Intl.NumberFormat("ko-KR").format(Number(lprice))}원
         </span>
       </Link>
     </div>
@@ -43,22 +38,26 @@ function ShoppingItem({ name, discount, price, image, brand }: ProductItemType) 
 }
 
 export default function ShoppingSection() {
+  const { products, isLoading, errorMessage, fetchNaverProductData } = useNaverProduct(
+    "면 텐트",
+    3,
+  );
+
+  useEffect(() => {
+    fetchNaverProductData();
+  }, [fetchNaverProductData]);
+
   return (
     <article className="relative col-start-6 -col-end-1">
       <h2 className="text-highlight font-impact">쇼핑은 필수</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         캠핑은 장비빨! A부터 Z까지 모두 준비하세요.
       </p>
-      <div className="flex gap-[10px]">
-        {DUMMY_PRODUCTS.map((item) => (
-          <ShoppingItem
-            key={item.name}
-            name={item.name}
-            discount={item?.discount}
-            price={item.price}
-            image={item.image}
-            brand={item.brand}
-          />
+      {isLoading && <p>로딩중...</p>}
+      {errorMessage}
+      <div className="flex gap-2 justify-between">
+        {products.map((product) => (
+          <ShoppingItem key={product.productId} product={product} />
         ))}
       </div>
       <Link to={PATH.shoppingSearch} className="absolute top-5 font-bold right-0 text-info-500">

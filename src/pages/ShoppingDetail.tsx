@@ -1,8 +1,8 @@
-import ProductInfo from "@components/detail/ProductInfo";
-import RelatedProducts from "@components/shopping/RelatedProducts";
-import { NaverProductResponse } from "types/NaverShoppingResponse";
 import { useLocation } from "react-router";
+import ProductInfo from "@components/shopping/ProductInfo";
+import RelatedProducts from "@components/shopping/RelatedProducts";
 import ProductCategories from "@components/shopping/ProductCategories";
+import { NaverProductResponse } from "types/NaverShoppingResponse";
 
 export default function ShoppingDetail() {
   const location = useLocation();
