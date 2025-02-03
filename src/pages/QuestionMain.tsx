@@ -89,7 +89,7 @@ export default function QuestionMain() {
         {questionData.map((question) => (
           <QuestionCard
             handleClick={() => navigate(PATH.questionPostPath)}
-            userName={question.author.fullName}
+            userName={JSON.parse(question.author.fullName).fullName}
             coverImage="https://placehold.co/30x30?text=CAMP+STORY"
             title={JSON.parse(question.title).title}
             timeStamp={new Date(question.createdAt).toLocaleDateString()}
