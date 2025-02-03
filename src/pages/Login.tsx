@@ -79,13 +79,12 @@ export default function Login() {
 
   const VITE_KAKAO_API_KEY: string = import.meta.env.VITE_KAKAO_API_KEY;
   const VITE_GOOGLE_CLIENT_ID: string = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-  const VITE_NAVER_API_ID_KEY: string = import.meta.env.VITE_NAVER_API_ID_KEY;
+  const VITE_NAVER_API_ID_KEY: string = import.meta.env.VITE_NAVER_LOGIN_API_ID_KEY;
   const REDIRECT_URI = `${window.location.origin}${PATH.oauthRedirect}`;
   const kakao_link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${VITE_KAKAO_API_KEY}&redirect_uri=${REDIRECT_URI}`;
   const google_link = `https://accounts.google.com/o/oauth2/auth?client_id=${VITE_GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid email profile`;
   const naver_link = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${VITE_NAVER_API_ID_KEY}&redirect_uri=${REDIRECT_URI}&state=naver`;
 
-  
   const loginWithKakao = () => {
     window.location.href = kakao_link;
   };
