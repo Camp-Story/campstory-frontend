@@ -107,4 +107,4 @@ interface AuthResponse {
 }
 
 export default AuthResponse;
-export type { User };
+export type { User, Like, Comment };
