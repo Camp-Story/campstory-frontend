@@ -9,9 +9,11 @@ import campingDataResponse from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import useBookMark from "@hooks/useBookmark";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
+  const { handleClickLike, isBookmarked } = useBookMark("67a0630b4f5b541065debe95");
   const [searchParams, setSearchParams] = useSearchParams();
   // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
@@ -201,20 +203,25 @@ export default function CampingSearch() {
           {isLoading && "로딩중.."}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             {campingData.length !== 0 ? (
-              campingData.map((item) => (
-                <SearchCard
-                  key={item.contentId}
-                  img={item.firstImageUrl}
-                  bookmarked={false}
-                  category={item.induty}
-                  location={item.addr1}
-                  title={item.facltNm}
-                  handleClickBookmark={() => alert("bookmark")}
-                  handleClick={() =>
-                    navigate(PATH.campingInfo(item.contentId), { state: { item } })
-                  }
-                />
-              ))
+              campingData.map((item) => {
+                const bookmarked = isBookmarked(item.contentId);
+                return (
+                  <SearchCard
+                    key={item.contentId}
+                    img={item.firstImageUrl}
+                    bookmarked={!!bookmarked}
+                    category={item.induty}
+                    location={item.addr1}
+                    title={item.facltNm}
+                    handleClickBookmark={(e) =>
+                      handleClickLike(e, !!bookmarked, bookmarked ? bookmarked._id : item.contentId)
+                    }
+                    handleClick={() =>
+                      navigate(PATH.campingInfo(item.contentId), { state: { item } })
+                    }
+                  />
+                );
+              })
             ) : (
               <>
                 <h3 className=" text-sub-title">
