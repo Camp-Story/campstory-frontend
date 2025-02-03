@@ -5,6 +5,7 @@ export const PATH = {
   // auth
   signUp: "/sign-up",
   login: "/login",
+  logout: "/logout",
   mypage: "/mypage",
   information: "/mypage/information",
   reservedList: "/mypage/reserved-list",
