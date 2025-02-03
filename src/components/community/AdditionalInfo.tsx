@@ -36,7 +36,7 @@ export default function AdditionalInfo({
         <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} />
       </div>
 
-      <span className="text-[13px] text-gray-scale-300">{time}전</span>
+      <span className="text-[13px] text-gray-scale-300">{time}</span>
     </div>
   );
 }

@@ -3,10 +3,52 @@ import OrderRadio from "@components/community/OrderRadio";
 import QuestionCard from "@components/community/question/QuestionCard";
 import QuestionTag from "@components/community/QuestionTag";
 import { PATH } from "@constants/path";
+import { apiInstance } from "@utils/axiosInstance";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+
+interface Author {
+  email: string;
+  fullName: string;
+  _id: string;
+}
+
+interface Post {
+  _id: string;
+  author: Author; // 일부 데이터에서 author가 빠질 수도 있음
+  title: string; // JSON 문자열 형태의 title
+  createdAt: Date; // ISO 날짜 문자열
+  updatedAt: string;
+  // comments: any[];
+  // likes: any[];
+}
 
 export default function QuestionMain() {
   const navigate = useNavigate();
+  const QUESTION_CHANNEL_ID = "67a01c3c896e1c0cc883e18c";
+  const [questionData, setQuestionData] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchQuestionData = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await apiInstance.get(`/posts/channel/${QUESTION_CHANNEL_ID}`);
+      setQuestionData(response.data);
+      console.log(response.data);
+      console.log(JSON.parse(response.data[0].title).title);
+    } catch (error) {
+      setError("질문 목록을 가져오는 중 오류가 발생했습니다.");
+      console.log("Error fetching question data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestionData();
+  }, []);
   return (
     <div className="mt-14 px-4">
       {/* SearchBar */}
@@ -41,11 +83,18 @@ export default function QuestionMain() {
       </div>
 
       {/* QuestionCards */}
+      {isLoading && <p>로딩중...</p>}
+      {error}
       <div className="grid grid-cols-2 gap-x-7 gap-y-10 justify-between">
-        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
-        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
-        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
-        <QuestionCard handleClick={() => navigate(PATH.questionPostPath)} />
+        {questionData.map((question) => (
+          <QuestionCard
+            handleClick={() => navigate(PATH.questionPostPath)}
+            userName={question.author.fullName}
+            coverImage="https://placehold.co/30x30?text=CAMP+STORY"
+            title={JSON.parse(question.title).title}
+            timeStamp={new Date(question.createdAt).toLocaleDateString()}
+          />
+        ))}
       </div>
     </div>
   );
