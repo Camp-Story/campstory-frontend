@@ -6,27 +6,28 @@ import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import PostResponse from "types/PostResponse";
 
-interface Author {
-  email: string;
-  fullName: string;
-  _id: string;
-}
+// interface Author {
+//   email: string;
+//   fullName: string;
+//   _id: string;
+// }
 
-interface Post {
-  _id: string;
-  author: Author; // 일부 데이터에서 author가 빠질 수도 있음
-  title: string; // JSON 문자열 형태의 title
-  createdAt: Date; // ISO 날짜 문자열
-  updatedAt: string;
-  // comments: any[];
-  // likes: any[];
-}
+// interface Post {
+//   _id: string;
+//   author: Author; // 일부 데이터에서 author가 빠질 수도 있음
+//   title: string; // JSON 문자열 형태의 title
+//   createdAt: Date; // ISO 날짜 문자열
+//   updatedAt: string;
+//   // comments: any[];
+//   // likes: any[];
+// }
 
 export default function QuestionMain() {
   const navigate = useNavigate();
   const QUESTION_CHANNEL_ID = "67a01c3c896e1c0cc883e18c";
-  const [questionData, setQuestionData] = useState<Post[]>([]);
+  const [questionData, setQuestionData] = useState<PostResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,7 +35,9 @@ export default function QuestionMain() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await apiInstance.get(`/posts/channel/${QUESTION_CHANNEL_ID}`);
+      const response = await apiInstance.get<PostResponse[]>(
+        `/posts/channel/${QUESTION_CHANNEL_ID}`,
+      );
       setQuestionData(response.data);
       console.log(response.data);
       console.log(JSON.parse(response.data[0].title).title);
@@ -88,7 +91,8 @@ export default function QuestionMain() {
       <div className="grid grid-cols-2 gap-x-7 gap-y-10 justify-between">
         {questionData.map((question) => (
           <QuestionCard
-            handleClick={() => navigate(PATH.questionPostPath)}
+            key={question._id}
+            handleClick={() => navigate(PATH.questionPost(question._id))}
             userName={JSON.parse(question.author.fullName).fullName}
             coverImage="https://placehold.co/30x30?text=CAMP+STORY"
             title={JSON.parse(question.title).title}
