@@ -7,6 +7,7 @@ interface ImportMeta {
     VITE_WEATHER_API_KEY: string;
     VITE_NAVER_API_ID_KEY: string;
     VITE_NAVER_SECRET_KEY: string;
+    VITE_NAVER_LOGIN_API_ID_KEY: string;
     VITE_KAKAO_API_KEY: string;
     VITE_GOOGLE_API_KEY: string;
     VITE_REDIRECT_URI: string;
