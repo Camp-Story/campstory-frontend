@@ -1,27 +1,30 @@
 import InputContainer from "@components/community/question/QuestionCreate/InputContainer";
 import QuestionTag from "@components/community/QuestionTag";
-// import { PATH } from "@constants/path";
+import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useState } from "react";
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function QuestionCreate() {
-  const [formData, setFormData] = useState({ title: "", content: "" });
-  // const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ title: "", tag: [] as string[], content: "" });
   const token = localStorage.getItem("token");
-  console.log(token);
-  // const token = tokenLoader();
-  // console.log(token);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
+  };
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      tag: checked ? [...prev.tag, value] : prev.tag.filter((tag) => tag !== value),
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // alert(formData.title + formData.content);
     const response = await apiInstance.post(
       "/posts/create",
       {
@@ -35,7 +38,7 @@ export default function QuestionCreate() {
 
     if (response.status === 200 || response.status === 201) {
       alert("작성 성공!");
-      // navigate(PATH.question);
+      navigate(PATH.question);
     }
   };
 
@@ -55,12 +58,12 @@ export default function QuestionCreate() {
         </InputContainer>
         <InputContainer title="카테고리">
           <div className="flex gap-2">
-            <QuestionTag tag="reservation" isCheckbox />
-            <QuestionTag tag="payment" isCheckbox />
-            <QuestionTag tag="member" isCheckbox />
-            <QuestionTag tag="campingGear" isCheckbox />
-            <QuestionTag tag="campsite" isCheckbox />
-            <QuestionTag tag="tips" isCheckbox />
+            <QuestionTag tag="reservation" handleChange={handleCheckbox} isCheckbox />
+            <QuestionTag tag="payment" handleChange={handleCheckbox} isCheckbox />
+            <QuestionTag tag="member" handleChange={handleCheckbox} isCheckbox />
+            <QuestionTag tag="campingGear" handleChange={handleCheckbox} isCheckbox />
+            <QuestionTag tag="campsite" handleChange={handleCheckbox} isCheckbox />
+            <QuestionTag tag="tips" handleChange={handleCheckbox} isCheckbox />
           </div>
         </InputContainer>
         <InputContainer title="내용">
