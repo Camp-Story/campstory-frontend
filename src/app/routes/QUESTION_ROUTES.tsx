@@ -1,6 +1,6 @@
 import { PATH } from "@constants/path";
 import QuestionDetail from "@pages/QuestionDetail";
-import QuestionCreate from "@pages/QudstionCreate";
+import QuestionCreate from "@pages/QuestionCreate";
 import QuestionMain from "@pages/QuestionMain";
 import QuestionModify from "@pages/QuestionModify";
 
