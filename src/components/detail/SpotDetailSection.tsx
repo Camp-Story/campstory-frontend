@@ -1,3 +1,6 @@
+import { PATH } from "@constants/path";
+import { Link } from "react-router";
+
 interface CampingDetailProps<T extends string = string> {
   [key: string]: T;
 }
@@ -100,7 +103,9 @@ export default function SpotDetailSection({ title, category, phone, address }: C
             />
           </svg>
         </div>
+        <Link to={PATH.campingReservationPath} >
         <button className="w-72 h-11 rounded bg-primary-500 text-gray-scale-0">예약하기</button>
+        </Link>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import { PATH } from "@constants/path";
 import CampingDetail from "@pages/CampingDetail";
 import CampingMain from "@pages/CampingMain";
 import CampingSearch from "@pages/CampingSearch";
+import CampingReservation from "@pages/CampingReservation";
 
 const CAMPING_ROUTES = [
   {
@@ -18,7 +19,7 @@ const CAMPING_ROUTES = [
   },
   {
     path: PATH.campingReservationPath,
-    element: <>camping reservation</>,
+    element: <CampingReservation/>,
   },
 ];
 
