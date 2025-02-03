@@ -5,6 +5,7 @@ export type Tag = "reservation" | "payment" | "member" | "campingGear" | "campsi
 interface TagProps {
   tag: Tag;
   isCheckbox?: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TAGS = {
@@ -28,21 +29,28 @@ const TAGS = {
   },
 };
 
-export default function Tag({ tag, isCheckbox }: TagProps) {
+export default function Tag({ tag, isCheckbox, handleChange }: TagProps) {
   const { label } = TAGS[tag];
 
   return (
     <div className="flex gap-2 items-center w-fit">
       {isCheckbox && (
-        <input id={tag} type="checkbox" value="" className="hidden peer" defaultChecked />
+        <input
+          id={tag}
+          type="checkbox"
+          value={tag}
+          onChange={(e) => handleChange(e)}
+          className="hidden peer"
+          // defaultChecked
+        />
       )}
       <label
         htmlFor={tag}
         className={twMerge(
-          "flex gap-[6px] items-center px-2.5 py-[5px] rounded-[21px] text-body1",
+          "flex gap-[6px] items-center px-2.5 py-[5px] rounded-[21px] text-gray-scale-400 text-body1 ",
           isCheckbox
-            ? "cursor-pointer border border-gray-scale-200 hover:bg-gray-scale-100/50 peer-checked:bg-gray-scale-100 peer-checked:hover:bg-gray-scale-100/30 "
-            : "bg-gray-scale-0 border border-gray-scale-200",
+            ? "cursor-pointer border border-gray-scale-200 bg-white hover:brightness-95 peer-checked:border-[#1A9EFE]/50 peer-checked:bg-[#1A9EFE]/15 peer-checked:hover:bg-[#1A9EFE]/30"
+            : "bg-gray-scale-100",
         )}
       >
         <span className="leading-3 text-gray-scale-300">{label}</span>
