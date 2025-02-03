@@ -6,6 +6,7 @@ import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
+import getRelativeTime from "@utils/getRelativeTime";
 
 interface Post {
   _id: string;
@@ -13,6 +14,8 @@ interface Post {
   content: string;
   image?: string;
   createdAt: string;
+  likes: number;
+  
 }
 
 export default function CommunityMain() {
@@ -76,7 +79,7 @@ export default function CommunityMain() {
               title={realTitle}
               content={realContent}
               img={post.image}
-              time={post.createdAt}
+              time={getRelativeTime(post.createdAt)}
             />
           );
         })}
