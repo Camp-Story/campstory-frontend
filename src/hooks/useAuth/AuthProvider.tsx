@@ -1,5 +1,5 @@
 import { User } from "types/AuthResponse";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 import AuthContext from "./AuthContext";
 import { UserInfoState } from "@pages/MypageInfo";
@@ -7,18 +7,28 @@ import { UserInfoState } from "@pages/MypageInfo";
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && !user) {
+      updateUser();
+    }
+  }, [user]);
+
   const login = (userData: User) => {
+    localStorage.setItem("id", userData._id);
     setUser(userData);
   };
 
   const logout = () => {
+    localStorage.removeItem("id");
     setUser(null);
   };
 
   const updateUser = async () => {
     const token = localStorage.getItem("token");
+    const id = localStorage.getItem("id");
 
-    const response = await apiInstance.get<User>(`/users/${user?._id}`, {
+    const response = await apiInstance.get<User>(`/users/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
