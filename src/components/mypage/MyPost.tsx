@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { PATH } from "@constants/path";
 import AreaCard from "@./components/community/community/AreaCard";
-import TgaList from "@./components/community/TagList";
+import TagList from "@./components/community/TagList";
 
 export default function Post() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Post() {
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src="/images/community/communityPostItem.png" alt="thumbnail" />
 
-        <TgaList tags={["clean", "kind", "convenience"]} />
+        <TagList tags={["clean", "kind", "convenience"]} />
 
         <AreaCard location="울산 울주군군" thumbnail="" title="신불산베이스캠프" />
       </div>
