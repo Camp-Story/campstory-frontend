@@ -64,7 +64,7 @@ export default function ProductCard({
       <div className="flex gap-2 items-center">
         <span className="text-sub-title font-bold">
           {hprice && (
-            <span className="text-secondary-300 mr-2">{calculateDiscountRate(hprice, lprice)}</span>
+            <span className="text-secondary-500 mr-2">{calculateDiscountRate(hprice, lprice)}</span>
           )}
           {Intl.NumberFormat("ko-KR").format(Number(lprice))}원
         </span>

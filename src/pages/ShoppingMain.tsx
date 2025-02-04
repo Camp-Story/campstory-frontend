@@ -6,7 +6,7 @@ import RecommendCard from "@components/shopping/RecommendCard";
 import ReviewCardProps from "types/ReviewCardProps";
 import ReviewCard from "@components/camping/campingMain/ReviewCard";
 import ProductCard from "@components/shopping/ProductCard";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const RecommendProductData = [
   {
@@ -133,10 +133,10 @@ const DiscountProductData = [
     category2: "캠핑",
     category3: "텐트",
     category4: "3-4인용",
-    hprice: "",
+    hprice: "299000",
     image: "https://shopping-phinf.pstatic.net/main_3146703/31467035618.20240823160702.jpg",
     link: "https://search.shopping.naver.com/catalog/31467035618",
-    lprice: "299000",
+    lprice: "249000",
     maker: "아이두젠",
     mallName: "네이버",
     productId: "31467035618",
@@ -149,7 +149,7 @@ const DiscountProductData = [
     category2: "캠핑",
     category3: "텐트",
     category4: "3-4인용",
-    hprice: "",
+    hprice: "469000",
     image: "https://shopping-phinf.pstatic.net/main_4612468/46124681618.20240306100132.jpg",
     link: "https://search.shopping.naver.com/catalog/46124681618",
     lprice: "419000",
@@ -165,7 +165,7 @@ const DiscountProductData = [
     category2: "캠핑",
     category3: "텐트",
     category4: "3-4인용",
-    hprice: "",
+    hprice: "1490000",
     image: "https://shopping-phinf.pstatic.net/main_5077322/50773227620.20241109133742.jpg",
     link: "https://search.shopping.naver.com/catalog/50773227620",
     lprice: "1279000",
@@ -181,7 +181,7 @@ const DiscountProductData = [
     category2: "캠핑",
     category3: "텐트",
     category4: "3-4인용",
-    hprice: "",
+    hprice: "820000",
     image: "https://shopping-phinf.pstatic.net/main_2867937/28679375559.20210902120103.jpg",
     link: "https://search.shopping.naver.com/catalog/28679375559",
     lprice: "623200",
@@ -197,7 +197,7 @@ const DiscountProductData = [
     category2: "캠핑",
     category3: "텐트",
     category4: "3-4인용",
-    hprice: "",
+    hprice: "99000",
     image: "https://shopping-phinf.pstatic.net/main_1118076/11180765626.20240805182225.jpg",
     link: "https://search.shopping.naver.com/catalog/11180765626",
     lprice: "78900",
@@ -272,7 +272,9 @@ export default function ShoppingMain() {
       <section>
         <div className="flex justify-between items-center">
           <SubTitle>카테고리별 분류</SubTitle>
-          <button className="text-sub-title text-info-500">더보기</button>
+          <Link to={PATH.shoppingSearch} className="text-sub-title text-info-500">
+            더보기
+          </Link>
         </div>
         <div className="flex gap-0 justify-between">
           <CategoryCard src="/images/shopping/food.png" catName="먹거리" />
@@ -288,7 +290,9 @@ export default function ShoppingMain() {
       <section>
         <div className="flex justify-between items-center">
           <SubTitle>오늘의 추천 상품</SubTitle>
-          <button className="text-sub-title text-info-500">더보기</button>
+          <Link to={PATH.shoppingSearch} className="text-sub-title text-info-500">
+            더보기
+          </Link>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {RecommendProductData.map((product) => (
@@ -306,7 +310,9 @@ export default function ShoppingMain() {
       <section>
         <div className="flex justify-between items-center">
           <SubTitle>신상품</SubTitle>
-          <button className="text-sub-title text-info-500">더보기</button>
+          <Link to={PATH.shoppingSearch} className="text-sub-title text-info-500">
+            더보기
+          </Link>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {NewProductData.map((product) => (
@@ -322,10 +328,12 @@ export default function ShoppingMain() {
 
       {/* Sale */}
       <section className="relative">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E8F6F1] w-screen h-[450px] -z-10"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500/5 w-screen h-[450px] -z-10"></div>
         <div className="flex justify-between items-center">
           <SubTitle>최저가 득템!</SubTitle>
-          <button className="text-sub-title text-info-500">더보기</button>
+          <Link to={PATH.shoppingSearch} className="text-sub-title text-info-500">
+            더보기
+          </Link>
         </div>
         <div className="flex gap-2 justify-between items-center">
           {DiscountProductData.map((product) => (
