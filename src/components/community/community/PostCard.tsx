@@ -41,9 +41,10 @@ export default function PostCard({
         <UserProfile nickname={fullname} profileUrl="" />
 
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
-        <img src={img || defaultImage} alt="thumbnail" className="w-[auto] h-[310px] rounded-xl" />
-
-        <TagList tags={tags || []} />
+        <div className="w-full h-[400px] overflow-hidden rounded-xl">
+          <img src={img || defaultImage} alt="thumbnail" className="size-full object-cover" />
+        </div>
+        <TagList tags={tags || ["clean"]} />
 
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
       </div>
