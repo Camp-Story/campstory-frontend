@@ -8,7 +8,7 @@ import TodaySectionProps from "types/TodaySectionProps";
 
 const todaySectionData: TodaySectionProps[] = [
   {
-    src: "/images/festival/event-dummy.png",
+    src: "/images/festival/event-dummy-01.png",
     title: "새해를 여는 밝은 희망, 감악산 해맞이",
     subTitle:
       "새해와 함께 희망을 품어보세요! 감악산 해맞이에서 풍물패 공연, 소원 적기, 떡국 시식 등 다채로운 즐거움을 만나보세요",
@@ -17,7 +17,7 @@ const todaySectionData: TodaySectionProps[] = [
     path: PATH.eventInfoPath,
   },
   {
-    src: "/images/festival/event-dummy.png",
+    src: "/images/festival/event-dummy-02.png",
     title: "제주민속촌 정월대보름 민속대축제",
     subTitle:
       "제주민속촌 정월대보름 민속대축제는 2025년 정월대보름행사를 통해, 지역주민의 안녕과 지역 발전을 기원하는 행사이다.",
@@ -26,7 +26,7 @@ const todaySectionData: TodaySectionProps[] = [
     path: PATH.eventInfoPath,
   },
   {
-    src: "/images/festival/event-dummy.png",
+    src: "/images/festival/event-dummy-03.png",
     title: "홍성남당항 새조개와 함께하는 수산물 축제",
     subTitle:
       "남당항과 천수만 일원에서 12월부터 이듬해 3월 사이에 주로 잡히는 새조개는 살이 매우 통통하고 커서 제철을 이루고 있다.",
