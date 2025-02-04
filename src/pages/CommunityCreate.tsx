@@ -7,7 +7,7 @@ import { apiInstance } from "@utils/axiosInstance";
 
 export default function CommunityCreate() {
   const navigate = useNavigate();
-  const JWT = import.meta.env.VITE_API_BASE_JWTTOKEN;
+  const JWT = localStorage.getItem("token");
   const [isLogined, setIsLogined] = useState(false);
   const [loading, setLoading] = useState(true);
 

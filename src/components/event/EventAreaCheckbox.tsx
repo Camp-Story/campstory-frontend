@@ -10,6 +10,7 @@ interface AreaCheckboxProps {
 export default function EventAreaCheckbox({
   code,
   label,
+  
   value,
   selectedArea,
   onAreaChange,

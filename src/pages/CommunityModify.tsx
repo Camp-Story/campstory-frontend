@@ -6,6 +6,12 @@ import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 import { PATH } from "@constants/path";
 
+interface Author {
+  _id: string;
+  fullName: string;
+  email: string;
+}
+
 interface PostDetail {
   _id: string;
   title: string;
@@ -13,25 +19,32 @@ interface PostDetail {
   image?: string;
   imagePublicId?: string;
   createdAt: string;
+  author: Author;
 }
 
 export default function CommunityModify() {
   const { id } = useParams();
   const naviagte = useNavigate();
-  const JWT = import.meta.env.VITE_API_BASE_JWTTOKEN;
+  const JWT = localStorage.getItem("token");
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [imageFile, setImagefile] = useState<File | null>(null);
   const [imagePublicId, setImagePublicId] = useState<string | null>(null);
 
-  console.log(id);
+  const currentUserId = localStorage.getItem("userId");
+
   useEffect(() => {
     if (!id) return;
     apiInstance
       .get<PostDetail>(`/posts/${id}`)
       .then((res) => {
         const post = res.data;
+
+        if (post.author && post.author._id !== currentUserId) {
+          alert("수정 권한이 없습니다.");
+          naviagte(-1);
+        }
 
         try {
           const parsed = JSON.parse(post.title);
