@@ -13,7 +13,7 @@ export default function NearbyPlaceItem({ imageUrl, category, name }: NearbyPlac
       <div className="flex justify-between">
         <div>
           <div className="text-body1 text-gray-scale-300">{category}</div>
-          <div className="w-52 whitespace-nowrap text-ellipsis overflow-hidden text-sub-title">
+          <div className="w-44 whitespace-nowrap text-ellipsis overflow-hidden text-sub-title">
             {name}
           </div>
         </div>
