@@ -9,6 +9,7 @@ import useCamping from "@hooks/useCamping";
 import ReviewSection from "@components/detail/ReviewSection";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import { CAMPING_CHANNEL_ID } from "@constants/channelId";
 
 export default function CampingDetail() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ export default function CampingDetail() {
     fetchNearbyCampsites,
   } = useCamping();
 
-  const { isBookmarked, handleUnlike, handleLike } = useBookMark("67a0d8576e0e9a207c06c4ee");
+  const { isBookmarked, handleUnlike, handleLike } = useBookMark(CAMPING_CHANNEL_ID);
 
   const bookmarked = isBookmarked(id || "");
 

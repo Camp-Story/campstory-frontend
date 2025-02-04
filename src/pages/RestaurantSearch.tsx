@@ -10,6 +10,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 import useBookMark from "@hooks/useBookmark";
+import { RESTAURANT_CHANNEL_ID } from "@constants/channelId";
 
 interface Item {
   addr1: string;
@@ -43,7 +44,7 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
 }));
 
 export default function RestaurantSearch() {
-  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d8476e0e9a207c06c4ea");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark(RESTAURANT_CHANNEL_ID);
 
   const [restaurants, setRestaurants] = useState<Item[]>([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState<Item[]>([]);
