@@ -8,10 +8,8 @@ export type Tag = "clean" | "kind" | "convenience";
 interface TagProps {
   tag: Tag;
   isCheckbox?: boolean;
-
-  checked?: boolean;
-
-  onChange?: (chekced: boolean) => void;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
 }
 
 const TAGS = {
@@ -29,7 +27,7 @@ const TAGS = {
   },
 };
 
-export default function Tag({ tag, isCheckbox, checked = false, onChange }: TagProps) {
+export default function Tag({ tag, isCheckbox, defaultChecked, onChange }: TagProps) {
   const { label, icon } = TAGS[tag];
 
   const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +40,9 @@ export default function Tag({ tag, isCheckbox, checked = false, onChange }: TagP
         <input
           id={tag}
           type="checkbox"
-          value=""
+          value={tag}
           className="hidden peer"
-          checked={checked}
+          checked={defaultChecked}
           onChange={handleCheckChange}
         />
       )}

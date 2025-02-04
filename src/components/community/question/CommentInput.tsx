@@ -1,16 +1,26 @@
+import { useState } from "react";
+
 interface CommentInputProps extends React.HtmlHTMLAttributes<HTMLInputElement> {
-  handleSubmit: () => void;
+  handleSubmit: (commentText: string) => Promise<void>;
 }
 
 export default function CommentInput({ handleSubmit }: CommentInputProps) {
+  const [comment, setComment] = useState("");
+
+  const onClick = async () => {
+    if (comment.trim() === "") return;
+    await handleSubmit(comment);
+    setComment("");
+  };
   return (
     <div className="flex items-center">
       <input
         type="text"
         placeholder="댓글을 남겨보세요"
         className="border border-gray-scale-200 placeholder-gray-scale-300 rounded-full py-3 px-8 w-full"
+        onChange={(e) => setComment(e.target.value)}
       />
-      <button onClick={handleSubmit} className="-m-[56px] top-[20px]">
+      <button onClick={onClick} className="-m-[56px] top-[20px]">
         <svg
           width="25"
           height="25"

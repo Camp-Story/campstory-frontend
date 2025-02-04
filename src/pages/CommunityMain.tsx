@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 import getRelativeTime from "@utils/getRelativeTime";
+import { COMMUNITY_CHANNEL_ID } from "@constants/channelId";
 
 interface Author {
   _id: string;
@@ -32,7 +33,7 @@ export default function CommunityMain() {
 
   useEffect(() => {
     apiInstance
-      .get<Post[]>("/posts/channel/67a021790b62dc0dc6cc8e69")
+      .get<Post[]>(`/posts/channel/${COMMUNITY_CHANNEL_ID}`)
       .then((res) => {
         const validPosts = res.data.filter((post) => post.author);
         setPosts(validPosts);
@@ -100,6 +101,7 @@ export default function CommunityMain() {
               fullname={JSON.parse(post.author.fullName).fullName}
               content={realContent}
               img={post.image}
+              tags={JSON.parse(post.title).tags}
               time={getRelativeTime(post.createdAt)}
             />
           );
