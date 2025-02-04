@@ -38,7 +38,6 @@ export default function EventDetail() {
     };
 
     setDetail();
-    console.log(eventPayload);
 
     if (eventDetailData?.mapx && eventDetailData?.mapy) {
       fetchNearbyEvents(Number(eventDetailData.mapx), Number(eventDetailData.mapy), 20000);

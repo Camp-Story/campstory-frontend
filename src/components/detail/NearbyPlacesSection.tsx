@@ -35,7 +35,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
         </Link>
       </div>
       <div className="flex flex-wrap justify-between">
-        {places.map((place) => {
+        {places.map((place, index) => {
           let imageUrl: string;
           let category: string;
           let name: string;
@@ -59,7 +59,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
           }
 
           return (
-            <NearbyPlaceItem key={imageUrl} imageUrl={imageUrl} category={category} name={name} />
+            <NearbyPlaceItem key={index} imageUrl={imageUrl} category={category} name={name} />
           );
         })}
       </div>
