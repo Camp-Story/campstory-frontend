@@ -45,15 +45,15 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
             category = place.induty;
             name = place.facltNm;
           } else if (isEventData(place)) {
-            imageUrl = place.firstimage || "https://placehold.co/230x230?text=EVENT+STORY";
+            imageUrl = place.firstimage || "https://placehold.co/230x230?text=CAMP+STORY";
             category = place.contenttypeid === "15" ? "축제" : "행사";
             name = place.title;
           } else if (isRestaurantData(place)) {
-            imageUrl = place.firstimage || "https://placehold.co/230x230?text=RESTAURANT+STORY";
+            imageUrl = place.firstimage || "https://placehold.co/230x230?text=CAMP+STORY";
             category = place.cat3;
             name = place.title;
           } else {
-            imageUrl = "https://placehold.co/230x230?text=PLACE+STORY";
+            imageUrl = "https://placehold.co/230x230?text=CAMP+STORY";
             category = "기타";
             name = "알 수 없는 명소";
           }
