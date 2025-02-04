@@ -7,15 +7,15 @@ interface NearbyPlaceItemProps {
 export default function NearbyPlaceItem({ imageUrl, category, name }: NearbyPlaceItemProps) {
   return (
     <div>
-      <img
-        src={imageUrl}
-        alt="인근 명소 이미지"
-        className="w-[228px] h-[228px] rounded-xl mb-[10px]"
-      />
+      <div className="w-[228px] h-[228px] rounded-xl border-2 overflow-hidden mb-3">
+        <img src={imageUrl} alt="인근 명소 이미지" className="size-full object-cover" />
+      </div>
       <div className="flex justify-between">
         <div>
-          <div className="text-[13px] font-bold text-gray-scale-300 mb-[7px]">{category}</div>
-          <div className="text-[15px]">{name}</div>
+          <div className="text-body1 text-gray-scale-300">{category}</div>
+          <div className="w-52 whitespace-nowrap text-ellipsis overflow-hidden text-sub-title">
+            {name}
+          </div>
         </div>
         <svg
           width="30"

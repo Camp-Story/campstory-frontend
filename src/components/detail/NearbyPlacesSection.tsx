@@ -1,10 +1,10 @@
 import NearbyPlaceItem from "./NearbyPlaceItem";
 import { campingDataResponse } from "types/CampingDataResponse";
 import { CommonDetails } from "types/EventResponse";
-import { RestaurantDetailData } from "types/RestaurantResponse";
+import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 
 // 유니온 타입 정의
-type PlaceData = campingDataResponse | CommonDetails | RestaurantDetailData;
+type PlaceData = campingDataResponse | CommonDetails | NearbyRestaurantResponse;
 
 interface NearbyPlacesSectionProps {
   places: PlaceData[];
@@ -19,8 +19,8 @@ const isEventData = (place: PlaceData): place is CommonDetails => {
   return (place as CommonDetails).contenttypeid !== undefined;
 };
 
-const isRestaurantData = (place: PlaceData): place is RestaurantDetailData => {
-  return (place as RestaurantDetailData).cat3 !== undefined;
+const isRestaurantData = (place: PlaceData): place is NearbyRestaurantResponse => {
+  return (place as NearbyRestaurantResponse).cat3 !== undefined;
 };
 
 export default function NearbyPlacesSection({ places }: NearbyPlacesSectionProps) {
@@ -45,7 +45,7 @@ export default function NearbyPlacesSection({ places }: NearbyPlacesSectionProps
             category = place.contenttypeid === "15" ? "축제" : "행사";
             name = place.title;
           } else if (isRestaurantData(place)) {
-            imageUrl = place.originimgurl || "https://placehold.co/230x230?text=RESTAURANT+STORY";
+            imageUrl = place.firstimage || "https://placehold.co/230x230?text=RESTAURANT+STORY";
             category = place.cat3;
             name = place.title;
           } else {
