@@ -9,6 +9,7 @@ import CategoryMap from "@components/food/CategoryMap";
 import ReviewSection from "@components/detail/ReviewSection";
 import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 import { PATH } from "@constants/path";
+import useBookMark from "@hooks/useBookmark";
 
 interface Item {
   contentid: string;
@@ -51,6 +52,10 @@ export default function FoodDetail() {
   const [restaurants, setRestaurants] = useState<NearbyRestaurantResponse[]>([]);
 
   const { id } = useParams();
+
+  const { isBookmarked, handleUnlike, handleLike } = useBookMark("67a0d8476e0e9a207c06c4ea");
+
+  const bookmarked = isBookmarked(id || "");
 
   const fetchRestaurantsData = useCallback(async () => {
     setIsLoading(true);
@@ -161,7 +166,7 @@ export default function FoodDetail() {
           title={restaurantData.common[0]?.title}
           address={restaurantData.common[0]?.addr1 || "주소정보 없음"}
           phone={restaurantData.intro[0]?.infocenterfood || "전화번호가 등록되어있지 않습니다."}
-          bookmarked={true}
+          bookmarked={!!bookmarked}
           contenttypeid={"39"}
           overview={restaurantData.common[0]?.overview || "편안하게 방문 부탁드립니다."}
           opentimefood={restaurantData.intro[0]?.opentimefood || "연중무휴"}
@@ -170,6 +175,9 @@ export default function FoodDetail() {
           restdatefood={restaurantData.intro[0]?.restdatefood || "연중무휴"}
           mapX={restaurantData.common[0].mapx}
           mapY={restaurantData.common[0].mapy}
+          handleClickBookmark={(e) =>
+            bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, id || "")
+          }
         />
       </section>
       <NearbyPlacesSection path={PATH.restaurantSearch} places={restaurants} />
