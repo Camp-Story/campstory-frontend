@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import useEvent from "@hooks/useEvent";
 import { useEffect } from "react";
 import ReviewSection from "@components/detail/ReviewSection";
+import { PATH } from "@constants/path";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -77,7 +78,7 @@ export default function EventDetail() {
           mapY={eventDetailData.mapy}
         />
       </section>
-      <NearbyPlacesSection places={nearbyEventList} />
+      <NearbyPlacesSection path={PATH.eventSearch} places={nearbyEventList} />
       <ReviewSection />
     </>
   );
