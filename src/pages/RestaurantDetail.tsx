@@ -7,6 +7,7 @@ import { tourApiInstance } from "@utils/axiosInstance";
 import { useEffect, useState, useCallback } from "react";
 import CategoryMap from "@components/food/CategoryMap";
 import ReviewSection from "@components/detail/ReviewSection";
+import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 
 interface Item {
   contentid: string;
@@ -46,8 +47,41 @@ export default function FoodDetail() {
     common: Item[];
     intro: Item[];
   }>({ common: [], intro: [] });
+  const [restaurants, setRestaurants] = useState<NearbyRestaurantResponse[]>([]);
 
   const { id } = useParams();
+
+  const fetchRestaurantsData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await tourApiInstance.get("/areaBasedList1", {
+        params: {
+          numOfRows: 5,
+          pageNo: "",
+          listYN: "Y",
+          arrange: "O",
+          contentTypeId: 39,
+          areaCode: "",
+          sigunguCode: "",
+          cat1: "",
+          cat2: "",
+          cat3: "",
+        },
+      });
+
+      const items: NearbyRestaurantResponse[] = response.data.response.body.items.item;
+
+      console.log(items);
+      setRestaurants(items);
+    } catch (error) {
+      console.log(error);
+      setError("데이터를 불러오는 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const fetchRestaurantsDetail = useCallback(async () => {
     setIsLoading(true);
@@ -97,7 +131,8 @@ export default function FoodDetail() {
 
   useEffect(() => {
     fetchRestaurantsDetail();
-  }, [fetchRestaurantsDetail]);
+    fetchRestaurantsData();
+  }, [fetchRestaurantsData, fetchRestaurantsDetail]);
 
   if (isLoading) return <p>로딩중...</p>;
   if (error) return <p>{error}</p>;
@@ -137,7 +172,7 @@ export default function FoodDetail() {
           mapY={restaurantData.common[0].mapy}
         />
       </section>
-      <NearbyPlacesSection />
+      <NearbyPlacesSection places={restaurants} />
       <ReviewSection />
     </>
   );
