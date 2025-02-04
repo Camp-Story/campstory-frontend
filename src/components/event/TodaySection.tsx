@@ -1,5 +1,5 @@
 import TodaySectionProps from "types/TodaySectionProps";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function TodaySection({
   src,
@@ -9,6 +9,16 @@ export default function TodaySection({
   path,
   contentId,
 }: TodaySectionProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const event = {
+      contentid: contentId,
+    };
+
+    navigate(path(contentId), { state: { event } });
+  };
+
   return (
     <section className="flex mx-[105px] h-[400px] my-9">
       <div className="flex-1 mr-[70px]">
@@ -29,12 +39,12 @@ export default function TodaySection({
           ))}
         </div>
         <div className="pb-4">
-          <Link
-            to={`${path.replace(":id", contentId)}`}
+          <button
+            onClick={handleClick}
             className="border p-2 rounded-full text-[20px] text-gray-scale-400 font-bold bg-gray-scale-100 w-[302px] h-[58px] flex justify-center items-center shadow-sm hover:bg-gray-300 transition"
           >
             더 알아보기
-          </Link>
+          </button>
         </div>
       </div>
       <div className="flex-1 flex justify-center">
