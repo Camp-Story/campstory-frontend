@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import { PATH } from "@constants/path";
 import CalendarEventCard from "./CalendarEventCard";
 import { tourApiInstance } from "@utils/axiosInstance";
+import { getTodayDate, getFormattedTodayDate, formatDate } from "@utils/dateUtils";
+import Calendar from "./Calendar";
 
 interface Item {
   addr1: string;
@@ -11,6 +11,7 @@ interface Item {
   title: string;
   contentid: string;
   eventstartdate: string;
+  eventenddate: string;
 }
 
 interface ApiResponse {
@@ -24,26 +25,22 @@ interface ApiResponse {
   };
 }
 
+export interface CalendarEvent {
+  title: string;
+  start: string;
+  end: string;
+  backgroundColor: string;
+  borderColor: string;
+  extendedProps: {
+    contentid: string;
+  };
+}
+
 export default function EventCalendarSection() {
   const [events, setEvents] = useState<Item[]>([]);
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const getTodayDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}${month}${day}`;
-  };
-
-  const getFormattedTodayDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}.${month}.${day}`;
-  };
 
   const fetchEventsData = useCallback(async () => {
     setIsLoading(true);
@@ -63,6 +60,21 @@ export default function EventCalendarSection() {
 
       const items = response.data.response.body.items.item || [];
       setEvents(items);
+
+      const eventColors: string[] = ["#F85900", "#1A9EFE", "#1CA673", "#F29B30"];
+
+      const formattedEvents: CalendarEvent[] = items.map((item, index) => ({
+        title: item.title,
+        start: formatDate(item.eventstartdate),
+        end: formatDate(item.eventenddate),
+        backgroundColor: eventColors[index % eventColors.length],
+        borderColor: eventColors[index % eventColors.length],
+        extendedProps: {
+          contentid: item.contentid,
+        },
+      }));
+
+      setCalendarEvents(formattedEvents);
     } catch (error) {
       console.log(error);
       setError("데이터를 불러오는 중 오류가 발생했습니다.");
@@ -78,7 +90,7 @@ export default function EventCalendarSection() {
   return (
     <div className="flex h-[461px]">
       <div className="w-[400px] h-[461px] border border-gray-scale-100 p-2 rounded mr-[20px] bg-white drop-shadow">
-        <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" height="100%" />
+        <Calendar events={calendarEvents} />
       </div>
       <div className="flex flex-col">
         <div className="text-highlight font-impact text-gray-scale-500">축제 일정 한눈에 보기</div>
@@ -89,9 +101,9 @@ export default function EventCalendarSection() {
           {getFormattedTodayDate()}
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {events.map((event, idx) => (
+          {events.map((event) => (
             <CalendarEventCard
-              key={idx}
+              key={event.contentid}
               src={event.firstimage}
               title={event.title}
               addr1={event.addr1}
