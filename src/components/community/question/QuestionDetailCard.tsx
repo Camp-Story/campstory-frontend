@@ -38,7 +38,7 @@ export default function QuestionCard({ data }: { data: PostResponse }) {
           {/* Tag */}
           <div className="flex gap-2 mt-[10px]">
             {tag.map((tag: Tag) => {
-              return <QuestionTag tag={tag} />;
+              return <QuestionTag key={tag} tag={tag} />;
             })}
           </div>
           <AdditionalInfo

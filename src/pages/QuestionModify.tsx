@@ -1,11 +1,13 @@
 import InputContainer from "@components/community/question/QuestionCreate/InputContainer";
-import QuestionTag from "@components/community/QuestionTag";
+import QuestionTag, { Tag } from "@components/community/QuestionTag";
 import PostResponse from "types/PostResponse";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { apiInstance } from "@utils/axiosInstance";
 import { QUESTION_CHANNEL_ID } from "@constants/channelId";
 import { PATH } from "@constants/path";
+
+const TAGS: Tag[] = ["reservation", "payment", "member", "campingGear", "campsite", "tips"];
 
 export default function QuestionModify() {
   const { id } = useParams();
@@ -31,17 +33,24 @@ export default function QuestionModify() {
     }
   }, [id]);
 
+  const isDefaultChecked = (tag: string): boolean => {
+    return formData.tag.includes(tag);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
+    console.log(e.target);
     setFormData((prev) => ({
       ...prev,
       tag: checked ? [...prev.tag, value] : prev.tag.filter((tag) => tag !== value),
     }));
+    console.log(formData);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -97,12 +106,15 @@ export default function QuestionModify() {
         </InputContainer>
         <InputContainer title="카테고리">
           <div className="flex gap-2">
-            <QuestionTag tag="reservation" isCheckbox handleChange={handleCheckbox} />
-            <QuestionTag tag="payment" isCheckbox handleChange={handleCheckbox} />
-            <QuestionTag tag="member" isCheckbox handleChange={handleCheckbox} />
-            <QuestionTag tag="campingGear" isCheckbox handleChange={handleCheckbox} />
-            <QuestionTag tag="campsite" isCheckbox handleChange={handleCheckbox} />
-            <QuestionTag tag="tips" isCheckbox handleChange={handleCheckbox} />
+            {TAGS.map((tag) => (
+              <QuestionTag
+                key={tag}
+                tag={tag}
+                isCheckbox
+                defaultChecked={isDefaultChecked(tag)}
+                handleChange={handleCheckbox}
+              />
+            ))}
           </div>
         </InputContainer>
         <InputContainer title="내용">

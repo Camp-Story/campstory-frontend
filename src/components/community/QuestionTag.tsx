@@ -5,6 +5,7 @@ export type Tag = "reservation" | "payment" | "member" | "campingGear" | "campsi
 interface TagProps {
   tag: Tag;
   isCheckbox?: boolean;
+  defaultChecked?: boolean;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -29,7 +30,7 @@ const TAGS = {
   },
 };
 
-export default function Tag({ tag, isCheckbox, handleChange }: TagProps) {
+export default function Tag({ tag, isCheckbox, defaultChecked, handleChange }: TagProps) {
   const { label } = TAGS[tag];
   const onChangeHandler = handleChange || (() => {});
 
@@ -42,7 +43,7 @@ export default function Tag({ tag, isCheckbox, handleChange }: TagProps) {
           value={tag}
           onChange={(e) => onChangeHandler(e)}
           className="hidden peer"
-          // defaultChecked
+          checked={defaultChecked}
         />
       )}
       <label
