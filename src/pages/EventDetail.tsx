@@ -5,9 +5,8 @@ import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { tourApiInstance } from "@utils/axiosInstance";
-import { CommonDetails, EventDetailData, EventDetails, ImageDetails } from "types/EventResponse";
+import useEvent from "@hooks/useEvent";
+import { useEffect } from "react";
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -46,77 +45,18 @@ const ReviewData: ReviewCardProps[] = [
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
-  const [eventDetailData, setEventDetailData] = useState<EventDetailData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchEventImgList = async () => {
-    try {
-      const imgResponse = await tourApiInstance.get("/detailImage1", {
-        params: {
-          _type: "json",
-          contentId: id,
-          imageYN: "Y",
-          subImageYN: "Y",
-          numOfRows: 10,
-        },
-      });
-      const items: ImageDetails[] = imgResponse.data.response.body.items.item;
-      const images = items.map((item) => item.originimgurl);
-      return images;
-    } catch (error) {
-      setError("행사 이미지를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching event images:", error);
-    }
-  };
-
-  const fetchEventDetailData = async () => {
-    try {
-      const introResponse = await tourApiInstance.get("/detailIntro1", {
-        params: {
-          _type: "json",
-          contentId: id,
-          contentTypeId: 15,
-        },
-      });
-
-      const item: EventDetails = Array.isArray(introResponse.data.response.body.items.item)
-        ? introResponse.data.response.body.items.item[0]
-        : introResponse.data.response.body.items.item;
-      const { sponsor1, sponsor1tel, eventenddate, eventstartdate, eventhomepage } = item;
-      return { sponsor1, sponsor1tel, eventenddate, eventstartdate, eventhomepage };
-    } catch (error) {
-      setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching event detail data:", error);
-    }
-  };
-
-  const fetchEventCommonData = async () => {
-    try {
-      const commonResponse = await tourApiInstance.get("/detailCommon1", {
-        params: {
-          _type: "json",
-          contentId: id,
-          contentTypeId: 15,
-          defaultYN: "Y",
-          overviewYN: "Y",
-          areacodeYN: "Y",
-          addrinfoYN: "Y",
-          mapinfoYN: "Y",
-        },
-      });
-
-      const item: CommonDetails = Array.isArray(commonResponse.data.response.body.items.item)
-        ? commonResponse.data.response.body.items.item[0]
-        : commonResponse.data.response.body.items.item;
-      const { title, addr1, addr2, homepage, overview, contentid, contenttypeid, mapx, mapy } =
-        item;
-      return { title, addr1, addr2, homepage, overview, contentid, contenttypeid, mapx, mapy };
-    } catch (error) {
-      setError("이벤트 상세 정보를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching event detail data:", error);
-    }
-  };
+  const {
+    eventDetailData,
+    isLoading,
+    error,
+    nearbyEventList,
+    setEventDetailData,
+    setIsLoading,
+    fetchNearbyEvents,
+    fetchEventImgList,
+    fetchEventDetailData,
+    fetchEventCommonData,
+  } = useEvent(id as string);
 
   useEffect(() => {
     const setDetail = async () => {
@@ -131,7 +71,20 @@ export default function EventDetail() {
     };
 
     setDetail();
-  }, [id]);
+
+    if (eventDetailData?.mapx && eventDetailData?.mapy) {
+      fetchNearbyEvents(Number(eventDetailData.mapx), Number(eventDetailData.mapy), 20000);
+    }
+  }, [
+    eventDetailData?.mapx,
+    eventDetailData?.mapy,
+    fetchEventCommonData,
+    fetchEventDetailData,
+    fetchEventImgList,
+    fetchNearbyEvents,
+    setEventDetailData,
+    setIsLoading,
+  ]);
 
   if (isLoading) return <p>로딩중...</p>;
   if (error) return <p>{error}</p>;
@@ -161,7 +114,7 @@ export default function EventDetail() {
           mapY={eventDetailData.mapy}
         />
       </section>
-      <NearbyPlacesSection />
+      <NearbyPlacesSection places={nearbyEventList} />
       <div className="mb-[200px]">
         <div className="text-[26px] font-bold mb-5">리뷰 모음</div>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
