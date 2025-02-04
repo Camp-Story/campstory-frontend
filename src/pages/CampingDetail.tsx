@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { campingDataResponse } from "types/CampingDataResponse";
 import useCamping from "@hooks/useCamping";
 import ReviewSection from "@components/detail/ReviewSection";
+import { PATH } from "@constants/path";
 
 export default function CampingDetail() {
   const { id } = useParams();
@@ -57,7 +58,7 @@ export default function CampingDetail() {
         mapX={CampingDetailData.mapX}
         mapY={CampingDetailData.mapY}
       />
-      <NearbyPlacesSection places={nearbyCampsiteList} />
+      <NearbyPlacesSection path={PATH.campingSearch} places={nearbyCampsiteList} />
       <ReviewSection />
     </>
   );

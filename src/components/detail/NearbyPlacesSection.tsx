@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import NearbyPlaceItem from "./NearbyPlaceItem";
 import { campingDataResponse } from "types/CampingDataResponse";
 import { CommonDetails } from "types/EventResponse";
@@ -7,6 +8,7 @@ import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 type PlaceData = campingDataResponse | CommonDetails | NearbyRestaurantResponse;
 
 interface NearbyPlacesSectionProps {
+  path: string;
   places: PlaceData[];
 }
 
@@ -23,15 +25,17 @@ const isRestaurantData = (place: PlaceData): place is NearbyRestaurantResponse =
   return (place as NearbyRestaurantResponse).cat3 !== undefined;
 };
 
-export default function NearbyPlacesSection({ places }: NearbyPlacesSectionProps) {
+export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectionProps) {
   return (
     <section className="mb-14">
       <div className="flex flex-wrap justify-between items-center mb-5">
         <div className="text-[26px] font-bold">인근 명소</div>
-        <div className="text-[20px] font-bold text-info-500">더보기</div>
+        <Link to={path} className="text-[20px] font-bold text-info-500">
+          더보기
+        </Link>
       </div>
       <div className="flex flex-wrap justify-between">
-        {places.map((place, index) => {
+        {places.map((place) => {
           let imageUrl: string;
           let category: string;
           let name: string;
@@ -55,7 +59,7 @@ export default function NearbyPlacesSection({ places }: NearbyPlacesSectionProps
           }
 
           return (
-            <NearbyPlaceItem key={index} imageUrl={imageUrl} category={category} name={name} />
+            <NearbyPlaceItem key={imageUrl} imageUrl={imageUrl} category={category} name={name} />
           );
         })}
       </div>

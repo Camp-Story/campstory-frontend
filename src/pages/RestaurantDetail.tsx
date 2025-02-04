@@ -8,6 +8,7 @@ import { useEffect, useState, useCallback } from "react";
 import CategoryMap from "@components/food/CategoryMap";
 import ReviewSection from "@components/detail/ReviewSection";
 import { NearbyRestaurantResponse } from "types/RestaurantResponse";
+import { PATH } from "@constants/path";
 
 interface Item {
   contentid: string;
@@ -172,7 +173,7 @@ export default function FoodDetail() {
           mapY={restaurantData.common[0].mapy}
         />
       </section>
-      <NearbyPlacesSection places={restaurants} />
+      <NearbyPlacesSection path={PATH.restaurantSearch} places={restaurants} />
       <ReviewSection />
     </>
   );
