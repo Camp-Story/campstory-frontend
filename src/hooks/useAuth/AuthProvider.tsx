@@ -6,15 +6,15 @@ import { UserInfoState } from "@pages/MypageInfo";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       logout();
     } else if (!user) {
       updateUser();
     }
-  }, [user]);
+  }, [user, token]);
 
   const login = (userData: User) => {
     localStorage.setItem("id", userData._id);
@@ -39,8 +39,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const modifyUser = async (userData: UserInfoState) => {
-    const token = localStorage.getItem("token");
-
     const response = await apiInstance.put<User>(
       "/settings/update-user",
       {
@@ -62,8 +60,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const updateUserImage = async (file: File) => {
-    const token = localStorage.getItem("token");
-
     const response = await apiInstance.post(
       "/users/upload-photo",
       {
