@@ -10,7 +10,7 @@ export default function MainNavigation({ token }: { token: string }) {
     <nav className="w-[1440px] mx-auto px-main flex items-center justify-between">
       <h1>
         <Link to={PATH.home}>
-          <img src="/images/campstory-logo.png" />
+          <img src="/images/CAMP-STORY-LOGO.png" className="w-20" />
         </Link>
       </h1>
       <ul className="flex gap-10 text-sub-title font-normal">
@@ -31,7 +31,7 @@ export default function MainNavigation({ token }: { token: string }) {
         </li>
       </ul>
       {!token ? (
-        <div className="flex gap-5 items-center text-sub-title">
+        <div className="flex gap-6 items-center text-sub-title">
           <Link to={PATH.login}>로그인</Link>
           <Link
             to={PATH.signUp}
