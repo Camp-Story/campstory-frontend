@@ -4,7 +4,7 @@ interface TodaySectionProps {
   subTitle: string;
   contentId: string;
   tag: string[];
-  path: string;
+  path: (id: string) => string;
 }
 
 export default TodaySectionProps;
