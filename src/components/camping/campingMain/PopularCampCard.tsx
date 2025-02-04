@@ -1,8 +1,8 @@
 import PopularCampCardProps from "types/PopularCampingCardProps";
-import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
+import useCamping from "@hooks/useCamping";
 
 export default function PopularCampCard({ rank, src, category, name, path }: PopularCampCardProps) {
-  const { searchAndNavigate } = useSearchAndNavigateCamping();
+  const { searchAndNavigate } = useCamping();
 
   const handleClick = () => {
     searchAndNavigate(name, path);

@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import CampingSpotItemType from "../../types/CampingSpotItemType";
 import { PATH } from "@constants/path";
 import PopularCampCardProps from "types/PopularCampingCardProps";
-import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
+import useCamping from "@hooks/useCamping";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -59,7 +59,7 @@ const PopularCampingData: PopularCampCardProps[] = [
 ];
 
 function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
-  const { searchAndNavigate } = useSearchAndNavigateCamping();
+  const { searchAndNavigate } = useCamping();
 
   const handleClick = () => {
     searchAndNavigate(name, path);
