@@ -32,7 +32,7 @@ export default function PostCard({ postId, title = "", content = "", img, time }
     <div onClick={handleClickCard} className="cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
         <UserProfile nickname={title} profileUrl="" />
-
+        
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src={img || defaultImage} alt="thumbnail" className="w-[auto] h-[310px] rounded-xl" />
 
