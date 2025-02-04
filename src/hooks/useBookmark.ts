@@ -9,7 +9,6 @@ export default function useBookMark(channelId: string) {
 
   useEffect(() => {
     apiInstance.get<Post[]>(`/posts/channel/${channelId}`).then((res) => {
-      console.log(1, res.data);
       setPosts(res.data);
     });
   }, [channelId]);
@@ -35,7 +34,6 @@ export default function useBookMark(channelId: string) {
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      setPosts((await apiInstance.get(`/posts/channel/${channelId}`)).data);
     }
 
     const post = await apiInstance.get(`/search/all/${id}`);
@@ -47,7 +45,7 @@ export default function useBookMark(channelId: string) {
     );
 
     if (response.status === 200) {
-      await updateUser();
+      await updatePosts();
     }
   };
 
@@ -56,15 +54,22 @@ export default function useBookMark(channelId: string) {
 
     const token = localStorage.getItem("token");
     const likeId = user?.likes.find((like) => like.post === id);
-    console.log(likeId);
+
     const response = await apiInstance.delete("/likes/delete", {
       data: { id: likeId?._id },
       headers: { Authorization: `Bearer ${token}` },
     });
 
     if (response.status === 200) {
-      updateUser();
+      await updatePosts();
     }
+  };
+
+  const updatePosts = async () => {
+    const data = (await apiInstance.get(`/posts/channel/${channelId}`)).data;
+
+    setPosts([...data]);
+    await updateUser();
   };
 
   const isBookmarked = (id: string) => {
