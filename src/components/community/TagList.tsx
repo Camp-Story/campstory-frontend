@@ -8,7 +8,7 @@ export default function TagList({ tags }: TagListProps) {
   return (
     <div className="flex gap-[5px]">
       {tags.map((tag) => (
-        <Tag tag={tag} />
+        <Tag key={tag} tag={tag} />
       ))}
     </div>
   );
