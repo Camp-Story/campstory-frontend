@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import SharingButton from "./SharingButton";
 import SpotMapSection from "./SpotMapSection";
 
@@ -22,6 +23,7 @@ interface DetailRightProps {
   eventhomepage?: string;
   eventstartdate?: string;
   eventenddate?: string;
+  handleClickBookmark: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function DetailRight({
@@ -42,6 +44,7 @@ export default function DetailRight({
   eventhomepage,
   eventstartdate,
   eventenddate,
+  handleClickBookmark,
 }: DetailRightProps) {
   const formatDate = (str: string) =>
     `${str.slice(0, 4)}년 ${str.slice(4, 6)}월 ${str.slice(6, 8)}일`;
@@ -99,21 +102,23 @@ export default function DetailRight({
           <div className="flex flex-col justify-between">
             <div className="flex justify-end gap-2">
               <SharingButton />
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="15" cy="15" r="15" fill="#EAEAEA" />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M14.9999 8.38854C15.8749 7.49946 17.0144 7 18.2039 7C19.4884 7 20.7146 7.58238 21.6124 8.60881C22.5038 9.62713 23 10.9998 23 12.4254C23 13.851 22.5037 15.2238 21.6124 16.242C21.0197 16.9194 20.4279 17.6122 19.8331 18.3086C18.6249 19.723 17.4038 21.1526 16.1353 22.4995L16.1324 22.5026C15.4782 23.187 14.4422 23.1621 13.816 22.4465L8.38716 16.2419C6.53761 14.1281 6.53761 10.7227 8.38716 8.6089C10.1971 6.54038 13.1115 6.46693 14.9999 8.38854Z"
-                  fill={bookmarked ? "#DC3644" : "#B4B4B4"}
-                />
-              </svg>
+              <div onClick={handleClickBookmark} className="hover:cursor-pointer">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 30 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="15" cy="15" r="15" fill="#EAEAEA" />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M14.9999 8.38854C15.8749 7.49946 17.0144 7 18.2039 7C19.4884 7 20.7146 7.58238 21.6124 8.60881C22.5038 9.62713 23 10.9998 23 12.4254C23 13.851 22.5037 15.2238 21.6124 16.242C21.0197 16.9194 20.4279 17.6122 19.8331 18.3086C18.6249 19.723 17.4038 21.1526 16.1353 22.4995L16.1324 22.5026C15.4782 23.187 14.4422 23.1621 13.816 22.4465L8.38716 16.2419C6.53761 14.1281 6.53761 10.7227 8.38716 8.6089C10.1971 6.54038 13.1115 6.46693 14.9999 8.38854Z"
+                    fill={bookmarked ? "#DC3644" : "#B4B4B4"}
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>

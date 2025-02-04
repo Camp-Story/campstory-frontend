@@ -6,6 +6,7 @@ import useEvent from "@hooks/useEvent";
 import { useEffect } from "react";
 import ReviewSection from "@components/detail/ReviewSection";
 import { PATH } from "@constants/path";
+import useBookMark from "@hooks/useBookmark";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +25,10 @@ export default function EventDetail() {
     fetchEventDetailData,
     fetchEventCommonData,
   } = useEvent(id as string);
+
+  const { isBookmarked, handleUnlike, handleLike } = useBookMark("67a0d6ce6e0e9a207c06c4a8");
+
+  const bookmarked = isBookmarked(id || "");
 
   useEffect(() => {
     const setDetail = async () => {
@@ -71,7 +76,7 @@ export default function EventDetail() {
           title={eventDetailData.title}
           address={eventDetailData.addr1}
           phone={eventDetailData.sponsor1tel}
-          bookmarked={false}
+          bookmarked={!!bookmarked}
           contenttypeid={eventDetailData.contenttypeid}
           eventstartdate={eventDetailData.eventstartdate}
           eventenddate={eventDetailData.eventenddate}
@@ -80,6 +85,9 @@ export default function EventDetail() {
           overview={eventDetailData.overview}
           mapX={eventDetailData.mapx}
           mapY={eventDetailData.mapy}
+          handleClickBookmark={(e) =>
+            bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, eventDetailData.contentid)
+          }
         />
       </section>
       <NearbyPlacesSection path={PATH.eventSearch} places={nearbyEventList} />
