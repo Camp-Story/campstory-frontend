@@ -42,6 +42,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
           let name: string;
           let channelId: string;
           let contentId: string;
+          const location = place.addr1;
 
           if (isCampingData(place)) {
             imageUrl = place.firstImageUrl || "https://placehold.co/230x230?text=CAMP+STORY";
@@ -77,6 +78,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
               name={name}
               channelId={channelId}
               contentId={contentId}
+              location={location}
             />
           );
         })}

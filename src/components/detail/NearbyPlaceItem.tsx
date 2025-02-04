@@ -6,6 +6,7 @@ interface NearbyPlaceItemProps {
   name: string;
   channelId: string;
   contentId: string;
+  location: string;
 }
 
 export default function NearbyPlaceItem({
@@ -14,6 +15,7 @@ export default function NearbyPlaceItem({
   name,
   channelId,
   contentId,
+  location,
 }: NearbyPlaceItemProps) {
   const { isBookmarked, handleUnlike, handleLike } = useBookMark(channelId);
 
@@ -32,7 +34,11 @@ export default function NearbyPlaceItem({
           </div>
         </div>
         <div
-          onClick={(e) => (bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, contentId))}
+          onClick={(e) =>
+            bookmarked
+              ? handleUnlike(e, bookmarked._id)
+              : handleLike(e, contentId, { category, image: imageUrl, location, title: name })
+          }
           className="hover:cursor-pointer"
         >
           <svg
