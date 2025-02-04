@@ -1,5 +1,16 @@
 import { Like, User } from "./AuthResponse";
 
+export interface PostOption {
+  title: string;
+  category: string;
+  location: string;
+  image: string;
+}
+
+export interface PostTitle extends Partial<PostOption> {
+  id: string;
+}
+
 export interface Channel {
   authRequired: boolean;
   posts: string[];

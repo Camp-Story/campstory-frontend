@@ -1,7 +1,7 @@
 import { apiInstance } from "@utils/axiosInstance";
 import { useAuth } from "./useAuth/useAuth";
 import { MouseEvent, useEffect, useState } from "react";
-import { Post } from "types/ChannelResponse";
+import { Post, PostOption } from "types/ChannelResponse";
 
 export default function useBookMark(channelId: string) {
   const { user, updateUser } = useAuth();
@@ -13,7 +13,7 @@ export default function useBookMark(channelId: string) {
     });
   }, [channelId]);
 
-  const handleLike = async (e: MouseEvent<HTMLDivElement>, id: string, img: string) => {
+  const handleLike = async (e: MouseEvent<HTMLDivElement>, id: string, options?: PostOption) => {
     e.stopPropagation();
 
     const result = await apiInstance.get(`/search/all/${id}`);
@@ -21,15 +21,11 @@ export default function useBookMark(channelId: string) {
     const token = localStorage.getItem("token");
 
     if (result.data.length === 0) {
-      const response = await fetch(img, { mode: "no-cors" });
-      const blob = await response.blob();
-      const file = new File([blob], "image.jpg", { type: blob.type });
-
       await apiInstance.post(
         "/posts/create",
         {
-          title: id,
-          image: file,
+          title: JSON.stringify({ id, ...options }),
+          image: null,
           channelId,
         },
         { headers: { Authorization: `Bearer ${token}` } },
@@ -71,7 +67,7 @@ export default function useBookMark(channelId: string) {
   };
 
   const isBookmarked = (id: string) => {
-    const post = posts.find((p) => p.title === id);
+    const post = posts.find((p) => JSON.parse(p.title).id === id);
 
     if (post?.likes.find((l) => l.user === user?._id)) {
       return post;
@@ -81,6 +77,7 @@ export default function useBookMark(channelId: string) {
 
   return {
     likes: user?.likes || [],
+    posts,
     handleLike,
     handleUnlike,
     isBookmarked,
