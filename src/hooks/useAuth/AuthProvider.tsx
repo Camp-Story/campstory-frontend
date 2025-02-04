@@ -10,6 +10,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && !user) {
+      console.log(1);
       updateUser();
     }
   }, [user]);

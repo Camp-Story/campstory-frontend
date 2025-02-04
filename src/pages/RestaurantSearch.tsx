@@ -43,7 +43,7 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
 }));
 
 export default function RestaurantSearch() {
-  const { handleClickLike, isBookmarked } = useBookMark("67a0cdcb037ce21a11b8708d");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d8476e0e9a207c06c4ea");
 
   const [restaurants, setRestaurants] = useState<Item[]>([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState<Item[]>([]);
@@ -211,11 +211,9 @@ export default function RestaurantSearch() {
                       navigate(PATH.restaurantInfo(restaurant.contentid), { state: { restaurant } })
                     }
                     handleClickBookmark={(e) =>
-                      handleClickLike(
-                        e,
-                        !!bookmarked,
-                        bookmarked ? bookmarked._id : restaurant.contentid,
-                      )
+                      bookmarked
+                        ? handleUnlike(e, bookmarked._id)
+                        : handleLike(e, restaurant.contentid, restaurant.firstimage)
                     }
                     location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
                     title={restaurant.title}

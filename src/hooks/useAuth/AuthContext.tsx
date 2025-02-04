@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
-  updateUser: () => void;
+  updateUser: () => Promise<void>;
   modifyUser: (userData: UserInfoState) => Promise<{ ok: boolean }>;
   updateUserImage: (userImage: File) => Promise<{ ok: boolean }>;
 }

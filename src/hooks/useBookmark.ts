@@ -14,17 +14,23 @@ export default function useBookMark(channelId: string) {
     });
   }, [channelId]);
 
-  const handleLike = async (id: string) => {
+  const handleLike = async (e: MouseEvent<HTMLDivElement>, id: string, img: string) => {
+    e.stopPropagation();
+
     const result = await apiInstance.get(`/search/all/${id}`);
 
     const token = localStorage.getItem("token");
 
     if (result.data.length === 0) {
+      const response = await fetch(img, { mode: "no-cors" });
+      const blob = await response.blob();
+      const file = new File([blob], "image.jpg", { type: blob.type });
+
       await apiInstance.post(
         "/posts/create",
         {
           title: id,
-          image: null,
+          image: file,
           channelId,
         },
         { headers: { Authorization: `Bearer ${token}` } },
@@ -36,19 +42,23 @@ export default function useBookMark(channelId: string) {
 
     const response = await apiInstance.post(
       "/likes/create",
-      { postId: post.data._id },
+      { postId: post.data[0]._id },
       { headers: { Authorization: `Bearer ${token}` } },
     );
 
     if (response.status === 200) {
-      updateUser();
+      await updateUser();
     }
   };
 
-  const handleUnlike = async (id: string) => {
+  const handleUnlike = async (e: MouseEvent<HTMLDivElement>, id: string) => {
+    e.stopPropagation();
+
     const token = localStorage.getItem("token");
+    const likeId = user?.likes.find((like) => like.post === id);
+    console.log(likeId);
     const response = await apiInstance.delete("/likes/delete", {
-      data: { id },
+      data: { id: likeId?._id },
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -57,25 +67,19 @@ export default function useBookMark(channelId: string) {
     }
   };
 
-  const isBookmarked = (id: string) => posts.find((p) => p.title === id);
+  const isBookmarked = (id: string) => {
+    const post = posts.find((p) => p.title === id);
 
-  const handleClickLike = async (
-    e: MouseEvent<HTMLDivElement>,
-    bookmarked: boolean,
-    id: string,
-  ) => {
-    e.stopPropagation();
-
-    if (bookmarked) {
-      handleUnlike(id);
-    } else {
-      handleLike(id);
+    if (post?.likes.find((l) => l.user === user?._id)) {
+      return post;
     }
+    return undefined;
   };
 
   return {
     likes: user?.likes || [],
-    handleClickLike,
+    handleLike,
+    handleUnlike,
     isBookmarked,
   };
 }
