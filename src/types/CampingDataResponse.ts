@@ -1,5 +1,13 @@
 import { TourApiResponse } from "./common";
 
+interface campingImgListResponse {
+  contentId: string;
+  serialnum: string;
+  imageUrl: string;
+  createdtime: string;
+  modifiedtime: string;
+}
+
 interface campingDataResponse extends TourApiResponse {
   sbrsCl: string;
   posblFcltyCl: string;
@@ -18,4 +26,4 @@ interface campingDataResponse extends TourApiResponse {
   doNm: string;
 }
 
-export default campingDataResponse;
+export type { campingDataResponse, campingImgListResponse };

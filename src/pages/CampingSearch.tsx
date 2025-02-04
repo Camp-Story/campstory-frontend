@@ -5,7 +5,7 @@ import SearchInput from "@components/common/SearchInput";
 import CategoryCheckbox from "@components/camping/campingSearch/CategoryCheckbox";
 import { CAMPING_AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
-import campingDataResponse from "types/CampingDataResponse";
+import { campingDataResponse } from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
