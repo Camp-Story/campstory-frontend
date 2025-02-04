@@ -11,7 +11,6 @@ export default function CommunityCreate() {
   const [isLogined, setIsLogined] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -61,7 +60,6 @@ export default function CommunityCreate() {
       const formData = new FormData();
 
       const titleAndContent = JSON.stringify({
-        title: title,
         content: content,
       });
       formData.append("title", titleAndContent);
@@ -101,17 +99,6 @@ export default function CommunityCreate() {
           setImageFile(file);
         }}
       />
-
-      <div className="my-4">
-        <label className="block mb-1 text-sm font-medium">제목</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-scale-200 rounded-sm focus:outline-none"
-          placeholder="게시글 제목을 입력하세요"
-        />
-      </div>
 
       <div className="flex flex-col gap-[15px]">
         <h2 className="text-sub-title">장소 선택</h2>

@@ -24,16 +24,16 @@ interface PostDetail {
 
 export default function CommunityModify() {
   const { id } = useParams();
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const JWT = localStorage.getItem("token");
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [imageFile, setImagefile] = useState<File | null>(null);
   const [imagePublicId, setImagePublicId] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const currentUserId = localStorage.getItem("userId");
-
+  const currentUserId = localStorage.getItem("id");
   useEffect(() => {
     if (!id) return;
     apiInstance
@@ -41,9 +41,11 @@ export default function CommunityModify() {
       .then((res) => {
         const post = res.data;
 
-        if (post.author && post.author._id !== currentUserId) {
+        // 작성자 정보가 없거나, 현재 로그인한 사용자와 다르면 수정 권한 없음 처리
+        if (!post.author || post.author._id !== currentUserId) {
           alert("수정 권한이 없습니다.");
-          naviagte(-1);
+          navigate(-1);
+          return; // 이후 코드 실행 중단
         }
 
         try {
@@ -59,26 +61,38 @@ export default function CommunityModify() {
         if (post.imagePublicId) {
           setImagePublicId(post.imagePublicId);
         }
+
+        if (post.image) {
+          setImagePreview(post.image);
+        }
       })
       .catch((err) => {
         console.error("게시글 상세 불러오기 실패:", err);
       });
-  }, [id]);
+  }, [id, currentUserId, navigate]);
 
   //기존 이미지를 삭제하는 버튼 핸들러
   const handleDeleteImage = () => {
     setImagefile(null);
-    alert("기존 이미지를 삭제합니다.");
+    setImagePreview(null);
+    alert("기존 이미지를 삭제하였습니다.");
   };
 
-  //수정 API
+  const handleFileSelect = (file: File) => {
+    setImagefile(file);
+    //File 미리보기
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+    setImagePublicId(null);
+  };
+
   const handleSubmit = async () => {
     if (!id) return;
 
     const token = localStorage.getItem("token");
     if (!token) {
       alert("로그인이 필요합니다");
-      naviagte(PATH.login);
+      navigate(PATH.login);
       return;
     }
 
@@ -107,7 +121,7 @@ export default function CommunityModify() {
       });
 
       alert("게시글이 수정되었습니다.");
-      naviagte(-1); // 이전페이지로 이동
+      navigate(-1); // 이전페이지로 이동
     } catch (error) {
       console.error("게시글 수정 실패:", error);
       alert("게시글 수정 중 오류가 발생했습니다.");
@@ -117,7 +131,16 @@ export default function CommunityModify() {
   return (
     <div className="w-[618px] mx-auto mt-[52px]">
       <h1 className="mb-[30px] text-[26px] font-bold">게시글 수정</h1>
-      <ImageUploader onFileSelect={(file) => setImagefile(file)} />
+
+      <ImageUploader onFileSelect={handleFileSelect} />
+
+      {/* 이미지 미리보기 영역 */}
+      {imagePreview && (
+        <div className="mb-4">
+          <img src={imagePreview} alt="미리보기" className="w-full h-auto rounded" />
+        </div>
+      )}
+
       {/* 기존 이미지가있다면 삭제버튼 */}
       {imagePublicId && (
         <button
@@ -129,14 +152,6 @@ export default function CommunityModify() {
       )}
 
       <div className="flex flex-col gap-[15px]">
-        <input
-          type="text"
-          className="p-3 border border-gray-scale-200 rounded-sm focus:outline-none mb-4"
-          placeholder="제목을 입력하세요"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
         <h2 className="text-sub-title">장소 선택</h2>
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
         <h2 className="text-sub-title">태그 선택</h2>

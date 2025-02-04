@@ -8,6 +8,12 @@ import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 import getRelativeTime from "@utils/getRelativeTime";
 
+interface Author {
+  _id: string;
+  fullName: string;
+  email: string;
+}
+
 interface Post {
   _id: string;
   title: string;
@@ -15,6 +21,7 @@ interface Post {
   image?: string;
   createdAt: string;
   likes: number;
+  author: Author;
 }
 
 export default function CommunityMain() {
@@ -27,7 +34,8 @@ export default function CommunityMain() {
     apiInstance
       .get<Post[]>("/posts/channel/67a021790b62dc0dc6cc8e69")
       .then((res) => {
-        setPosts(res.data);
+        const validPosts = res.data.filter((post) => post.author);
+        setPosts(validPosts);
       })
       .catch((err) => {
         console.error("게시글 불러오기 실패:", err);
@@ -78,21 +86,18 @@ export default function CommunityMain() {
 
       <div className="grid grid-cols-2 gap-x-20 gap-y-16">
         {sortedPosts.map((post) => {
-          let realTitle = "";
           let realContent = "";
-
           try {
             const parsed = JSON.parse(post.title);
-            if (parsed.title) realTitle = parsed.title;
             if (parsed.content) realContent = parsed.content;
           } catch {
-            realTitle = post.title;
+            return;
           }
           return (
             <PostCard
               key={post._id}
               postId={post._id}
-              title={realTitle}
+              fullname={JSON.parse(post.author.fullName).fullName}
               content={realContent}
               img={post.image}
               time={getRelativeTime(post.createdAt)}
