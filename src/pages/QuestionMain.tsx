@@ -80,7 +80,7 @@ export default function QuestionMain() {
               navigate(PATH.questionPost(question._id), { state: { userId: question.author._id } })
             }
             userName={JSON.parse(question.author.fullName).fullName}
-            coverImage="https://placehold.co/30x30?text=CAMP+STORY"
+            coverImage={question.author.image || "https://placehold.co/30x30?text=CAMP+STORY"}
             title={JSON.parse(question.title).title}
             timeStamp={new Date(question.createdAt).toLocaleDateString()}
           />

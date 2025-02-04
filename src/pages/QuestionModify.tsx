@@ -69,7 +69,10 @@ export default function QuestionModify() {
     );
     if (response.status === 200 || response.status === 201) {
       alert("수정 성공!");
-      navigate(PATH.questionPost(id!), { state: { userId: questionData?.author._id } });
+      navigate(PATH.questionPost(id!), {
+        replace: true,
+        state: { userId: questionData?.author._id },
+      });
     }
   };
 
