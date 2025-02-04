@@ -7,6 +7,8 @@ import { apiInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
 import PostResponse from "types/PostResponse";
 
+const userId = localStorage.getItem("id");
+
 export default function QuestionDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -17,7 +19,6 @@ export default function QuestionDetail() {
   const [error, setError] = useState<string | null>(null);
 
   const isSameUser = () => {
-    const userId = localStorage.getItem("id");
     if (userId === location.state.userId) return true;
     else return false;
   };
