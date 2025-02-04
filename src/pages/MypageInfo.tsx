@@ -195,12 +195,13 @@ export default function Info() {
           placeholder="19**-**-**"
         />
       </div>
-      <Form
-        action={PATH.logout}
-        method="post"
-        className="mt-10 bg-gray-scale-100 text-center px-5 py-2 rounded text-gray-scale-400 cursor-pointer hover:bg-gray-scale-100/70"
-      >
-        <button type="submit">로그아웃</button>
+      <Form action={PATH.logout} method="post" className="mt-10">
+        <button
+          type="submit"
+          className="w-full bg-gray-scale-100 text-center px-5 py-2 rounded text-gray-scale-400 hover:bg-gray-scale-100/70 cursor-pointer"
+        >
+          로그아웃
+        </button>
       </Form>
     </div>
   );
