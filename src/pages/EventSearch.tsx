@@ -225,9 +225,7 @@ export default function EventSearch() {
                       navigate(PATH.eventInfo(event.contentid), { state: { event } })
                     }
                     handleClickBookmark={(e) =>
-                      bookmarked
-                        ? handleUnlike(e, bookmarked._id)
-                        : handleLike(e, event.contentid, event.firstimage)
+                      bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, event.contentid)
                     }
                     location={`${event.addr1}`}
                     title={event.title}

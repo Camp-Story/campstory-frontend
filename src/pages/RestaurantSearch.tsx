@@ -213,7 +213,7 @@ export default function RestaurantSearch() {
                     handleClickBookmark={(e) =>
                       bookmarked
                         ? handleUnlike(e, bookmarked._id)
-                        : handleLike(e, restaurant.contentid, restaurant.firstimage)
+                        : handleLike(e, restaurant.contentid)
                     }
                     location={`${restaurant.addr1}${restaurant.addr2 && `${restaurant.addr2}`}`}
                     title={restaurant.title}

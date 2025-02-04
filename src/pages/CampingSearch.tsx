@@ -216,7 +216,12 @@ export default function CampingSearch() {
                     handleClickBookmark={(e) =>
                       bookmarked
                         ? handleUnlike(e, bookmarked._id)
-                        : handleLike(e, item.contentId, item.firstImageUrl)
+                        : handleLike(e, item.contentId, {
+                            image: item.firstImageUrl,
+                            category: item.induty,
+                            location: item.addr1,
+                            title: item.facltNm,
+                          })
                     }
                     handleClick={() =>
                       navigate(PATH.campingInfo(item.contentId), { state: { item } })
