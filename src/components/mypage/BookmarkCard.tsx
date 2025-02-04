@@ -7,6 +7,7 @@ interface BookmarkCardProps {
   location: string;
   bookmarked: boolean;
   handleClickBookmark: (e: MouseEvent<HTMLDivElement>) => void;
+  handleClick: () => Promise<void>;
 }
 
 export default function BookmarkCard({
@@ -14,11 +15,15 @@ export default function BookmarkCard({
   bookmarked,
   category,
   handleClickBookmark,
+  handleClick,
   location,
   title,
 }: BookmarkCardProps) {
   return (
-    <article className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
+    <article
+      className="flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95"
+      onClick={handleClick}
+    >
       <div className="w-[341px] h-[227px] overflow-hidden">
         <img
           src={img || "https://placehold.co/450x250?text=CAMP+STORY"}
