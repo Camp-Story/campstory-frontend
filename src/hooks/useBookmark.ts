@@ -66,9 +66,7 @@ export default function useBookMark(channelId: string) {
   };
 
   const updatePosts = async () => {
-    const data = (await apiInstance.get(`/posts/channel/${channelId}`)).data;
-
-    setPosts([...data]);
+    setPosts((await apiInstance.get(`/posts/channel/${channelId}`)).data);
     await updateUser();
   };
 
