@@ -2,6 +2,7 @@ import SearchInput from "@components/common/SearchInput";
 import OrderRadio from "@components/community/OrderRadio";
 import QuestionCard from "@components/community/question/QuestionCard";
 import QuestionTag from "@components/community/QuestionTag";
+import { QUESTION_CHANNEL_ID } from "@constants/channelId";
 import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useEffect, useState } from "react";
@@ -26,7 +27,6 @@ import PostResponse from "types/PostResponse";
 
 export default function QuestionMain() {
   const navigate = useNavigate();
-  const QUESTION_CHANNEL_ID = "67a01c3c896e1c0cc883e18c";
   const [questionData, setQuestionData] = useState<PostResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

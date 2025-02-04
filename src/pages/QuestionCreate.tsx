@@ -1,5 +1,6 @@
 import InputContainer from "@components/community/question/QuestionCreate/InputContainer";
 import QuestionTag from "@components/community/QuestionTag";
+import { QUESTION_CHANNEL_ID } from "@constants/channelId";
 import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useState } from "react";
@@ -29,7 +30,7 @@ export default function QuestionCreate() {
       "/posts/create",
       {
         title: JSON.stringify(formData),
-        channelId: "67a01c3c896e1c0cc883e18c",
+        channelId: QUESTION_CHANNEL_ID,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
