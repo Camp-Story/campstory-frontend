@@ -7,12 +7,11 @@ import AdditionalInfo from "../AdditionalInfo";
 
 interface PostCardProps {
   postId: string;
-  nickname?: string;
   profileUrl?: string;
   img?: string;
   tags?: string[];
   location?: string;
-  title?: string;
+  fullname: string;
   content?: string;
   bookmarked?: boolean;
   isLiked?: boolean;
@@ -21,7 +20,13 @@ interface PostCardProps {
   time: string;
 }
 
-export default function PostCard({ postId, title = "", content = "", img, time }: PostCardProps) {
+export default function PostCard({
+  postId,
+  fullname = "",
+  content = "",
+  img,
+  time,
+}: PostCardProps) {
   const navigate = useNavigate();
   const handleClickCard = () => {
     navigate(PATH.communityPost(postId || "1"));
@@ -31,8 +36,8 @@ export default function PostCard({ postId, title = "", content = "", img, time }
   return (
     <div onClick={handleClickCard} className="cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
-        <UserProfile nickname={title} profileUrl="" />
-        
+        <UserProfile nickname={fullname} profileUrl="" />
+
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src={img || defaultImage} alt="thumbnail" className="w-[auto] h-[310px] rounded-xl" />
 

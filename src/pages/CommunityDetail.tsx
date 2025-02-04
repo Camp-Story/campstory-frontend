@@ -11,12 +11,19 @@ import { apiInstance } from "@utils/axiosInstance";
 
 import getRelativeTime from "@utils/getRelativeTime";
 
+interface Author {
+  _id: string;
+  fullName: string;
+  email: string;
+}
+
 interface PostDetail {
   _id: string;
   title: string;
   content: string;
   image?: string;
   createdAt: string;
+  author: Author;
 }
 
 export default function CommunityDefault() {
@@ -25,6 +32,8 @@ export default function CommunityDefault() {
 
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const currentUserId = localStorage.getItem("id");
 
   useEffect(() => {
     if (!id) return;
@@ -50,26 +59,26 @@ export default function CommunityDefault() {
     return <div className="text-gray-scale-200 text-xl">Loading...</div>;
   }
 
-  let realTitle = "";
   let realContent = "";
   try {
     const parsed = JSON.parse(postDetail.title);
-    if (parsed.title) realTitle = parsed.title || postDetail.title;
     if (parsed.content) realContent = parsed.content || postDetail.content;
   } catch {
-    realTitle = postDetail.title;
+    return;
   }
 
   return (
     <div className="w-[1000px] mx-auto mt-14 cursor-pointer flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <UserProfile nickname={realTitle} profileUrl="" />
-        <button
-          onClick={() => navigate(PATH.communityModify(id))}
-          className="py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
-        >
-          수정하기
-        </button>
+        <UserProfile nickname={JSON.parse(postDetail.author.fullName).fullName} profileUrl="" />
+        {postDetail.author._id === currentUserId && (
+          <button
+            onClick={() => navigate(PATH.communityModify(id))}
+            className="py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
+          >
+            수정하기
+          </button>
+        )}
       </div>
 
       <div className="flex gap-8 mb-7">
