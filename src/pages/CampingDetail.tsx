@@ -6,33 +6,9 @@ import SpotDetailSection from "@components/detail/SpotDetailSection";
 import SpotAboutSection from "@components/detail/SpotAboutSection";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
 import { useLocation, useParams } from "react-router";
-import { goCampingInstance } from "@utils/axiosInstance";
-import { useCallback, useEffect, useState } from "react";
-
-interface campingImgListResponse {
-  contentId: string;
-  serialnum: string;
-  imageUrl: string;
-  createdtime: string;
-  modifiedtime: string;
-}
-
-interface campingDataResponse {
-  sbrsCl: string;
-  posblFcltyCl: string;
-  induty: string;
-  addr1: string;
-  tel: string;
-  homepage: string;
-  resveUrl: string;
-  featureNm: string;
-  firstImageUrl: string;
-  contentId: string;
-  facltNm: string;
-  lineIntro: string;
-  mapX: string;
-  mapY: string;
-}
+import { useEffect } from "react";
+import { campingDataResponse } from "types/CampingDataResponse";
+import useCamping from "@hooks/useCamping";
 
 const ReviewData: ReviewCardProps[] = [
   {
@@ -74,31 +50,19 @@ export default function CampingDetail() {
   const location = useLocation();
   const CampingDetailData: campingDataResponse = location.state.item;
 
-  const [campingImgList, setCampingImgList] = useState<campingImgListResponse[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchCampingImgList = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await goCampingInstance.get("/imageList", {
-        params: {
-          contentId: id,
-        },
-      });
-      setCampingImgList(response.data.response.body.items.item);
-    } catch (error) {
-      setError("캠핑 데이터를 가져오는 중 오류가 발생했습니다.");
-      console.error("Error fetching camping data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id]);
+  const {
+    nearbyCampsiteList,
+    campingImgList,
+    isLoading,
+    error,
+    fetchCampingImgList,
+    fetchNearbyCampsites,
+  } = useCamping();
 
   useEffect(() => {
-    fetchCampingImgList();
-  }, [fetchCampingImgList]);
+    fetchCampingImgList(id as string);
+    fetchNearbyCampsites(Number(CampingDetailData.mapX), Number(CampingDetailData.mapY), 20000);
+  }, [id, CampingDetailData, fetchCampingImgList, fetchNearbyCampsites]);
 
   return (
     <>
@@ -130,7 +94,7 @@ export default function CampingDetail() {
         mapX={CampingDetailData.mapX}
         mapY={CampingDetailData.mapY}
       />
-      <NearbyPlacesSection />
+      <NearbyPlacesSection places={nearbyCampsiteList} />
       <div className="mb-[200px]">
         <div className="text-[26px] font-bold mb-5">리뷰 모음</div>
         <div className="grid grid-cols-2 justify-between items-center gap-4">
