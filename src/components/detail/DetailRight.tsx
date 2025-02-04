@@ -166,7 +166,7 @@ export default function DetailRight({
               <li className="mb-3">
                 <span className="block text-body1 text-gray-scale-400">
                   <strong className="mr-4 text-gray-scale-500">주차</strong>
-                  {parkingfood}
+                  {parkingfood?.replace(/<\/?[^>]+(>|$)/g, "")}
                 </span>
               </li>
             </ul>
