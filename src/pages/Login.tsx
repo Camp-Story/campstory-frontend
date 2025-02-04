@@ -100,7 +100,8 @@ export default function Login() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center">
       <div className="mt-[100px] flex flex-col items-center">
-        <h2 className="text-title font-impact text-primary-500">CAMPSTORY</h2>
+        <img src="/images/CAMP-STORY-LOGO-2.png" className="w-28" />
+        {/* <h2 className="text-body1 font-impact text-gray-scale-400 -mt-4">CAMPSTORY</h2> */}
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
