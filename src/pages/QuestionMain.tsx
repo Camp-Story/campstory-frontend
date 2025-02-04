@@ -9,22 +9,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import PostResponse from "types/PostResponse";
 
-// interface Author {
-//   email: string;
-//   fullName: string;
-//   _id: string;
-// }
-
-// interface Post {
-//   _id: string;
-//   author: Author; // 일부 데이터에서 author가 빠질 수도 있음
-//   title: string; // JSON 문자열 형태의 title
-//   createdAt: Date; // ISO 날짜 문자열
-//   updatedAt: string;
-//   // comments: any[];
-//   // likes: any[];
-// }
-
 export default function QuestionMain() {
   const navigate = useNavigate();
   const [questionData, setQuestionData] = useState<PostResponse[]>([]);
