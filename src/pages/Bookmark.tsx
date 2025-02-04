@@ -7,7 +7,7 @@ export default function Bookmark() {
   return (
     <div>
       <div className="text-[26px] font-bold mb-8">찜 목록</div>
-      <div className="grid grid-cols-2 gap-x-11 gap-y-[30px]">
+      <div className="grid grid-cols-2 gap-x-11 gap-y-[30px] mb-10">
         {likes.map((like) => {
           const post = posts.find((p) => p._id === like.post);
           const { title, category, image, location, id } = JSON.parse(post?.title || "{}");
