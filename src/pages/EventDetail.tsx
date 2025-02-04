@@ -1,7 +1,7 @@
 import DetailLeft from "@components/detail/DetailLeft";
 import DetailRight from "@components/detail/DetailRight";
 import NearbyPlacesSection from "@components/detail/NearbyPlacesSection";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import useEvent from "@hooks/useEvent";
 import { useEffect } from "react";
 import ReviewSection from "@components/detail/ReviewSection";
@@ -9,6 +9,9 @@ import { PATH } from "@constants/path";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const eventPayload = location.state.event;
+
   const {
     eventDetailData,
     isLoading,
@@ -35,6 +38,7 @@ export default function EventDetail() {
     };
 
     setDetail();
+    console.log(eventPayload);
 
     if (eventDetailData?.mapx && eventDetailData?.mapy) {
       fetchNearbyEvents(Number(eventDetailData.mapx), Number(eventDetailData.mapy), 20000);
@@ -42,6 +46,7 @@ export default function EventDetail() {
   }, [
     eventDetailData?.mapx,
     eventDetailData?.mapy,
+    eventPayload,
     fetchEventCommonData,
     fetchEventDetailData,
     fetchEventImgList,
@@ -58,9 +63,9 @@ export default function EventDetail() {
     <>
       <section className="mt-20 w-full flex gap-11 mb-14">
         <DetailLeft
-          image1={eventDetailData.images.length > 0 ? eventDetailData.images[0] : ""}
-          image2={eventDetailData.images.length > 1 ? eventDetailData.images[1] : ""}
-          image3={eventDetailData.images.length > 2 ? eventDetailData.images[2] : ""}
+          image1={eventPayload.firstimage}
+          image2={eventDetailData.images.length > 0 ? eventDetailData.images[0] : ""}
+          image3={eventDetailData.images.length > 1 ? eventDetailData.images[1] : ""}
         />
         <DetailRight
           category={eventDetailData.sponsor1}

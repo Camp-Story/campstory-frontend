@@ -69,8 +69,9 @@ const useEvent = (id: string) => {
         },
       });
       const items: ImageDetails[] = imgResponse.data.response.body.items.item;
-      const images = items.map((item) => item.originimgurl);
-      return images;
+      console.log(items);
+      const images = items?.map((item) => item.originimgurl);
+      return images ?? [];
     } catch (error) {
       setError("행사 이미지를 가져오는 중 오류가 발생했습니다.");
       console.error("Error fetching event images:", error);
