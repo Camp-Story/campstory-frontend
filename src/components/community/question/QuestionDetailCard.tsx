@@ -13,7 +13,7 @@ export default function QuestionCard({ data }: { data: PostResponse }) {
         {/* UserInfo */}
         <div className="flex gap-2 items-center">
           <img
-            src="https://placehold.co/30x30?text=CAMP+STORY"
+            src={data.author.image || "https://placehold.co/30x30?text=CAMP+STORY"}
             alt="profile"
             className="rounded-full w-[40px] h-[40px]"
           />
