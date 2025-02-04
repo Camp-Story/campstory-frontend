@@ -22,9 +22,9 @@ export default function QuestionMain() {
   const [tagList, setTagList] = useState<string[]>([]);
 
   const handleSearch = (input: string) => {
+    setKeyword(input);
     searchParams.set("keyword", input);
     setSearchParams(searchParams);
-    setKeyword(input);
   };
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,9 +68,6 @@ export default function QuestionMain() {
         `/posts/channel/${QUESTION_CHANNEL_ID}`,
       );
       setQuestionData(response.data);
-      setFilteredData(response.data);
-      console.log(response.data);
-      console.log(JSON.parse(response.data[0].title).title);
     } catch (error) {
       setError("질문 목록을 가져오는 중 오류가 발생했습니다.");
       console.log("Error fetching question data:", error);
@@ -107,6 +104,7 @@ export default function QuestionMain() {
         <div className="flex gap-3">
           {TAGS.map((tag) => (
             <QuestionTag
+              key={tag}
               tag={tag}
               isCheckbox
               handleChange={(e) => {
