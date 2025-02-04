@@ -69,7 +69,7 @@ function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
     <article>
       <div
         onClick={handleClick}
-        className="block w-56 h-56 rounded-xl bg-gray-scale-100 mb-4 overflow-hidden"
+        className="block w-56 h-56 rounded-xl bg-gray-scale-100 mb-4 overflow-hidden cursor-pointer"
       >
         <img
           src={src || "https://placehold.co/224x224?text=CAMP+STORY"}
@@ -85,7 +85,7 @@ function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
 
 export default function TopCampingSpotsSection() {
   return (
-    <section className="mb-14 relative">
+    <section className="mb-7 relative">
       <h2 className="text-highlight font-impact">인기 캠핑장</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         나를 위한 근사한 휴가를 계획해보세요.
