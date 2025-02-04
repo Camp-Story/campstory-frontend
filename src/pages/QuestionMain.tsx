@@ -18,8 +18,10 @@ export default function QuestionMain() {
   const [filteredData, setFilteredData] = useState<PostResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [keyword, setKeyword] = useState<string>();
-  const [tagList, setTagList] = useState<string[]>([]);
+  const [keyword, setKeyword] = useState<string | null>(searchParams.get("keyword") || null);
+  const [tagList, setTagList] = useState<string[]>(
+    searchParams.get("tags") ? searchParams.get("tags")!.split(",") : [],
+  );
 
   const handleSearch = (input: string) => {
     setKeyword(input);
@@ -44,7 +46,7 @@ export default function QuestionMain() {
   };
 
   const filterQuestionData = useCallback(
-    (input: string | undefined, tags: string[]) => {
+    (input: string | null, tags: string[]) => {
       let data = questionData;
       if (input) {
         data = data.filter((question) => JSON.parse(question.title).title.includes(input));
@@ -107,6 +109,7 @@ export default function QuestionMain() {
               key={tag}
               tag={tag}
               isCheckbox
+              defaultChecked={tagList.includes(tag)}
               handleChange={(e) => {
                 handleCheckbox(e);
               }}
