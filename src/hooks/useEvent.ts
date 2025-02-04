@@ -69,7 +69,6 @@ const useEvent = (id: string) => {
         },
       });
       const items: ImageDetails[] = imgResponse.data.response.body.items.item;
-      console.log(items);
       const images = items?.map((item) => item.originimgurl);
       return images ?? [];
     } catch (error) {

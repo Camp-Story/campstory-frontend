@@ -124,7 +124,6 @@ export default function CampingSearch() {
 
   useEffect(() => {
     fetchCampingData(keyword, pageNumber);
-    console.log("pageNumber", pageNumber);
   }, [fetchCampingData, keyword, pageNumber]);
 
   // infinite scroll을 위한 IntersectionObserver 객체 생성
