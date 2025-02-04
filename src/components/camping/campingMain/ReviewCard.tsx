@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router";
 import ReviewCardProps from "types/ReviewCardProps";
 
-export default function ReviewCard({ src, contents, timestamp, userId, path }: ReviewCardProps) {
+export default function ReviewCard({
+  src,
+  contents,
+  timestamp,
+  userId,
+  path,
+  profileSrc,
+}: ReviewCardProps) {
   const navigate = useNavigate();
   return (
     <div onClick={() => navigate(path)} className="flex gap-2">
@@ -10,11 +17,7 @@ export default function ReviewCard({ src, contents, timestamp, userId, path }: R
         <div className="text-gray-scale-400 text-body1 leading-5">{contents}</div>
         <div className="text-gray-scale-300 text-body1">{timestamp}</div>
         <div className="flex flex-row gap-2 items-center mt-5">
-          <img
-            src="https://picsum.photos/200"
-            alt="user"
-            className="w-[34px] h-[34px] rounded-full "
-          />
+          <img src={profileSrc} alt="user" className="w-[34px] h-[34px] rounded-full " />
           <div className="text-gray-scale-400 text-body1 font-bold">{userId}</div>
         </div>
       </div>
