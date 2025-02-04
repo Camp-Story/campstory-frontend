@@ -2,7 +2,7 @@ import BookmarkCard from "@components/mypage/BookmarkCard";
 import useBookMark from "@hooks/useBookmark";
 
 export default function Bookmark() {
-  const { likes, posts } = useBookMark("67a0d8576e0e9a207c06c4ee");
+  const { likes, posts, handleUnlike } = useBookMark("67a0d8576e0e9a207c06c4ee");
 
   return (
     <div>
@@ -10,51 +10,21 @@ export default function Bookmark() {
       <div className="grid grid-cols-2 gap-x-11 gap-y-[30px]">
         {likes.map((like) => {
           const post = posts.find((p) => p._id === like.post);
+          const { title, category, image, location, id } = JSON.parse(post?.title || "{}");
           return (
             post && (
               <BookmarkCard
-                img={post.image || "https://placehold.co/450x250?text=CAMP+STORY"}
+                key={id}
+                img={image || "https://placehold.co/450x250?text=CAMP+STORY"}
                 bookmarked={true}
-                category="글램핑"
-                handleClickBookmark={() => alert("bookmark")}
-                location="전라도 담양군"
-                title="오스트리아캠핑"
+                category={category}
+                handleClickBookmark={(e) => handleUnlike(e, post._id)}
+                location={location}
+                title={title}
               />
             )
           );
         })}
-        <BookmarkCard
-          img="/images/camping/searchCamping.png"
-          bookmarked={true}
-          category="글램핑"
-          handleClickBookmark={() => alert("bookmark")}
-          location="전라도 담양군"
-          title="오스트리아캠핑"
-        />
-        <BookmarkCard
-          img="/images/camping/searchCamping.png"
-          bookmarked={true}
-          category="글램핑"
-          handleClickBookmark={() => alert("bookmark")}
-          location="전라도 담양군"
-          title="오스트리아캠핑"
-        />
-        <BookmarkCard
-          img="/images/camping/searchCamping.png"
-          bookmarked={true}
-          category="글램핑"
-          handleClickBookmark={() => alert("bookmark")}
-          location="전라도 담양군"
-          title="오스트리아캠핑"
-        />
-        <BookmarkCard
-          img="/images/camping/searchCamping.png"
-          bookmarked={true}
-          category="글램핑"
-          handleClickBookmark={() => alert("bookmark")}
-          location="전라도 담양군"
-          title="오스트리아캠핑"
-        />
       </div>
     </div>
   );
