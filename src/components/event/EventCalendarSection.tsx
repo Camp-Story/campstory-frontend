@@ -88,16 +88,16 @@ export default function EventCalendarSection() {
   }, [fetchEventsData]);
 
   return (
-    <div className="flex h-[461px]">
-      <div className="w-[400px] h-[461px] border border-gray-scale-100 p-2 rounded mr-[20px] bg-white drop-shadow">
+    <div className="flex gap-4">
+      <div className="w-[400px] border border-gray-scale-100 p-2 rounded mr-[20px] bg-white drop-shadow">
         <Calendar events={calendarEvents} />
       </div>
       <div className="flex flex-col">
         <div className="text-highlight font-impact text-gray-scale-500">축제 일정 한눈에 보기</div>
-        <div className="text-[20px] text-gray-scale-400 mb-9">
+        <div className="text-sub-title text-gray-scale-400 mb-9">
           월별 축제 일정을 한눈에 확인하고, 원하는 축제를 놓치지 마세요.
         </div>
-        <div className="text-[20px] text-gray-scale-400 font-bold mb-7">
+        <div className="text-sub-title text-gray-scale-400 font-bold mb-4">
           {getFormattedTodayDate()}
         </div>
         <div className="grid grid-cols-2 gap-4">
