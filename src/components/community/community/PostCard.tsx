@@ -2,14 +2,15 @@ import { useNavigate } from "react-router";
 import AreaCard from "./AreaCard";
 import { PATH } from "@constants/path";
 import UserProfile from "../UserProfile";
-import TgaList from "../TagList";
+import TagList from "../TagList";
 import AdditionalInfo from "../AdditionalInfo";
+import { Tag as TagType } from "../Tag";
 
 interface PostCardProps {
   postId: string;
   profileUrl?: string;
   img?: string;
-  tags?: string[];
+  tags?: TagType[];
   location?: string;
   fullname: string;
   content?: string;
@@ -26,6 +27,7 @@ export default function PostCard({
   content = "",
   img,
   time,
+  tags,
 }: PostCardProps) {
   const navigate = useNavigate();
   const handleClickCard = () => {
@@ -41,7 +43,7 @@ export default function PostCard({
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src={img || defaultImage} alt="thumbnail" className="w-[auto] h-[310px] rounded-xl" />
 
-        <TgaList tags={["clean", "kind", "convenience"]} />
+        <TagList tags={tags || []} />
 
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
       </div>

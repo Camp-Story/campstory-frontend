@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 import { PATH } from "@constants/path";
+import { COMMUNITY_CHANNEL_ID } from "@constants/channelId";
 
 interface Author {
   _id: string;
@@ -102,7 +103,7 @@ export default function CommunityModify() {
       const titleAndContent = JSON.stringify({ title, content });
       formData.append("title", titleAndContent);
       formData.append("postId", id);
-      formData.append("channelId", "67a021790b62dc0dc6cc8e69");
+      formData.append("channelId", COMMUNITY_CHANNEL_ID);
 
       if (imageFile) {
         formData.append("image", imageFile);

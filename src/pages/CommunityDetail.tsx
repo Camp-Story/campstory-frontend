@@ -2,7 +2,7 @@ import AdditionalInfo from "@components/community/AdditionalInfo";
 import AreaCard from "@components/community/community/AreaCard";
 import Comment from "@components/community/question/Comment";
 import CommentInput from "@components/community/question/CommentInput";
-import TgaList from "@components/community/TagList";
+import { Tag as TagType } from "@components/community/Tag";
 import UserProfile from "@components/community/UserProfile";
 import { PATH } from "@constants/path";
 import { useNavigate, useParams } from "react-router";
@@ -10,11 +10,22 @@ import { useEffect, useState } from "react";
 import { apiInstance } from "@utils/axiosInstance";
 
 import getRelativeTime from "@utils/getRelativeTime";
+import TagList from "@components/community/TagList";
 
 interface Author {
   _id: string;
   fullName: string;
   email: string;
+}
+
+interface CommentData {
+  _id: string;
+  comment: string;
+  createdAt: string;
+  author: {
+    fullName: string;
+    profileUrl?: string;
+  };
 }
 
 interface PostDetail {
@@ -24,12 +35,12 @@ interface PostDetail {
   image?: string;
   createdAt: string;
   author: Author;
+  comments: CommentData[];
 }
 
 export default function CommunityDefault() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -60,12 +71,51 @@ export default function CommunityDefault() {
   }
 
   let realContent = "";
+  let tagsFromAPI: TagType[] = [];
   try {
     const parsed = JSON.parse(postDetail.title);
     if (parsed.content) realContent = parsed.content || postDetail.content;
-  } catch {
-    return;
+    if (parsed.tags && Array.isArray(parsed.tags)) {
+      tagsFromAPI = parsed.tag as TagType[];
+    }
+  } catch (error) {
+    console.error("불러오기 실패:", error);
+    realContent = postDetail.content;
+    tagsFromAPI = [];
   }
+
+  // 댓글 작성 API 호출 함수
+  const handleCommentSubmit = async (commentText: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate(PATH.login);
+      return;
+    }
+    try {
+      const response = await apiInstance.post(
+        "/comments/create",
+        {
+          comment: commentText,
+          postId: id, // 현재 게시글 id 사용
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      alert("댓글이 작성되었습니다.");
+
+      // 새 댓글을 기존 댓글 목록에 추가
+      setPostDetail((prev) =>
+        prev ? { ...prev, comments: [...prev.comments, response.data] } : prev,
+      );
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
+      alert("댓글 작성 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <div className="w-[1000px] mx-auto mt-14 cursor-pointer flex flex-col gap-4">
@@ -98,7 +148,9 @@ export default function CommunityDefault() {
                 {new Date(postDetail.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <TgaList tags={["clean", "kind", "convenience"]} />
+            <div className="flex gap-[5px]">
+              <TagList tags={tagsFromAPI || ["clean"]} />
+            </div>
             <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
             <div className="text-[15px] text-gray-scale-400">{realContent}</div>
           </div>
@@ -117,17 +169,12 @@ export default function CommunityDefault() {
       <div className="flex flex-col gap-[30px]">
         <div className="flex flex-col gap-4">
           <div className="text-sub-title text-gray-scale-400 font-bold">댓글</div>
-          <CommentInput
-            handleSubmit={() => {
-              alert("submit!");
-            }}
-          />
+          <CommentInput handleSubmit={handleCommentSubmit} />
         </div>
         <div className="flex flex-col gap-[40px]">
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {postDetail.comments.map((comment) => (
+            <Comment key={comment._id} commentData={comment} />
+          ))}
         </div>
       </div>
     </div>

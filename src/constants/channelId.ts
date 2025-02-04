@@ -1,1 +1,2 @@
 export const QUESTION_CHANNEL_ID = "67a01c3c896e1c0cc883e18c";
+export const COMMUNITY_CHANNEL_ID = "67a021790b62dc0dc6cc8e69";

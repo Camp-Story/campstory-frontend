@@ -4,6 +4,7 @@ import ImageUploader from "@components/community/community/communityCreate/Image
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { apiInstance } from "@utils/axiosInstance";
+import { COMMUNITY_CHANNEL_ID } from "@constants/channelId";
 
 export default function CommunityCreate() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function CommunityCreate() {
 
   const [content, setContent] = useState("");
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   useEffect(() => {
@@ -61,11 +62,12 @@ export default function CommunityCreate() {
 
       const titleAndContent = JSON.stringify({
         content: content,
+        tags: tags,
       });
       formData.append("title", titleAndContent);
+      formData.append("tags", titleAndContent);
 
-      formData.append("channelId", "67a021790b62dc0dc6cc8e69");
-      formData.append("tags", JSON.stringify(selectedTags));
+      formData.append("channelId", COMMUNITY_CHANNEL_ID);
 
       if (imageFile) {
         formData.append("image", imageFile);
@@ -74,7 +76,6 @@ export default function CommunityCreate() {
       console.log("title:", formData.get("title"));
       console.log("content:", formData.get("content"));
       console.log("channelId:", formData.get("channelId"));
-      console.log("tags:", formData.get("tags"));
       console.log("image:", formData.get("image"));
 
       await apiInstance.post("/posts/create", formData, {
@@ -91,6 +92,11 @@ export default function CommunityCreate() {
       alert("게시글 생성중 오류가 발생했습니다.");
     }
   };
+
+  const handleTagChange = (tag: string, checked: boolean) => {
+    setTags((prev) => (checked ? [...prev, tag] : prev.filter((t) => t !== tag)));
+  };
+
   return (
     <div className="w-[618px] mx-auto mt-[52px]">
       <h1 className="mb-[30px] text-[26px] font-bold">게시글 쓰기</h1>
@@ -108,29 +114,17 @@ export default function CommunityCreate() {
           <Tag
             tag="clean"
             isCheckbox
-            onChange={(checked) => {
-              setSelectedTags((prev) =>
-                checked ? [...prev, "clean"] : prev.filter((t) => t !== "clean"),
-              );
-            }}
+            onChange={(checked: boolean) => handleTagChange("clean", checked)}
           />
           <Tag
             tag="kind"
             isCheckbox
-            onChange={(checked) => {
-              setSelectedTags((prev) =>
-                checked ? [...prev, "kind"] : prev.filter((t) => t !== "kind"),
-              );
-            }}
+            onChange={(checked: boolean) => handleTagChange("kind", checked)}
           />
           <Tag
             tag="convenience"
             isCheckbox
-            onChange={(checked) => {
-              setSelectedTags((prev) =>
-                checked ? [...prev, "convenience"] : prev.filter((t) => t !== "convenience"),
-              );
-            }}
+            onChange={(checked: boolean) => handleTagChange("convenience", checked)}
           />
         </div>
         <textarea
