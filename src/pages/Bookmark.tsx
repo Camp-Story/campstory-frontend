@@ -5,11 +5,12 @@ import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
 import { useNavigate } from "react-router";
 
 export default function Bookmark() {
-  const { likes, posts, handleUnlike } = useBookMark("67a0d8576e0e9a207c06c4ee");
-  const { searchAndNavigate } = useSearchAndNavigateCamping();
   const navigate = useNavigate();
 
-  const likedPosts = posts.filter((post) => likes.find((like) => like.post === post._id));
+  const { userId, posts, handleUnlike } = useBookMark("67a0d8576e0e9a207c06c4ee");
+  const { searchAndNavigate } = useSearchAndNavigateCamping();
+
+  const likedPosts = posts.filter((post) => post.likes.find((like) => like.user === userId));
 
   return (
     <div>

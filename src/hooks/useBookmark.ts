@@ -78,6 +78,7 @@ export default function useBookMark(channelId: string) {
   return {
     likes: user?.likes || [],
     posts,
+    userId: user?._id || "",
     handleLike,
     handleUnlike,
     isBookmarked,
