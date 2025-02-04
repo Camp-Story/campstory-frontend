@@ -74,7 +74,7 @@ export default function EventSearch() {
   const [totalCount, setTotalCount] = useState<number>(0);
   const [selectedArea, setSelectedArea] = useState<number | null>(null);
 
-  const { handleClickLike, isBookmarked } = useBookMark("67a0cdd7037ce21a11b87091");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d6ce6e0e9a207c06c4a8");
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
@@ -225,11 +225,9 @@ export default function EventSearch() {
                       navigate(PATH.eventInfo(event.contentid), { state: { event } })
                     }
                     handleClickBookmark={(e) =>
-                      handleClickLike(
-                        e,
-                        !!bookmarked,
-                        bookmarked ? bookmarked._id : event.contentid,
-                      )
+                      bookmarked
+                        ? handleUnlike(e, bookmarked._id)
+                        : handleLike(e, event.contentid, event.firstimage)
                     }
                     location={`${event.addr1}`}
                     title={event.title}

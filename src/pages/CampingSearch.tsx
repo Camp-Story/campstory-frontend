@@ -13,7 +13,7 @@ import useBookMark from "@hooks/useBookmark";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
-  const { handleClickLike, isBookmarked } = useBookMark("67a0cdbe037ce21a11b87089");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d8576e0e9a207c06c4ee");
   const [searchParams, setSearchParams] = useSearchParams();
   // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);
@@ -214,7 +214,9 @@ export default function CampingSearch() {
                     location={item.addr1}
                     title={item.facltNm}
                     handleClickBookmark={(e) =>
-                      handleClickLike(e, !!bookmarked, bookmarked ? bookmarked._id : item.contentId)
+                      bookmarked
+                        ? handleUnlike(e, bookmarked._id)
+                        : handleLike(e, item.contentId, item.firstImageUrl)
                     }
                     handleClick={() =>
                       navigate(PATH.campingInfo(item.contentId), { state: { item } })
