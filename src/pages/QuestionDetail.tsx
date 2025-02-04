@@ -1,7 +1,7 @@
 import CommentInput from "@components/community/question/CommentInput";
 import QuestionDetailCard from "@components/community/question/QuestionDetailCard";
 import Comment from "@components/community/question/Comment";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
@@ -10,10 +10,17 @@ import PostResponse from "types/PostResponse";
 export default function QuestionDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
 
   const [questionData, setQuestionData] = useState<PostResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const isSameUser = () => {
+    const userId = localStorage.getItem("id");
+    if (userId === location.state.userId) return true;
+    else return false;
+  };
 
   const fetchDetailData = useCallback(async () => {
     setIsLoading(true);
@@ -44,12 +51,14 @@ export default function QuestionDetail() {
         {isLoading && <p>로딩중...</p>}
         {error}
         {questionData ? <QuestionDetailCard data={questionData} /> : <p>데이터가 없습니다.</p>}
-        <button
-          onClick={() => navigate(PATH.questionModify(id))}
-          className="absolute right-0 top-1.5 py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
-        >
-          수정하기
-        </button>
+        {isSameUser() && (
+          <button
+            onClick={() => navigate(PATH.questionModify(id))}
+            className="absolute right-0 top-1.5 py-1 px-3 border border-primary-500 rounded text-[13px] text-primary-500 hover:bg-primary-500/20 active:bg-primary-500/30 font-bold"
+          >
+            수정하기
+          </button>
+        )}
       </div>
       <div className="flex flex-col gap-4">
         <div className="text-sub-title text-gray-scale-400 font-bold">댓글</div>

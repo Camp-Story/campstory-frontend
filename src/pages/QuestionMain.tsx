@@ -76,7 +76,9 @@ export default function QuestionMain() {
         {questionData.map((question) => (
           <QuestionCard
             key={question._id}
-            handleClick={() => navigate(PATH.questionPost(question._id))}
+            handleClick={() =>
+              navigate(PATH.questionPost(question._id), { state: { userId: question.author._id } })
+            }
             userName={JSON.parse(question.author.fullName).fullName}
             coverImage="https://placehold.co/30x30?text=CAMP+STORY"
             title={JSON.parse(question.title).title}
