@@ -10,10 +10,11 @@ import { goCampingInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import useBookMark from "@hooks/useBookmark";
+import { CAMPING_CHANNEL_ID } from "@constants/channelId";
 
 export default function CampingSearch() {
   const navigate = useNavigate();
-  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d8576e0e9a207c06c4ee");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark(CAMPING_CHANNEL_ID);
   const [searchParams, setSearchParams] = useSearchParams();
   // API 관련 State
   const [campingData, setCampingData] = useState<campingDataResponse[]>([]);

@@ -10,6 +10,7 @@ import ReviewSection from "@components/detail/ReviewSection";
 import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import { RESTAURANT_CHANNEL_ID } from "@constants/channelId";
 
 interface Item {
   contentid: string;
@@ -53,7 +54,7 @@ export default function FoodDetail() {
 
   const { id } = useParams();
 
-  const { isBookmarked, handleUnlike, handleLike } = useBookMark("67a0d8476e0e9a207c06c4ea");
+  const { isBookmarked, handleUnlike, handleLike } = useBookMark(RESTAURANT_CHANNEL_ID);
 
   const bookmarked = isBookmarked(id || "");
 

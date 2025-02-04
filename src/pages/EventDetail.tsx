@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import ReviewSection from "@components/detail/ReviewSection";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import { EVENT_CHANNEL_ID } from "@constants/channelId";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +27,7 @@ export default function EventDetail() {
     fetchEventCommonData,
   } = useEvent(id as string);
 
-  const { isBookmarked, handleUnlike, handleLike } = useBookMark("67a0d6ce6e0e9a207c06c4a8");
+  const { isBookmarked, handleUnlike, handleLike } = useBookMark(EVENT_CHANNEL_ID);
 
   const bookmarked = isBookmarked(id || "");
 

@@ -5,6 +5,7 @@ import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 import EventAreaCheckbox from "@components/event/EventAreaCheckbox";
 import EVENT_CATEGORY_MAP from "@components/event/EventCategoryMap";
+import { EVENT_CHANNEL_ID } from "@constants/channelId";
 
 import { AREA, EVENT_PROGRESS } from "@constants/filters";
 import { PATH } from "@constants/path";
@@ -74,7 +75,7 @@ export default function EventSearch() {
   const [totalCount, setTotalCount] = useState<number>(0);
   const [selectedArea, setSelectedArea] = useState<number | null>(null);
 
-  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d6ce6e0e9a207c06c4a8");
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark(EVENT_CHANNEL_ID);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";

@@ -1,2 +1,5 @@
 export const QUESTION_CHANNEL_ID = "67a01c3c896e1c0cc883e18c";
 export const COMMUNITY_CHANNEL_ID = "67a021790b62dc0dc6cc8e69";
+export const CAMPING_CHANNEL_ID = "67a0d8576e0e9a207c06c4ee";
+export const EVENT_CHANNEL_ID = "67a0d6ce6e0e9a207c06c4a8";
+export const RESTAURANT_CHANNEL_ID = "67a0d8476e0e9a207c06c4ea";
