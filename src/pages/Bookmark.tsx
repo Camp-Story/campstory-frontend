@@ -1,8 +1,11 @@
 import BookmarkCard from "@components/mypage/BookmarkCard";
+import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
 
 export default function Bookmark() {
   const { likes, posts, handleUnlike } = useBookMark("67a0d8576e0e9a207c06c4ee");
+  const { searchAndNavigate } = useSearchAndNavigateCamping();
 
   return (
     <div>
@@ -19,6 +22,7 @@ export default function Bookmark() {
                 bookmarked={true}
                 category={category}
                 handleClickBookmark={(e) => handleUnlike(e, post._id)}
+                handleClick={() => searchAndNavigate(title, PATH.campingInfo(id))}
                 location={location}
                 title={title}
               />
