@@ -1,14 +1,14 @@
 import BookmarkCard from "@components/mypage/BookmarkCard";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
-import useSearchAndNavigateCamping from "@hooks/useSearchAndNavigateCamping";
+import useCamping from "@hooks/useCamping";
 import { useNavigate } from "react-router";
 
 export default function Bookmark() {
   const navigate = useNavigate();
 
   const { userId, posts, handleUnlike } = useBookMark("67a0d8576e0e9a207c06c4ee");
-  const { searchAndNavigate } = useSearchAndNavigateCamping();
+  const { searchAndNavigate } = useCamping();
 
   const likedPosts = posts.filter((post) => post.likes.find((like) => like.user === userId));
 
