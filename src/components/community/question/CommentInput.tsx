@@ -16,6 +16,7 @@ export default function CommentInput({ handleSubmit }: CommentInputProps) {
     <div className="flex items-center">
       <input
         type="text"
+        value={comment}
         placeholder="댓글을 남겨보세요"
         className="border border-gray-scale-200 placeholder-gray-scale-300 rounded-full py-3 px-8 w-full"
         onChange={(e) => setComment(e.target.value)}

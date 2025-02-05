@@ -2,6 +2,7 @@ import PostResponse from "types/PostResponse";
 import AdditionalInfo from "../AdditionalInfo";
 import QuestionTag from "@components/community/QuestionTag";
 import { Tag } from "../QuestionTag";
+import getRelativeTime from "@utils/getRelativeTime";
 
 export default function QuestionCard({ data }: { data: PostResponse }) {
   const { nickName } = JSON.parse(data.author.fullName);
@@ -31,7 +32,7 @@ export default function QuestionCard({ data }: { data: PostResponse }) {
               </div>
             </div>
             <div className="text-body2 ml-auto text-gray-scale-300">
-              {new Date(data.createdAt).toLocaleDateString()}
+              {getRelativeTime(data.createdAt)}
             </div>
           </div>
 

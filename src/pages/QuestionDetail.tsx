@@ -46,6 +46,74 @@ export default function QuestionDetail() {
     return <>잘못된 접근입니다.</>;
   }
 
+  // 댓글 작성 API 호출 함수
+  const handleCommentSubmit = async (commentText: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate(PATH.login);
+      return;
+    }
+    try {
+      const response = await apiInstance.post(
+        "/comments/create",
+        {
+          comment: commentText,
+          postId: id, // 현재 게시글 id 사용
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      alert("댓글이 작성되었습니다.");
+
+      // 새 댓글을 기존 댓글 목록에 추가
+      setQuestionData((prev) =>
+        prev ? { ...prev, comments: [...prev.comments, response.data] } : prev,
+      );
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
+      alert("댓글 작성 중 오류가 발생했습니다.");
+    }
+  };
+
+  //댓글 삭제
+  const handleCommentDelete = async (commentId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate(PATH.login);
+      return;
+    }
+
+    try {
+      // 1) 서버에 삭제 요청
+      await apiInstance.delete("/comments/delete", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          id: commentId,
+        },
+      });
+      alert("댓글이 삭제되었습니다.");
+
+      setQuestionData((prev) =>
+        prev
+          ? {
+              ...prev,
+              comments: prev.comments.filter((c) => c._id !== commentId),
+            }
+          : prev,
+      );
+    } catch (err) {
+      console.error("댓글 삭제 실패:", err);
+      alert("댓글 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <div className="w-[832px] mx-auto mt-14 flex flex-col gap-[30px]">
       <div className="relative">
@@ -62,18 +130,15 @@ export default function QuestionDetail() {
         )}
       </div>
       <div className="flex flex-col gap-4">
-        <div className="text-sub-title text-gray-scale-400 font-bold">댓글</div>
-        <CommentInput
-          handleSubmit={() => {
-            alert("submit!");
-          }}
-        />
+        <div className="flex flex-col gap-4">
+          <div className="text-sub-title text-gray-scale-400 font-bold">댓글</div>
+          <CommentInput handleSubmit={handleCommentSubmit} />
+        </div>
       </div>
       <div className="flex flex-col gap-[40px]">
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {questionData?.comments.map((comment) => (
+          <Comment key={comment._id} commentData={comment} onDelete={handleCommentDelete} />
+        ))}
       </div>
     </div>
   );
