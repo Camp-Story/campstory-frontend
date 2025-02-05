@@ -216,17 +216,25 @@ export default function EventSearch() {
             <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
               {events.map((event) => {
                 const bookmarked = isBookmarked(event.contentid);
+                const category = getCategoryName(event.cat3);
                 return (
                   <SearchCard
                     key={event.contentid}
                     img={event.firstimage}
                     bookmarked={!!bookmarked}
-                    category={getCategoryName(event.cat3)}
+                    category={category}
                     handleClick={() =>
                       navigate(PATH.eventInfo(event.contentid), { state: { event } })
                     }
                     handleClickBookmark={(e) =>
-                      bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, event.contentid)
+                      bookmarked
+                        ? handleUnlike(e, bookmarked._id)
+                        : handleLike(e, event.contentid, {
+                            category,
+                            image: event.firstimage,
+                            location: event.addr1,
+                            title: event.title,
+                          })
                     }
                     location={`${event.addr1}`}
                     title={event.title}

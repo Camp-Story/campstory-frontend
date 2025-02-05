@@ -87,7 +87,14 @@ export default function EventDetail() {
           mapX={eventDetailData.mapx}
           mapY={eventDetailData.mapy}
           handleClickBookmark={(e) =>
-            bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, eventDetailData.contentid)
+            bookmarked
+              ? handleUnlike(e, bookmarked._id)
+              : handleLike(e, eventDetailData.contentid, {
+                  category: eventDetailData.sponsor1,
+                  image: eventDetailData.images[0],
+                  location: eventDetailData.addr1,
+                  title: eventDetailData.title,
+                })
           }
         />
       </section>
