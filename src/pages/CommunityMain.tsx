@@ -13,6 +13,7 @@ interface Author {
   _id: string;
   fullName: string;
   email: string;
+  image: string;
 }
 
 interface Post {
@@ -176,6 +177,7 @@ export default function CommunityMain() {
               img={post.image}
               tags={JSON.parse(post.title).tags}
               time={getRelativeTime(post.createdAt)}
+              userImage={post.author.image}
             />
           );
         })}
