@@ -2,6 +2,7 @@ import { apiInstance } from "@utils/axiosInstance";
 import { useAuth } from "./useAuth/useAuth";
 import { MouseEvent, useEffect, useState } from "react";
 import { Post, PostOption } from "types/ChannelResponse";
+import PostResponse from "types/PostResponse";
 
 export default function useBookMark(channelId: string) {
   const { user, updateUser } = useAuth();
@@ -16,12 +17,14 @@ export default function useBookMark(channelId: string) {
   const handleLike = async (e: MouseEvent<HTMLDivElement>, id: string, options?: PostOption) => {
     e.stopPropagation();
 
-    const result = await apiInstance.get(`/search/all/${id}`);
+    const result = posts.find((post) => JSON.parse(post.title).id === id);
+
+    let postId = result?._id;
 
     const token = localStorage.getItem("token");
 
-    if (result.data.length === 0) {
-      await apiInstance.post(
+    if (!result) {
+      const res = await apiInstance.post<PostResponse>(
         "/posts/create",
         {
           title: JSON.stringify({ id, ...options }),
@@ -30,13 +33,12 @@ export default function useBookMark(channelId: string) {
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
+      postId = res.data._id;
     }
-
-    const post = await apiInstance.get(`/search/all/${id}`);
 
     const response = await apiInstance.post(
       "/likes/create",
-      { postId: post.data[0]._id },
+      { postId: postId },
       { headers: { Authorization: `Bearer ${token}` } },
     );
 
