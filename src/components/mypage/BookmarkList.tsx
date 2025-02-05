@@ -40,6 +40,22 @@ export default function BookmarkList({ type }: BookmarkListProps) {
 
   const likedPosts = posts.filter((post) => post.likes.find((like) => like.user === userId));
 
+  const NavigateTo = (id: string, title: string, image: string) => {
+    switch (type) {
+      case "camping":
+        searchAndNavigate(title, detailPath(id));
+        break;
+      case "event":
+        navigate(detailPath(id), {
+          state: { event: { firstimage: image } },
+        });
+        break;
+      case "restaurant":
+        navigate(detailPath(id));
+        break;
+    }
+  };
+
   return (
     <div>
       <div className="text-[26px] font-bold mb-8">{`${title} 찜 목록`}</div>
@@ -65,11 +81,7 @@ export default function BookmarkList({ type }: BookmarkListProps) {
                 bookmarked={true}
                 category={category}
                 handleClickBookmark={(e) => handleUnlike(e, post._id)}
-                handleClick={() =>
-                  type === "camping"
-                    ? searchAndNavigate(title, detailPath(id))
-                    : navigate(detailPath(id))
-                }
+                handleClick={() => NavigateTo(id, title, image)}
                 location={location}
                 title={title}
               />

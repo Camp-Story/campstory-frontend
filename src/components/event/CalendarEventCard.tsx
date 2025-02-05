@@ -5,8 +5,8 @@ export default function CalendarEventCard({ src, title, addr1, path }: CalendarE
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate(path)}
-      className="w-[408px] h-[130px] border border-gray-scale-200 px-4 py-2 rounded-xl bg-white drop-shadow-md flex items-center"
+      onClick={() => navigate(path, { state: { event: { firstimage: src } } })}
+      className="w-[408px] h-[130px] border border-gray-scale-200 p-2 rounded-xl bg-white drop-shadow-md flex items-center"
     >
       <div className="w-[100px] h-[100px] mr-4">
         <img src={src} alt="행사 이미지" className="w-full h-full object-cover rounded-lg" />
