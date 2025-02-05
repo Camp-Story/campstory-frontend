@@ -1,4 +1,3 @@
-// EventSearch.tsx
 import CheckboxList from "@components/common/search/CheckboxList";
 import SearchCard from "@components/common/search/SearchCard";
 import SearchMap from "@components/common/search/SearchMap";
@@ -11,7 +10,7 @@ import { AREA, EVENT_PROGRESS } from "@constants/filters";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 
@@ -74,6 +73,10 @@ export default function EventSearch() {
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState<number>(0);
 
+  // 무한 스크롤 관련
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const selectedCategory = searchParams.get("cat3") || "";
@@ -84,7 +87,7 @@ export default function EventSearch() {
   const navigate = useNavigate();
 
   const fetchEventsData = useCallback(
-    async (searchKeyword: string, selectedCat3: string, areaCode: number | null) => {
+    async (searchKeyword: string, selectedCat3: string, areaCode: number | null, page: number) => {
       setIsLoading(true);
       setError(null);
 
@@ -94,7 +97,7 @@ export default function EventSearch() {
         if (searchKeyword) {
           response = await tourApiInstance.get<ApiResponse>("/searchKeyword1", {
             params: {
-              pageNo: 1,
+              pageNo: page,
               numOfRows: 10,
               listYN: "Y",
               arrange: "R",
@@ -108,7 +111,7 @@ export default function EventSearch() {
           response = await tourApiInstance.get<ApiResponse>("/areaBasedList1", {
             params: {
               numOfRows: 10,
-              pageNo: 1,
+              pageNo: page,
               _type: "json",
               listYN: "Y",
               arrange: "R",
@@ -124,7 +127,13 @@ export default function EventSearch() {
 
         const items = response.data.response.body.items.item || [];
         const totalCount = response.data.response.body.totalCount;
-        setEvents(items);
+
+        if (page === 1) {
+          setEvents(items);
+        } else {
+          setEvents((prev) => [...prev, ...items]);
+        }
+
         setTotalCount(totalCount);
       } catch (error) {
         console.log(error);
@@ -139,6 +148,8 @@ export default function EventSearch() {
   const handleSearch = (searchKeyword: string) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("keyword", searchKeyword);
+    setPageNumber(1);
+    setEvents([]);
     setSearchParams(newParams);
   };
 
@@ -149,6 +160,8 @@ export default function EventSearch() {
     } else {
       newParams.delete("cat3");
     }
+    setPageNumber(1);
+    setEvents([]);
     setSearchParams(newParams);
   };
 
@@ -159,12 +172,34 @@ export default function EventSearch() {
     } else {
       newParams.set("areaCode", String(code));
     }
+    setPageNumber(1);
+    setEvents([]);
     setSearchParams(newParams);
   };
 
   useEffect(() => {
-    fetchEventsData(keyword, selectedCategory, selectedArea);
-  }, [fetchEventsData, keyword, selectedCategory, selectedArea]);
+    fetchEventsData(keyword, selectedCategory, selectedArea, pageNumber);
+  }, [fetchEventsData, keyword, selectedCategory, selectedArea, pageNumber]);
+
+  // infinite scroll을 위한 IntersectionObserver 객체 생성
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+          setPageNumber((prev) => prev + 1);
+        }
+      },
+      { threshold: 0 },
+    );
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [isLoading]);
 
   return (
     <>
@@ -210,7 +245,6 @@ export default function EventSearch() {
             </div>
           </div>
         </div>
-
         <div className="flex flex-col gap-[30px]">
           <h2 className="text-[26px] font-bold text-gray-scale-400">검색 결과 {totalCount}개</h2>
 
@@ -230,7 +264,9 @@ export default function EventSearch() {
                     bookmarked={!!bookmarked}
                     category={category}
                     handleClick={() =>
-                      navigate(PATH.eventInfo(event.contentid), { state: { event } })
+                      navigate(PATH.eventInfo(event.contentid), {
+                        state: { event },
+                      })
                     }
                     handleClickBookmark={(e) =>
                       bookmarked
@@ -251,6 +287,8 @@ export default function EventSearch() {
           ) : (
             <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
           )}
+          {/* 무한 스크롤 관련 */}
+          <div ref={loadMoreRef} className="bg-slate-100 h-40" />
         </div>
       </div>
     </>
