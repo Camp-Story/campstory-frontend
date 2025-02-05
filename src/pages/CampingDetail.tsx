@@ -54,6 +54,7 @@ export default function CampingDetail() {
         category={CampingDetailData.induty}
         address={CampingDetailData.addr1}
         phone={CampingDetailData.tel}
+        img={CampingDetailData.firstImageUrl}
         bookmarked={!!bookmarked}
         handleClickBookmark={(e) =>
           bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, CampingDetailData.contentId)

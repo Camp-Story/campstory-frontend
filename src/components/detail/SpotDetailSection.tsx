@@ -1,13 +1,27 @@
 import { MouseEvent } from "react";
 import SharingButton from "./SharingButton";
+import { apiInstance } from "@utils/axiosInstance";
 
 interface CampingDetailProps {
   title: string;
   category: string;
   phone: string;
   address: string;
+  img: string;
   bookmarked: boolean;
   handleClickBookmark: (e: MouseEvent<HTMLDivElement>) => void;
+}
+
+interface Reservation {
+  title: {
+    title: string;
+    userId: string;
+    location: string;
+    image: string;
+    date: Date;
+  };
+  image: File | null;
+  channelId: string;
 }
 
 export default function SpotDetailSection({
@@ -15,9 +29,42 @@ export default function SpotDetailSection({
   category,
   phone,
   address,
+  img,
   bookmarked,
   handleClickBookmark,
 }: CampingDetailProps) {
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
+
+  const handleSubmit = async () => {
+    if (!token || !id) {
+      return;
+    }
+
+    const formData: Reservation["title"] = {
+      title: title,
+      userId: id as string,
+      location: address,
+      image: img,
+      date: new Date(new Date().setDate(new Date().getDate() + 7)),
+    };
+
+    const reservationData = {
+      title: JSON.stringify(formData),
+      channelId: "67a0223e0b62dc0dc6cc8e6d",
+    };
+
+    const response = await apiInstance.post("/posts/create", reservationData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.status === 200 || response.status === 201) {
+      alert("예약 성공!");
+
+      console.log(response.data);
+    }
+  };
+
   return (
     <section className="flex justify-between mb-14">
       <div className="flex flex-col gap-7">
@@ -85,7 +132,12 @@ export default function SpotDetailSection({
             </svg>
           </div>
         </div>
-        <button className="w-72 h-11 rounded bg-primary-500 text-gray-scale-0">예약하기</button>
+        <button
+          onClick={handleSubmit}
+          className="w-72 h-11 rounded bg-primary-500 text-gray-scale-0"
+        >
+          예약하기
+        </button>
       </div>
     </section>
   );
