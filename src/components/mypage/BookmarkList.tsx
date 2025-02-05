@@ -26,11 +26,12 @@ const CHANNEL = {
   },
 };
 
-interface BookmarkListProps {
+export interface BookmarkListProps {
   type: "camping" | "event" | "restaurant";
+  showAll?: boolean;
 }
 
-export default function BookmarkList({ type }: BookmarkListProps) {
+export default function BookmarkList({ type, showAll }: BookmarkListProps) {
   const { channelId, detailPath, title, searchPath } = CHANNEL[type];
 
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function BookmarkList({ type }: BookmarkListProps) {
   const { searchAndNavigate } = useCamping();
 
   const likedPosts = posts.filter((post) => post.likes.find((like) => like.user === userId));
+  const willShow = showAll ? likedPosts : likedPosts.slice(0, 2);
 
   const NavigateTo = (id: string, title: string, image: string) => {
     switch (type) {
@@ -58,7 +60,17 @@ export default function BookmarkList({ type }: BookmarkListProps) {
 
   return (
     <div>
-      <div className="text-[26px] font-bold mb-8">{`${title} 찜 목록`}</div>
+      <div className="text-[26px] font-bold mb-8 flex justify-between items-end">
+        <div>{`${title} 찜 목록`}</div>
+        {likedPosts.length > 2 && !showAll && (
+          <div
+            className="text-primary-500 text-body1"
+            onClick={() => navigate(PATH.bookmarkDetail(type))}
+          >
+            더보기
+          </div>
+        )}
+      </div>
       {likedPosts.length === 0 && (
         <h2 className="text-body1">
           {`찜한 ${title} 장소가 없습니다. `}
@@ -71,7 +83,7 @@ export default function BookmarkList({ type }: BookmarkListProps) {
         </h2>
       )}
       <div className="grid grid-cols-2 gap-x-11 gap-y-[30px] mb-10">
-        {likedPosts.map((post) => {
+        {willShow.map((post) => {
           const { title, category, image, location, id } = JSON.parse(post.title || "{}");
           return (
             post && (
