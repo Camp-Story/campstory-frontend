@@ -22,9 +22,9 @@ export default function QuestionCard({
         <UserProfile nickname={userName} profileUrl={coverImage} />
         {/* card */}
         <div className="flex flex-col gap-4 bg-gray-scale-0 w-[600px] p-[20px] rounded-lg drop-shadow-custom">
-          <div className="flex gap-4 items-center">
-            <div className="text-primary-500 font-bold text-[26px]">Q.</div>
-            <div className="text-body1 font-medium text-gray-scale-400">{title}</div>
+          <div className="flex gap-2 items-center">
+            <div className="text-primary-500 font-bold text-sub-title">Q.</div>
+            <div className="text-body1 font-medium text-gray-scale-400 pt-1">{title}</div>
           </div>
           <AdditionalInfo
             bookmarked
