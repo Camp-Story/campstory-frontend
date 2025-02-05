@@ -22,9 +22,9 @@ export default function CheckedOutItem({ title, location, image }: CheckedOutIte
           <div className="mt-2 text-body1 mb-1">{title || "장소명이 없습니다."}</div>
           <div className="text-body2 text-gray-scale-400">{location || "주소가 없습니다."}</div>
         </div>
-        <div className="text-body2 bg-gray-200 w-20 py-1 flex items-center justify-center rounded-sm">
+        <button className="text-body2 bg-gray-200 w-20 py-1 flex items-center justify-center rounded-sm">
           다시예약
-        </div>
+        </button>
       </div>
     </li>
   );

@@ -1,6 +1,6 @@
 import { Post } from "types/ChannelResponse";
 import { apiInstance } from "@utils/axiosInstance";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReservedItem from "@components/mypage/ReservedItem";
 import CheckedOutItem from "@components/mypage/CheckedOutItem";
 
@@ -8,18 +8,22 @@ export default function ReservedList() {
   const id = localStorage.getItem("id");
   const [myReservations, setMyReservations] = useState<Post[]>([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await apiInstance.get<Post[]>(`/posts/channel/67a0223e0b62dc0dc6cc8e6d`);
-        setMyReservations(res.data.filter((post) => post.author._id === id));
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-      }
-    };
-
-    fetchPosts();
+  const fetchPosts = useCallback(async () => {
+    try {
+      const res = await apiInstance.get<Post[]>(`/posts/channel/67a0223e0b62dc0dc6cc8e6d`);
+      setMyReservations(res.data.filter((post) => post.author._id === id));
+    } catch (error) {
+      console.error("Failed to fetch posts:", error);
+    }
   }, [id]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts, id]);
+
+  const handleReservationDelete = (itemId: string) => {
+    setMyReservations((prevReservations) => prevReservations.filter((item) => item._id !== itemId));
+  };
 
   const currentDate = new Date();
   const upcomingReservations =
@@ -56,7 +60,14 @@ export default function ReservedList() {
             {upcomingReservations.map((item) => {
               if (item.title) {
                 const reservationDetail = JSON.parse(item.title || "{}");
-                return <ReservedItem key={reservationDetail.date} {...reservationDetail} />;
+                return (
+                  <ReservedItem
+                    key={item._id}
+                    itemId={item._id}
+                    {...reservationDetail}
+                    onDelete={handleReservationDelete}
+                  />
+                );
               }
             })}
           </ul>
@@ -67,7 +78,7 @@ export default function ReservedList() {
           {pastReservations.map((item) => {
             if (item.title) {
               const reservationDetail = JSON.parse(item.title || "{}");
-              return <CheckedOutItem key={reservationDetail.date} {...reservationDetail} />;
+              return <CheckedOutItem key={item._id} {...reservationDetail} />;
             }
           })}
         </ul>
