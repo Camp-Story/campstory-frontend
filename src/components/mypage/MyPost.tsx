@@ -27,7 +27,9 @@ export default function Post({ content, tags, image, id }: PostProps) {
         <AreaCard location="울산 울주군" thumbnail="" title="신불산베이스캠프" />
       </div>
 
-      <div className="text-[18px] text-gray-scale-400 line-clamp-2">{content}</div>
+      <div className="text-[18px] max-w-[420px] text-gray-scale-400 whitespace-nowrap overflow-hidden text-ellipsis">
+        {content}
+      </div>
     </div>
   );
 }
