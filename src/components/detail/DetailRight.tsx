@@ -73,7 +73,7 @@ export default function DetailRight({
                     stroke="#676767"
                   />
                 </svg>
-                {address}
+                <span>{address}</span>
               </span>
               <span className="flex items-center gap-2 text-gray-scale-300">
                 <svg
@@ -90,7 +90,9 @@ export default function DetailRight({
                     strokeLinejoin="round"
                   />
                 </svg>
-                {phone}
+                <span className="w-96 whitespace-nowrap overflow-hidden text-ellipsis">
+                  {phone?.replace(/<\/?[^>]+(>|$)/g, "")}
+                </span>
               </span>
             </div>
           </div>
