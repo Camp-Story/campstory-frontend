@@ -8,6 +8,7 @@ import PostResponse from "types/PostResponse";
 import { apiInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import getRelativeTime from "@utils/getRelativeTime";
 
 const TAGS: Tag[] = ["reservation", "payment", "member", "campingGear", "campsite", "tips"];
 
@@ -141,7 +142,7 @@ export default function QuestionMain() {
             userName={JSON.parse(question.author.fullName).fullName}
             coverImage={question.author.image || "https://placehold.co/30x30?text=CAMP+STORY"}
             title={JSON.parse(question.title).title}
-            timeStamp={new Date(question.createdAt).toLocaleDateString()}
+            timeStamp={getRelativeTime(question.createdAt)}
           />
         ))}
       </div>

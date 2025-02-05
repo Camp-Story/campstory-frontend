@@ -20,7 +20,13 @@ export default function getRelativeTime(timestamp: string): string {
   if (diffMinutes < 1440) {
     const hours: number = Math.floor(diffMinutes / 60);
     const minutes: number = diffMinutes % 60;
+
+    if (hours >= 10) {
+      return `${hours}시간 전`;
+    }
+
     let result: string = "";
+
     if (hours > 0) {
       result += `${hours}시간 `;
     }

@@ -36,10 +36,13 @@ interface Like {
   updatedAt: string;
 }
 
-interface Comment {
+interface CommentData {
   _id: string;
   comment: string;
-  author: string;
+  author: {
+    fullName: string;
+    image?: string;
+  };
   post: string;
   createdAt: string;
   updatedAt: string;
@@ -53,7 +56,7 @@ interface PostResponse {
   createdAt: string;
   updatedAt: string;
   likes: Like[];
-  comments: Comment[];
+  comments: CommentData[];
 }
 
 export default PostResponse;
