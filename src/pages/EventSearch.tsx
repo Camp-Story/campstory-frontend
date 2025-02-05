@@ -191,12 +191,17 @@ export default function EventSearch() {
       },
       { threshold: 0 },
     );
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
+
+    // loadMoreRef.current를 로컬 변수에 저장
+    const currentRef = loadMoreRef.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
+
     return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [isLoading]);
