@@ -1,6 +1,6 @@
 import MyPost from "@components/mypage/MyPost";
 import MyQuestion from "@components/mypage/MyQuestion";
-import MyComment from "@components/mypage/MyComment";
+// import MyComment from "@components/mypage/MyComment";
 import { apiInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
 import PostResponse from "types/PostResponse";
@@ -55,15 +55,16 @@ export default function MypageActivities() {
 
       <h3 className="text-sub-title mt-8">내 질문</h3>
       <div className="mt-4 space-y-4">
-        <MyQuestion />
-        <MyQuestion />
+        {questions.map((question) => (
+          <MyQuestion title={JSON.parse(question.title).title} />
+        ))}
       </div>
 
-      <h3 className="text-sub-title mt-8">내 댓글</h3>
+      {/* <h3 className="text-sub-title mt-8">내 댓글</h3>
       <div className="mt-4 mb-[200px] space-y-4">
         <MyComment />
         <MyComment />
-      </div>
+      </div> */}
     </div>
   );
 }
