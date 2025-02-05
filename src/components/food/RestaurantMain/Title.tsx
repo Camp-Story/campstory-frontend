@@ -9,7 +9,10 @@ export default function Subtitle({ title, summary }: SubtitleProps) {
   return (
     <div className="text-left">
       {titleLines.map((line, index) => (
-        <div key={index} className="text-highlight font-impact leading-tight mb-2">
+        <div
+          key={index}
+          className="text-gray-scale-400 text-highlight font-impact leading-tight mb-2"
+        >
           {line}
         </div>
       ))}
