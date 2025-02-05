@@ -157,6 +157,7 @@ export default function CampingMain() {
             handlePrev={handlePrev}
             isBeginning={isBeginning}
             isEnd={isEnd}
+            top="lg"
           />
           <Swiper
             style={{ width: "100%", height: "auto" }}
