@@ -7,7 +7,7 @@ interface BookmarkCardProps {
   location: string;
   bookmarked: boolean;
   handleClickBookmark: (e: MouseEvent<HTMLDivElement>) => void;
-  handleClick: () => Promise<void>;
+  handleClick: () => Promise<void> | void;
 }
 
 export default function BookmarkCard({

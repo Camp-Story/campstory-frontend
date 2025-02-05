@@ -177,7 +177,14 @@ export default function FoodDetail() {
           mapX={restaurantData.common[0].mapx}
           mapY={restaurantData.common[0].mapy}
           handleClickBookmark={(e) =>
-            bookmarked ? handleUnlike(e, bookmarked._id) : handleLike(e, id || "")
+            bookmarked
+              ? handleUnlike(e, bookmarked._id)
+              : handleLike(e, id || "", {
+                  category: CategoryMap[restaurantData.common[0]?.cat3],
+                  image: restaurantImg[0]?.originimgurl,
+                  location: restaurantData.common[0]?.addr1,
+                  title: restaurantData.common[0]?.title,
+                })
           }
         />
       </section>
