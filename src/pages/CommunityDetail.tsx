@@ -76,7 +76,7 @@ export default function CommunityDefault() {
     const parsed = JSON.parse(postDetail.title);
     if (parsed.content) realContent = parsed.content || postDetail.content;
     if (parsed.tags && Array.isArray(parsed.tags)) {
-      tagsFromAPI = parsed.tag as TagType[];
+      tagsFromAPI = parsed.tags as TagType[];
     }
   } catch (error) {
     console.error("불러오기 실패:", error);
