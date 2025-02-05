@@ -35,7 +35,7 @@ export default function MypageActivities() {
     fetchPostData();
   }, [fetchPostData]);
   return (
-    <div className="max-w-[880px]">
+    <div className="max-w-[880px] mb-[100px]">
       {isLoading && <p>로딩중...</p>}
       {error}
       <h2 className="text-title font-bold">나의 활동</h2>
