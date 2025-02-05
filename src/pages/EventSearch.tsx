@@ -73,13 +73,13 @@ export default function EventSearch() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const [selectedArea, setSelectedArea] = useState<number | null>(null);
-
-  const { handleLike, handleUnlike, isBookmarked } = useBookMark(EVENT_CHANNEL_ID);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const selectedCategory = searchParams.get("cat3") || "";
+  const selectedArea = parseInt(searchParams.get("areaCode") || "", 10) || null;
+
+  const { handleLike, handleUnlike, isBookmarked } = useBookMark("67a0d6ce6e0e9a207c06c4a8");
 
   const navigate = useNavigate();
 
@@ -101,7 +101,7 @@ export default function EventSearch() {
               contentTypeId: 15,
               keyword: searchKeyword,
               cat3: selectedCat3,
-              areaCode: areaCode || "", // 선택된 지역 코드 추가
+              areaCode: areaCode || "",
             },
           });
         } else {
@@ -113,7 +113,7 @@ export default function EventSearch() {
               listYN: "Y",
               arrange: "R",
               contentTypeId: 15,
-              areaCode: areaCode || "", // 선택된 지역 코드 추가
+              areaCode: areaCode || "",
               sigunguCode: "",
               cat1: "",
               cat2: "",
@@ -153,7 +153,13 @@ export default function EventSearch() {
   };
 
   const handleAreaChange = (code: number) => {
-    setSelectedArea(selectedArea === code ? null : code);
+    const newParams = new URLSearchParams(searchParams);
+    if (selectedArea === code) {
+      newParams.delete("areaCode");
+    } else {
+      newParams.set("areaCode", String(code));
+    }
+    setSearchParams(newParams);
   };
 
   useEffect(() => {
