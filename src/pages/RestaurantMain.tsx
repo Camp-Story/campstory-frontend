@@ -53,7 +53,7 @@ function MainPage() {
     <div className="flex flex-col gap-[100px]">
       <Banner />
 
-      <section>
+      <section className="flex flex-col gap-8">
         {/* 상단 제목 */}
         <div>
           <Title
@@ -63,7 +63,7 @@ function MainPage() {
         </div>
 
         {/* 카테고리 카드들 */}
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid grid-cols-6 gap-6">
           {categories.map((category) => (
             <CategoryCard
               src={category.image}
