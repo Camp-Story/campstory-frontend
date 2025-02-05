@@ -58,6 +58,7 @@ interface PostResponse {
   updatedAt: string;
   likes: Like[];
   comments: CommentData[];
+  image?: string;
 }
 
 export default PostResponse;
