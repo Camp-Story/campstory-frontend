@@ -4,6 +4,7 @@ import CalendarEventCard from "./CalendarEventCard";
 import { tourApiInstance } from "@utils/axiosInstance";
 import { getTodayDate, getFormattedTodayDate, formatDate } from "@utils/dateUtils";
 import Calendar from "./Calendar";
+import { useNavigate } from "react-router";
 
 interface Item {
   addr1: string;
@@ -41,6 +42,8 @@ export default function EventCalendarSection() {
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const fetchEventsData = useCallback(async () => {
     setIsLoading(true);
@@ -107,7 +110,7 @@ export default function EventCalendarSection() {
               src={event.firstimage}
               title={event.title}
               addr1={event.addr1}
-              path={PATH.eventInfo(event.contentid)}
+              handleClick={() => navigate(PATH.eventInfo(event.contentid), { state: { event } })}
             />
           ))}
         </div>
