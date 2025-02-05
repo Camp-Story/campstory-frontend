@@ -1,7 +1,7 @@
 import CommentInput from "@components/community/question/CommentInput";
 import QuestionDetailCard from "@components/community/question/QuestionDetailCard";
 import Comment from "@components/community/question/Comment";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { PATH } from "@constants/path";
 import { apiInstance } from "@utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
@@ -12,14 +12,13 @@ const userId = localStorage.getItem("id");
 export default function QuestionDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const location = useLocation();
 
   const [questionData, setQuestionData] = useState<PostResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const isSameUser = () => {
-    if (userId === location.state.userId) return true;
+    if (userId === questionData?.author._id) return true;
     else return false;
   };
 
