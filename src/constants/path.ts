@@ -11,6 +11,8 @@ export const PATH = {
   information: "/mypage/information",
   reservedList: "/mypage/reserved-list",
   bookmark: "/mypage/bookmark",
+  bookmarkDetail: (type: string) => `/mypage/bookmark/${type}`,
+  bookmarkDetailPath: "/mypage/bookmark/:type",
   activities: "/mypage/activities",
 
   // capming

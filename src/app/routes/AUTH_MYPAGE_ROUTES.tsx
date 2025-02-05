@@ -4,6 +4,7 @@ import Bookmark from "@pages/Bookmark";
 
 import ReservedList from "@pages/ReservedList";
 import MyPageAcitvites from "@pages/MypageActivities";
+import BookmarkDetail from "@pages/BookmarkDetail";
 
 const AUTH_MYPAGE_ROUTES = [
   {
@@ -17,6 +18,10 @@ const AUTH_MYPAGE_ROUTES = [
   {
     path: PATH.bookmark,
     element: <Bookmark />,
+  },
+  {
+    path: PATH.bookmarkDetailPath,
+    element: <BookmarkDetail />,
   },
   {
     path: PATH.activities,
