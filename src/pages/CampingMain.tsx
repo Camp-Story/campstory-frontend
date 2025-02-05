@@ -11,11 +11,10 @@ import { useNavigate } from "react-router";
 // Swiper 관련 모듈
 import { Navigation, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Swiper as SwiperType } from "swiper/types";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import useSwiper from "@hooks/useSwiper";
+import SwiperArrow from "@components/common/SwiperArrow";
 // import "swiper/css/pagination";
 
 const PopularCampingData: PopularCampCardProps[] = [
@@ -111,15 +110,7 @@ const ReviewData: ReviewCardProps[] = [
 
 export default function CampingMain() {
   const navigate = useNavigate();
-  const swiperRef = useRef<SwiperType | null>(null);
-
-  const [isBeginning, setIsBeginning] = useState(true); // 첫 번째 슬라이드 여부
-  const [isEnd, setIsEnd] = useState(false); // 마지막 슬라이드 여부
-
-  const handleSlideChange = (swiper: SwiperType) => {
-    setIsBeginning(swiper.isBeginning); // 첫 번째 슬라이드인지 확인
-    setIsEnd(swiper.isEnd); // 마지막 슬라이드인지 확인
-  };
+  const { handleSlideChange, handleNext, handlePrev, isBeginning, isEnd, swiperRef } = useSwiper();
 
   return (
     <div className="flex flex-col gap-[60px]">
@@ -161,46 +152,32 @@ export default function CampingMain() {
       <div>
         <Subtitle>인기 캠핑장</Subtitle>
         <div className="relative overflow-visible">
-          <div
-            className={twMerge(
-              "p-[14px] size-[53px] rounded-full bg-white drop-shadow-custom absolute top-[150px] -translate-y-1/2 -right-[22px] z-50",
-              isEnd ? "hidden" : "visible",
-            )}
-            onClick={() => swiperRef.current?.slideNext()}
+          <SwiperArrow
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+            isBeginning={isBeginning}
+            isEnd={isEnd}
+          />
+          <Swiper
+            style={{ width: "100%", height: "auto" }}
+            modules={[Navigation, A11y, Autoplay]}
+            spaceBetween={10}
+            slidesPerView={4}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSlideChange={handleSlideChange}
           >
-            <img src="/images/arrow-right.svg" />
-          </div>
-          <div
-            className={twMerge(
-              "p-[14px] size-[53px] rounded-full bg-white drop-shadow-custom absolute top-[150px] -translate-y-1/2 -left-[22px] z-50",
-              isBeginning ? "hidden" : "visible",
-            )}
-            onClick={() => swiperRef.current?.slidePrev()}
-          >
-            <img src="/images/arrow-left.svg" />
-          </div>
-          <div>
-            <Swiper
-              style={{ width: "100%", height: "auto" }}
-              modules={[Navigation, A11y, Autoplay]}
-              spaceBetween={10}
-              slidesPerView={4}
-              onSwiper={(swiper) => (swiperRef.current = swiper)}
-              onSlideChange={handleSlideChange}
-            >
-              {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
-                <SwiperSlide key={idx}>
-                  <PopularCampCard
-                    rank={item.rank}
-                    src={item.src}
-                    category={item.category}
-                    name={item.name}
-                    path={item.path}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+            {PopularCampingData.map((item: PopularCampCardProps, idx: number) => (
+              <SwiperSlide key={idx}>
+                <PopularCampCard
+                  rank={item.rank}
+                  src={item.src}
+                  category={item.category}
+                  name={item.name}
+                  path={item.path}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
       <div>
