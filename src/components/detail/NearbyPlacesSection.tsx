@@ -4,6 +4,7 @@ import { campingDataResponse } from "types/CampingDataResponse";
 import { CommonDetails } from "types/EventResponse";
 import { NearbyRestaurantResponse } from "types/RestaurantResponse";
 import { CAMPING_CHANNEL_ID, EVENT_CHANNEL_ID, RESTAURANT_CHANNEL_ID } from "@constants/channelId";
+import CATEGORY_MAP from "@components/food/CategoryMap";
 
 // 유니온 타입 정의
 type PlaceData = campingDataResponse | CommonDetails | NearbyRestaurantResponse;
@@ -19,11 +20,11 @@ const isCampingData = (place: PlaceData): place is campingDataResponse => {
 };
 
 const isEventData = (place: PlaceData): place is CommonDetails => {
-  return (place as CommonDetails).contenttypeid !== undefined;
+  return (place as CommonDetails).contenttypeid !== undefined && !(place as CommonDetails).zipcode;
 };
 
 const isRestaurantData = (place: PlaceData): place is NearbyRestaurantResponse => {
-  return (place as NearbyRestaurantResponse).cat3 !== undefined;
+  return (place as NearbyRestaurantResponse).zipcode !== undefined;
 };
 
 export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectionProps) {
@@ -58,7 +59,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
             contentId = place.contentid;
           } else if (isRestaurantData(place)) {
             imageUrl = place.firstimage || "https://placehold.co/230x230?text=CAMP+STORY";
-            category = place.cat3;
+            category = CATEGORY_MAP[place.cat3];
             name = place.title;
             channelId = RESTAURANT_CHANNEL_ID;
             contentId = place.contentid;
