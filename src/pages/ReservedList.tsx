@@ -73,7 +73,7 @@ export default function ReservedList() {
           </ul>
         </div>
 
-        <div className="text-sub-title font-bold mb-3">이용 완료 및 예약취소</div>
+        <div className="text-sub-title font-bold mb-3">이용 완료</div>
         <ul className="flex flex-col gap-6">
           {pastReservations.map((item) => {
             if (item.title) {
