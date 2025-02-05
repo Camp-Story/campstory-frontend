@@ -19,6 +19,7 @@ interface PostCardProps {
   likeCount?: number;
   viewCount?: number;
   time: string;
+  userImage: string;
 }
 
 export default function PostCard({
@@ -28,6 +29,7 @@ export default function PostCard({
   img,
   time,
   tags,
+  userImage,
 }: PostCardProps) {
   const navigate = useNavigate();
   const handleClickCard = () => {
@@ -38,7 +40,7 @@ export default function PostCard({
   return (
     <div onClick={handleClickCard} className="cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
-        <UserProfile nickname={fullname} profileUrl="" />
+        <UserProfile nickname={fullname} profileUrl={userImage || ""} />
 
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <div className="w-full h-[400px] overflow-hidden rounded-xl">
