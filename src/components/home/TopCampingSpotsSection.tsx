@@ -5,6 +5,8 @@ import CampingSpotItemType from "../../types/CampingSpotItemType";
 import { PATH } from "@constants/path";
 import PopularCampCardProps from "types/PopularCampingCardProps";
 import useCamping from "@hooks/useCamping";
+import SwiperArrow from "@components/common/SwiperArrow";
+import useSwiper from "@hooks/useSwiper";
 
 const PopularCampingData: PopularCampCardProps[] = [
   {
@@ -84,30 +86,42 @@ function CampingSpotItem({ path, src, name, category }: CampingSpotItemType) {
 }
 
 export default function TopCampingSpotsSection() {
+  const { handleSlideChange, handleNext, handlePrev, isBeginning, isEnd, swiperRef } = useSwiper();
+
   return (
     <section className="mb-7 relative">
       <h2 className="text-highlight font-impact">인기 캠핑장</h2>
       <p className="text-sub-title text-gray-scale-300 mb-7">
         나를 위한 근사한 휴가를 계획해보세요.
       </p>
-      <Swiper
-        modules={[Navigation, Pagination, A11y]}
-        spaceBetween={32}
-        slidesPerView={5}
-        navigation
-        pagination={{ clickable: true }}
-      >
-        {PopularCampingData.map((item) => (
-          <SwiperSlide key={item.src}>
-            <CampingSpotItem
-              path={item.path}
-              src={item.src}
-              name={item.name}
-              category={item.category}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className="relative overflow-visible">
+        <SwiperArrow
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+          isBeginning={isBeginning}
+          isEnd={isEnd}
+          top="sm"
+        />
+        <Swiper
+          modules={[Navigation, Pagination, A11y]}
+          spaceBetween={32}
+          slidesPerView={5}
+          pagination={{ clickable: true }}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={handleSlideChange}
+        >
+          {PopularCampingData.map((item) => (
+            <SwiperSlide key={item.src}>
+              <CampingSpotItem
+                path={item.path}
+                src={item.src}
+                name={item.name}
+                category={item.category}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
       <Link to={PATH.campingSearch} className="absolute top-5 font-bold right-0 text-info-500">
         더보기
       </Link>
