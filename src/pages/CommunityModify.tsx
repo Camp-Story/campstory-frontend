@@ -34,6 +34,8 @@ export default function CommunityModify() {
   const [imagePublicId, setImagePublicId] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+  const [tags, setTags] = useState<string[]>([]);
+
   const currentUserId = localStorage.getItem("id");
   useEffect(() => {
     if (!id) return;
@@ -100,7 +102,7 @@ export default function CommunityModify() {
     try {
       const formData = new FormData();
 
-      const titleAndContent = JSON.stringify({ title, content });
+      const titleAndContent = JSON.stringify({ title, content, tags });
       formData.append("title", titleAndContent);
       formData.append("postId", id);
       formData.append("channelId", COMMUNITY_CHANNEL_ID);
@@ -127,6 +129,10 @@ export default function CommunityModify() {
       console.error("게시글 수정 실패:", error);
       alert("게시글 수정 중 오류가 발생했습니다.");
     }
+  };
+
+  const handleTagChange = (tag: string, checked: boolean) => {
+    setTags((prev) => (checked ? [...prev, tag] : prev.filter((t) => t !== tag)));
   };
 
   return (
@@ -157,9 +163,21 @@ export default function CommunityModify() {
         <AreaCard location="충남 예산군" thumbnail="" title="스노우라인 캠핑빌리지" />
         <h2 className="text-sub-title">태그 선택</h2>
         <div className="flex gap-[5px]">
-          <Tag tag="clean" isCheckbox />
-          <Tag tag="kind" isCheckbox />
-          <Tag tag="convenience" isCheckbox />
+          <Tag
+            tag="clean"
+            isCheckbox
+            onChange={(checked: boolean) => handleTagChange("clean", checked)}
+          />
+          <Tag
+            tag="kind"
+            isCheckbox
+            onChange={(checked: boolean) => handleTagChange("kind", checked)}
+          />
+          <Tag
+            tag="convenience"
+            isCheckbox
+            onChange={(checked: boolean) => handleTagChange("convenience", checked)}
+          />
         </div>
         <textarea
           autoFocus
