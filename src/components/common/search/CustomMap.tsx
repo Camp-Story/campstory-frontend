@@ -15,7 +15,9 @@ export default function CustomMap({ markers, type }: MapProps) {
         navigate(PATH.campingInfo(item.contentid), { state: { item } });
         break;
       case "event":
-        navigate(PATH.eventInfo(item.contentid));
+        navigate(PATH.eventInfo(item.contentid), {
+          state: { event: { firstimage: item.firstImageUrl } },
+        });
         break;
       case "restaurant":
         navigate(PATH.restaurantInfo(item.contentid));
