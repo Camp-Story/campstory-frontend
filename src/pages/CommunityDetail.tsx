@@ -16,6 +16,7 @@ interface Author {
   _id: string;
   fullName: string;
   email: string;
+  image: string;
 }
 
 interface CommentData {
@@ -23,8 +24,9 @@ interface CommentData {
   comment: string;
   createdAt: string;
   author: {
+    _id: string;
     fullName: string;
-    profileUrl?: string;
+    image: string;
   };
 }
 
@@ -117,10 +119,47 @@ export default function CommunityDefault() {
     }
   };
 
+  const handleCommentDelete = async (commentId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate(PATH.login);
+      return;
+    }
+
+    try {
+      // 1) 서버에 삭제 요청
+      await apiInstance.delete("/comments/delete", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          id: commentId,
+        },
+      });
+      alert("댓글이 삭제되었습니다.");
+
+      setPostDetail((prev) =>
+        prev
+          ? {
+              ...prev,
+              comments: prev.comments.filter((c) => c._id !== commentId),
+            }
+          : prev,
+      );
+    } catch (err) {
+      console.error("댓글 삭제 실패:", err);
+      alert("댓글 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <div className="w-[1000px] mx-auto mt-14 cursor-pointer flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <UserProfile nickname={JSON.parse(postDetail.author.fullName).fullName} profileUrl="" />
+        <UserProfile
+          nickname={JSON.parse(postDetail.author.fullName).fullName}
+          profileUrl={postDetail.author.image || "https://placehold.co/30x30?text=CAMP+STORY"}
+        />
         {postDetail.author._id === currentUserId && (
           <button
             onClick={() => navigate(PATH.communityModify(id))}
@@ -173,7 +212,7 @@ export default function CommunityDefault() {
         </div>
         <div className="flex flex-col gap-[40px]">
           {postDetail.comments.map((comment) => (
-            <Comment key={comment._id} commentData={comment} />
+            <Comment key={comment._id} commentData={comment} onDelete={handleCommentDelete} />
           ))}
         </div>
       </div>

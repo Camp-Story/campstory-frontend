@@ -40,8 +40,9 @@ interface CommentData {
   _id: string;
   comment: string;
   author: {
+    _id: string;
     fullName: string;
-    image?: string;
+    image: string;
   };
   post: string;
   createdAt: string;
