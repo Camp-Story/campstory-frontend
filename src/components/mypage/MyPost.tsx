@@ -16,9 +16,11 @@ export default function Post({ content, tags, image, id }: PostProps) {
 
   return (
     <div onClick={() => navigate(PATH.communityPost(id))} className="max-w-[420px] cursor-pointer">
-      <div className="flex flex-col gap-2.5 mb-[15px]">
+      <div className="flex flex-col gap-2.5 mb-[15px] ">
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
-        <img src={image} alt="thumbnail" />
+        <div className="w-[420px] h-[280px] overflow-hidden rounded-[16px]">
+          <img src={image} alt="thumbnail" className="size-full object-cover" />
+        </div>
 
         <TagList tags={tags} />
 
