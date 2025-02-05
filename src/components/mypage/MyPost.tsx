@@ -5,16 +5,17 @@ import TagList from "@./components/community/TagList";
 import { Tag } from "@components/community/Tag";
 
 interface PostProps {
+  id: string;
   content: string;
   tags: Tag[];
   image: string;
 }
 
-export default function Post({ content, tags, image }: PostProps) {
+export default function Post({ content, tags, image, id }: PostProps) {
   const navigate = useNavigate();
 
   return (
-    <div onClick={() => navigate(PATH.communityPost("1"))} className="max-w-[420px] cursor-pointer">
+    <div onClick={() => navigate(PATH.communityPost(id))} className="max-w-[420px] cursor-pointer">
       <div className="flex flex-col gap-2.5 mb-[15px]">
         {/* TODO: || "https://placehold.co/490x320?text=CAMP+STORY" */}
         <img src={image} alt="thumbnail" />

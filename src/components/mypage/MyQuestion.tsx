@@ -2,15 +2,16 @@ import { useNavigate } from "react-router";
 import { PATH } from "@constants/path";
 
 interface QuestionProps {
+  id: string;
   title: string;
 }
 
-export default function MyQuestion({ title }: QuestionProps) {
+export default function MyQuestion({ id, title }: QuestionProps) {
   const navigate = useNavigate();
 
   return (
     <>
-      <div onClick={() => navigate(PATH.questionPost("1"))} className="cursor-pointer">
+      <div onClick={() => navigate(PATH.questionPost(id))} className="cursor-pointer">
         {/* card */}
         <div className="flex flex-col gap-4 bg-gray-scale-0 w-full p-[20px] rounded-lg drop-shadow-custom">
           <div className="flex gap-4 items-center">

@@ -24,7 +24,6 @@ export default function MypageActivities() {
       const myQuestions = response.data.filter((post) => post.channel._id === QUESTION_CHANNEL_ID);
       setPosts(myPosts);
       setQuestions(myQuestions);
-      console.log(questions);
     } catch (error) {
       setError("커뮤니티 포스트를 불러오는 중 오류가 발생했습니다.");
       console.log("Error fetching camping data:", error);
@@ -46,6 +45,8 @@ export default function MypageActivities() {
       <div className="flex flex-shrink-0 flex-wrap justify-between mt-4 gap-y-10">
         {posts.map((post) => (
           <MyPost
+            key={post._id}
+            id={post._id}
             content={JSON.parse(post.title).content}
             tags={JSON.parse(post.title).tags}
             image={post.image!}
@@ -56,7 +57,11 @@ export default function MypageActivities() {
       <h3 className="text-sub-title mt-8">내 질문</h3>
       <div className="mt-4 space-y-4">
         {questions.map((question) => (
-          <MyQuestion title={JSON.parse(question.title).title} />
+          <MyQuestion
+            key={question._id}
+            id={question._id}
+            title={JSON.parse(question.title).title}
+          />
         ))}
       </div>
 
