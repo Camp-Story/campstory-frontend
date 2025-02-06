@@ -37,6 +37,7 @@ interface PostDetail {
   image?: string;
   createdAt: string;
   author: Author;
+  likes: string[];
   comments: CommentData[];
 }
 
@@ -197,7 +198,7 @@ export default function CommunityDefault() {
           <AdditionalInfo
             bookmarked={false}
             isLiked={false}
-            likeCount={10}
+            likeCount={postDetail.likes.length}
             viewCount={115}
             time={getRelativeTime(postDetail.createdAt)}
             handleClickBookmark={() => alert("click bookmark")}

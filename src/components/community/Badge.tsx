@@ -3,14 +3,14 @@ import { twMerge } from "tailwind-merge";
 interface BadgeProps {
   icon: JSX.Element;
   count?: number;
-  handleClick?: () => void;
+  handleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function Badge({ count, icon, handleClick }: BadgeProps) {
   const handleClickBadge = (e: React.MouseEvent<HTMLDivElement>) => {
     if (handleClick) {
       e.stopPropagation();
-      handleClick();
+      handleClick(e);
     }
   };
 

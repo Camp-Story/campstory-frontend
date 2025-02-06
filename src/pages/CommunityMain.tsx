@@ -22,8 +22,9 @@ interface Post {
   content: string;
   image?: string;
   createdAt: string;
-  likes: number;
+  number: string;
   author: Author;
+  likes: string[];
 }
 
 const KEYWORD_PARAM = "keyword";
@@ -108,7 +109,7 @@ export default function CommunityMain() {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     } else if (sortOrder === "popular") {
       // 인기순: 좋아요 수 내림차순 (좋아요가 많은 것이 먼저)
-      return b.likes - a.likes;
+      return Number(b.likes.length) - Number(a.likes.length);
     }
     return 0;
   });
@@ -178,6 +179,7 @@ export default function CommunityMain() {
               tags={JSON.parse(post.title).tags}
               time={getRelativeTime(post.createdAt)}
               userImage={post.author.image}
+              likes={post.likes.length}
             />
           );
         })}
