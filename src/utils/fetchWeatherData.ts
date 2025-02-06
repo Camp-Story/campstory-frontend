@@ -29,7 +29,7 @@ const fetchWeatherData = async (mapX: string, mapY: string) => {
     const response = await weatherApiInstance.get("/getVilageFcst", {
       params: {
         pageNo: 1,
-        numOfRows: 12,
+        numOfRows: 350,
         dataType: "JSON",
         base_date: formatDate(new Date()),
         base_time: "0500",
@@ -44,6 +44,8 @@ const fetchWeatherData = async (mapX: string, mapY: string) => {
 
     console.log(response);
     console.dir(response.data.response.body.items.item);
+
+    return response.data.response.body.items.item;
   } catch (error) {
     console.log(error);
   }
