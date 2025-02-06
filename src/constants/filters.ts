@@ -138,7 +138,7 @@ export const AREA = [
 
 export const CAMPING_AREA = [
   {
-    value: "서울시",
+    value: "서울",
     label: "서울",
   },
   {
@@ -150,7 +150,7 @@ export const CAMPING_AREA = [
     label: "강원도",
   },
   {
-    value: "부산시",
+    value: "부산",
     label: "부산",
   },
   {
