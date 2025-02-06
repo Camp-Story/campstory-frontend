@@ -216,34 +216,34 @@ const ReviewData: ReviewCardProps[] = [
     contents:
       "2박3일 캠핑하는 동안 모든 게 좋았습니다. (언덕은 운동하는 기분으로) 깔끔하고 힐링하는 분위기 속에서 정말 잘 쉬었습니다. 다른 캠핑장을 가봐도 여기가 최고인 것 같아요!",
     timestamp: "24분 전",
-    userId: "사용자 이름1",
+    userId: "텐트러버",
     path: PATH.communityPostPath,
   },
   {
     src: "/images/shopping/photo-review-dummy-2.png",
     profileSrc: "/images/review/ReviewProfileImg-02.jpg",
     contents:
-      "캠핑장은 너무 좋았고, 특히 밤하늘의 별이 정말 아름다웠어요. 아이들과 함께 별자리를 찾아보며 특별한 추억을 만들었습니다. 캠핑장 근처 산책로도 잘 정비되어 있어 좋았어요.",
+      "이 의자 정말 편해요! 장시간 앉아 있어도 전혀 불편하지 않고, 팔걸이가 있어 더 좋았어요. 무게도 가볍고 접어서 가방처럼 들고 다닐 수 있어 이동하기도 편리해요.",
     timestamp: "1시간 전",
-    userId: "사용자 이름2",
+    userId: "배낭여행",
     path: PATH.communityPostPath,
   },
   {
     src: "/images/shopping/photo-review-dummy-3.png",
     profileSrc: "/images/review/ReviewProfileImg-03.jpg",
     contents:
-      "시설이 정말 깨끗했고, 관리가 잘 되어 있었습니다. 주변 경치도 훌륭했고, 특히 아침에 새소리를 들으며 일어나는 기분은 최고였어요. 다시 오고 싶은 곳입니다.",
+      "이 취사 도구 세트는 아주 실용적이에요! 여러 가지 조리 도구가 들어 있어서 캠핑 시 필요한 것들을 다 해결할 수 있었어요. 내구성도 뛰어나서 오래 사용할 수 있을 것 같아요.",
     timestamp: "2시간 전",
-    userId: "사용자 이름3",
+    userId: "짱구",
     path: PATH.communityPostPath,
   },
   {
     src: "/images/shopping/photo-review-dummy-4.png",
     profileSrc: "/images/review/ReviewProfileImg-04.png",
     contents:
-      "주차 공간이 넓어서 가족 단위로 방문하기 편리했어요. 근처에 있는 계곡에서 물놀이도 즐기고, 캠핑장에서 바비큐 파티도 했습니다. 다음에도 꼭 올 예정입니다.",
+      "이 텐트는 정말 빠르게 설치할 수 있어서 첫 캠핑에서도 큰 어려움 없이 셋업할 수 있었어요! 바람이 좀 불었는데도 텐트가 튼튼해서 걱정 없었어요.",
     timestamp: "3시간 전",
-    userId: "사용자 이름4",
+    userId: "프롱이",
     path: PATH.communityPostPath,
   },
 ];
