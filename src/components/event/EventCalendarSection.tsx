@@ -64,7 +64,7 @@ export default function EventCalendarSection() {
       const items = response.data.response.body.items.item || [];
       setEvents(items);
 
-      const eventColors: string[] = ["#F85900", "#1A9EFE", "#1CA673", "#F29B30"];
+      const eventColors: string[] = ["#f85b00b9", "#1a9ffec1", "#1ca673c8", "#f29b30c0"];
 
       const formattedEvents: CalendarEvent[] = items.map((item, index) => ({
         title: item.title,
@@ -92,7 +92,7 @@ export default function EventCalendarSection() {
 
   return (
     <div className="flex gap-4">
-      <div className="w-[400px] border border-gray-scale-100 p-2 rounded mr-[20px] bg-white drop-shadow">
+      <div className="w-2/5 p-5 rounded-xl mr-[20px] bg-white drop-shadow-custom">
         <Calendar events={calendarEvents} />
       </div>
       <div className="flex flex-col">
