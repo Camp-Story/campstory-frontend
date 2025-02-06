@@ -16,7 +16,7 @@ export default function useInfiniteScroll({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !isLoading && !isPageEnd) {
-          console.log("화면 끝!", entries[0]);
+          // console.log("화면 끝!", entries[0]);
           setPageNumber((prev) => prev + 1);
         }
       },
