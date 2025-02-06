@@ -90,6 +90,7 @@ export default function CampingSearch() {
   const handleSearch = (searchKeyword: string) => {
     setPageNumber(1);
     setCampingData([]);
+    setIsPageEnd(false);
     searchParams.set("keyword", searchKeyword);
     setSearchParams(searchParams);
     setKeyword(searchKeyword);
@@ -99,13 +100,12 @@ export default function CampingSearch() {
   const handleCheckbox = (criteria: "category" | "area", value: string, isChecked: boolean) => {
     const queryList = criteria === "category" ? [...categoryFilterList] : [...areaFilterList];
     const setFunc = criteria === "category" ? setCategoryFilterList : setAreaFilterList;
+    setPageNumber(1);
+    setIsPageEnd(false);
+    setCampingData([]);
     if (isChecked) {
-      setPageNumber(1);
-      setCampingData([]);
       queryList.push(value);
     } else {
-      setPageNumber(1);
-      setCampingData([]);
       const index = queryList.indexOf(value);
       if (index !== -1) {
         queryList.splice(index, 1);

@@ -4,13 +4,13 @@ import SearchMap from "@components/common/search/SearchMap";
 import SearchInput from "@components/common/SearchInput";
 import EventAreaCheckbox from "@components/event/EventAreaCheckbox";
 import EVENT_CATEGORY_MAP from "@components/event/EventCategoryMap";
-import { EVENT_CHANNEL_ID } from "@constants/channelId";
 
 import { AREA, EVENT_PROGRESS } from "@constants/filters";
 import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import useInfiniteScroll from "@hooks/useInfiniteScroll";
 import { tourApiInstance } from "@utils/axiosInstance";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 
@@ -63,6 +63,8 @@ const categoryMapping: { [key: string]: string } = {
   A02081400: "넌버벌",
 };
 
+const NUM_OF_ROWS = 50;
+
 function getCategoryName(cat3: string): string {
   return categoryMapping[cat3] || "카테고리 없음";
 }
@@ -72,10 +74,8 @@ export default function EventSearch() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState<number>(0);
-
-  // 무한 스크롤 관련
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
@@ -88,6 +88,7 @@ export default function EventSearch() {
 
   const fetchEventsData = useCallback(
     async (searchKeyword: string, selectedCat3: string, areaCode: number | null, page: number) => {
+      if (isPageEnd) return; // 마지막 페이지면 요청하지 않음
       setIsLoading(true);
       setError(null);
 
@@ -98,7 +99,7 @@ export default function EventSearch() {
           response = await tourApiInstance.get<ApiResponse>("/searchKeyword1", {
             params: {
               pageNo: page,
-              numOfRows: 10,
+              numOfRows: NUM_OF_ROWS,
               listYN: "Y",
               arrange: "R",
               contentTypeId: 15,
@@ -110,7 +111,7 @@ export default function EventSearch() {
         } else {
           response = await tourApiInstance.get<ApiResponse>("/areaBasedList1", {
             params: {
-              numOfRows: 10,
+              numOfRows: NUM_OF_ROWS,
               pageNo: page,
               _type: "json",
               listYN: "Y",
@@ -126,6 +127,9 @@ export default function EventSearch() {
         }
 
         const items = response.data.response.body.items.item || [];
+        if (items.length < NUM_OF_ROWS) {
+          setIsPageEnd(true);
+        }
         const totalCount = response.data.response.body.totalCount;
 
         if (page === 1) {
@@ -142,7 +146,7 @@ export default function EventSearch() {
         setIsLoading(false);
       }
     },
-    [],
+    [isPageEnd],
   );
 
   const handleSearch = (searchKeyword: string) => {
@@ -162,6 +166,7 @@ export default function EventSearch() {
     }
     setPageNumber(1);
     setEvents([]);
+    setIsPageEnd(false);
     setSearchParams(newParams);
   };
 
@@ -174,6 +179,7 @@ export default function EventSearch() {
     }
     setPageNumber(1);
     setEvents([]);
+    setIsPageEnd(false);
     setSearchParams(newParams);
   };
 
@@ -181,30 +187,12 @@ export default function EventSearch() {
     fetchEventsData(keyword, selectedCategory, selectedArea, pageNumber);
   }, [fetchEventsData, keyword, selectedCategory, selectedArea, pageNumber]);
 
-  // infinite scroll을 위한 IntersectionObserver 객체 생성
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isLoading) {
-          setPageNumber((prev) => prev + 1);
-        }
-      },
-      { threshold: 0 },
-    );
-
-    // loadMoreRef.current를 로컬 변수에 저장
-    const currentRef = loadMoreRef.current;
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, [isLoading]);
+  // 무한스크롤
+  const { loadMoreRef } = useInfiniteScroll({
+    isPageEnd,
+    isLoading,
+    setPageNumber,
+  });
 
   return (
     <>
