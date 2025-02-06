@@ -38,6 +38,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
       </div>
       <div className="flex flex-wrap justify-between">
         {places.map((place, index) => {
+          let data: campingDataResponse | CommonDetails | NearbyRestaurantResponse;
           let imageUrl: string;
           let category: string;
           let name: string;
@@ -46,24 +47,28 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
           const location = place.addr1;
 
           if (isCampingData(place)) {
+            data = place;
             imageUrl = place.firstImageUrl || "https://placehold.co/230x230?text=CAMP+STORY";
             category = place.induty;
             name = place.facltNm;
             channelId = CAMPING_CHANNEL_ID;
             contentId = place.contentId;
           } else if (isEventData(place)) {
+            data = place;
             imageUrl = place.firstimage || "https://placehold.co/230x230?text=CAMP+STORY";
             category = place.contenttypeid === "15" ? "축제" : "행사";
             name = place.title;
             channelId = EVENT_CHANNEL_ID;
             contentId = place.contentid;
           } else if (isRestaurantData(place)) {
+            data = place;
             imageUrl = place.firstimage || "https://placehold.co/230x230?text=CAMP+STORY";
             category = CATEGORY_MAP[place.cat3];
             name = place.title;
             channelId = RESTAURANT_CHANNEL_ID;
             contentId = place.contentid;
           } else {
+            data = place;
             imageUrl = "https://placehold.co/230x230?text=CAMP+STORY";
             category = "기타";
             name = "알 수 없는 명소";
@@ -73,6 +78,7 @@ export default function NearbyPlacesSection({ path, places }: NearbyPlacesSectio
 
           return (
             <NearbyPlaceItem
+              data={data}
               key={index}
               imageUrl={imageUrl}
               category={category}
