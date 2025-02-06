@@ -10,8 +10,8 @@ interface AdditionalInfoProps {
   isLiked: boolean;
   bookmarked: boolean;
   time: string;
-  handleClickLike: () => void;
-  handleClickBookmark: () => void;
+  handleClickLike: (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleClickBookmark?: () => void;
 }
 
 export default function AdditionalInfo({
