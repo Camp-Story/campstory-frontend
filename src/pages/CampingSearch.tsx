@@ -12,6 +12,8 @@ import { useNavigate, useSearchParams } from "react-router";
 import useBookMark from "@hooks/useBookmark";
 import { CAMPING_CHANNEL_ID } from "@constants/channelId";
 
+const NUM_OF_ROWS = 300;
+
 export default function CampingSearch() {
   const navigate = useNavigate();
   const { handleLike, handleUnlike, isBookmarked } = useBookMark(CAMPING_CHANNEL_ID);
@@ -31,17 +33,18 @@ export default function CampingSearch() {
   );
   // infinite scroll 관련
   const loadMoreRef = useRef<HTMLDivElement>(null); // 감시 대상 지정하기
-  //  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
+  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const fetchCampingData = useCallback(
     async (searchKeyword: string | null, page: number) => {
+      if (isPageEnd) return; // 마지막 페이지면 요청하지 않음
       setIsLoading(true);
       setError(null);
       try {
         const endpoint = searchKeyword ? "/searchList" : "/basedList";
         const params = {
           params: {
-            numOfRows: 50,
+            numOfRows: NUM_OF_ROWS,
             pageNo: page,
             ...(searchKeyword && { keyword: searchKeyword }),
           },
@@ -53,6 +56,10 @@ export default function CampingSearch() {
           throw new Error("No search results found.");
         }
         let data = newData;
+        // 가져온 데이터 개수가 50보다 작으면 마지막 페이지로 판단
+        if (data.length < NUM_OF_ROWS) {
+          setIsPageEnd(true);
+        }
         // 카테고리 체크박스 선택되어 있으면 데이터 필터링
         if (categoryFilterList.length !== 0) {
           data = filterCampingData(data, "category", categoryFilterList);
@@ -77,7 +84,7 @@ export default function CampingSearch() {
         setIsLoading(false);
       }
     },
-    [categoryFilterList, areaFilterList],
+    [isPageEnd, categoryFilterList, areaFilterList],
   );
 
   // SearchInput 키워드에 따라서 url 변경 & keyword 상태 업데이트
@@ -131,23 +138,23 @@ export default function CampingSearch() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoading) {
+        if (entries[0].isIntersecting && !isLoading && !isPageEnd) {
           console.log("화면 끝!", entries[0]);
           setPageNumber((prev) => prev + 1);
         }
       },
       { threshold: 0 },
     );
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
+    const currentRef = loadMoreRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
     return () => {
-      if (loadMoreRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(loadMoreRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [isLoading]);
+  }, [isLoading, isPageEnd]);
 
   return (
     <>
@@ -231,10 +238,7 @@ export default function CampingSearch() {
               })
             ) : (
               <>
-                <h3 className=" text-sub-title">
-                  {!isLoading && error}
-                  {/* {!isLoading && error ? error : "검색 결과가 없습니다."} */}
-                </h3>
+                <h3 className=" text-sub-title">{!isLoading && error}</h3>
               </>
             )}
           </div>
