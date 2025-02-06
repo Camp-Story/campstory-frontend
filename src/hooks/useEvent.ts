@@ -36,6 +36,7 @@ const useEvent = (id: string) => {
             mapX,
             mapY,
             radius,
+            contentTypeId: 15,
           },
         });
 
