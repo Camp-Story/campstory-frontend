@@ -13,7 +13,7 @@ import useBookMark from "@hooks/useBookmark";
 import { CAMPING_CHANNEL_ID } from "@constants/channelId";
 import useInfiniteScroll from "@hooks/useInfiniteScroll";
 
-const NUM_OF_ROWS = 300;
+const NUM_OF_ROWS = 50;
 
 export default function CampingSearch() {
   const navigate = useNavigate();
@@ -191,7 +191,7 @@ export default function CampingSearch() {
             {keyword ? `' ${keyword} '` : "전체"} 검색 결과{" "}
             {Intl.NumberFormat("ko-KR").format(Number(campingData.length))}개
           </h2>
-          {isLoading && "로딩중.."}
+          {/* {isLoading && "로딩중.."} */}
           <div className="grid grid-cols-2 gap-x-5 gap-y-[30px]">
             {campingData.length !== 0 ? (
               campingData.map((item) => {
@@ -226,7 +226,7 @@ export default function CampingSearch() {
               </>
             )}
           </div>
-          <div ref={loadMoreRef} className="bg-slate-100 h-40" />
+          <div ref={loadMoreRef} className="h-40" />
         </div>
       </div>
     </>
