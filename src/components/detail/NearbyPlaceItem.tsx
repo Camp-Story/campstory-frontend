@@ -1,4 +1,12 @@
+import { PATH } from "@constants/path";
 import useBookMark from "@hooks/useBookmark";
+import { campingDataResponse } from "types/CampingDataResponse";
+import { useNavigate } from "react-router";
+import { CommonDetails } from "types/EventResponse";
+import { NearbyRestaurantResponse } from "types/RestaurantResponse";
+
+// 유니온 타입 정의
+type PlaceData = campingDataResponse | CommonDetails | NearbyRestaurantResponse;
 
 interface NearbyPlaceItemProps {
   imageUrl: string;
@@ -7,9 +15,22 @@ interface NearbyPlaceItemProps {
   channelId: string;
   contentId: string;
   location: string;
+  data: PlaceData;
 }
 
+// 타입 가드 함수들
+const isCampingData = (place: PlaceData): place is campingDataResponse => {
+  return (place as campingDataResponse).facltNm !== undefined;
+};
+const isEventData = (place: PlaceData): place is CommonDetails => {
+  return (place as CommonDetails).contenttypeid !== undefined && !(place as CommonDetails).zipcode;
+};
+const isRestaurantData = (place: PlaceData): place is NearbyRestaurantResponse => {
+  return (place as NearbyRestaurantResponse).zipcode !== undefined;
+};
+
 export default function NearbyPlaceItem({
+  data,
   imageUrl,
   category,
   name,
@@ -18,12 +39,24 @@ export default function NearbyPlaceItem({
   location,
 }: NearbyPlaceItemProps) {
   const { isBookmarked, handleUnlike, handleLike } = useBookMark(channelId);
-
+  const navigate = useNavigate();
   const bookmarked = isBookmarked(contentId);
+  const handleClick = () => {
+    if (isCampingData(data)) {
+      navigate(PATH.campingInfo(contentId), { state: { item: data } });
+    } else if (isEventData(data)) {
+      navigate(PATH.eventInfo(contentId), { state: { event: data } });
+    } else if (isRestaurantData(data)) {
+      navigate(PATH.restaurantInfo(contentId), { state: { item: data } });
+    }
+  };
 
   return (
     <div>
-      <div className="w-[228px] h-[228px] rounded-xl border-2 overflow-hidden mb-3">
+      <div
+        className="w-[228px] h-[228px] rounded-xl border-2 overflow-hidden mb-3"
+        onClick={handleClick}
+      >
         <img src={imageUrl} alt="인근 명소 이미지" className="size-full object-cover" />
       </div>
       <div className="flex justify-between">
