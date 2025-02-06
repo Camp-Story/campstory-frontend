@@ -71,6 +71,8 @@ export default function EventDetail() {
           image1={eventPayload.firstimage}
           image2={eventDetailData.images.length > 0 ? eventDetailData.images[0] : ""}
           image3={eventDetailData.images.length > 1 ? eventDetailData.images[1] : ""}
+          mapX={eventDetailData.mapx}
+          mapY={eventDetailData.mapy}
         />
         <DetailRight
           category={eventDetailData.sponsor1}
