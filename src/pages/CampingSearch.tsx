@@ -7,10 +7,11 @@ import { CAMPING_AREA, CAMPING_CATEGORY } from "@constants/filters";
 import { PATH } from "@constants/path";
 import { campingDataResponse } from "types/CampingDataResponse";
 import { goCampingInstance } from "@utils/axiosInstance";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import useBookMark from "@hooks/useBookmark";
 import { CAMPING_CHANNEL_ID } from "@constants/channelId";
+import useInfiniteScroll from "@hooks/useInfiniteScroll";
 
 const NUM_OF_ROWS = 300;
 
@@ -23,6 +24,7 @@ export default function CampingSearch() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
   // URL Query 관련 State
   const [keyword, setKeyword] = useState<string>(searchParams.get("keyword") || "");
   const [categoryFilterList, setCategoryFilterList] = useState<string[]>(
@@ -31,9 +33,6 @@ export default function CampingSearch() {
   const [areaFilterList, setAreaFilterList] = useState<string[]>(
     searchParams.get("area") ? searchParams.get("area")!.split(",") : [],
   );
-  // infinite scroll 관련
-  const loadMoreRef = useRef<HTMLDivElement>(null); // 감시 대상 지정하기
-  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const fetchCampingData = useCallback(
     async (searchKeyword: string | null, page: number) => {
@@ -134,27 +133,12 @@ export default function CampingSearch() {
     fetchCampingData(keyword, pageNumber);
   }, [fetchCampingData, keyword, pageNumber]);
 
-  // infinite scroll을 위한 IntersectionObserver 객체 생성
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isLoading && !isPageEnd) {
-          console.log("화면 끝!", entries[0]);
-          setPageNumber((prev) => prev + 1);
-        }
-      },
-      { threshold: 0 },
-    );
-    const currentRef = loadMoreRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, [isLoading, isPageEnd]);
+  // 무한스크롤
+  const { loadMoreRef } = useInfiniteScroll({
+    isPageEnd,
+    isLoading,
+    setPageNumber,
+  });
 
   return (
     <>
