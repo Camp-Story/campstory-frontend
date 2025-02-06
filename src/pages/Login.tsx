@@ -161,22 +161,34 @@ export default function Login() {
         </div>
         <div className="flex items-center justify-center gap-4">
           <button
-            className="w-12 h-12 rounded-full bg-[#FEE500] text-body1 text-gray-scale-400"
+            className="w-12 h-12 rounded-full bg-[#FFDC00] overflow-hidden flex items-center justify-center"
             onClick={loginWithKakao}
           >
-            카카오
+            <img
+              src="/images/social_login_icons/kakao.png"
+              alt="kakao logo"
+              className="size-9 ml-1"
+            />
           </button>
           <button
-            className="w-12 h-12 rounded-full bg-[#03C75A] text-body1 text-gray-scale-0"
+            className="w-12 h-12 rounded-full bg-[#03C75A] overflow-hidden"
             onClick={loginWithNaver}
           >
-            네이버
+            <img
+              src="/images/social_login_icons/naver.jpg"
+              alt="kakao logo"
+              className="size-full"
+            />
           </button>
           <button
-            className="w-12 h-12 rounded-full bg-[#efefef] text-body1 text-gray-scale-400"
+            className="w-12 h-12 rounded-full border border-gray-scale-100 overflow-hidden"
             onClick={loginWithGoolge}
           >
-            구글
+            <img
+              src="/images/social_login_icons/google.png"
+              alt="kakao logo"
+              className="size-full object-cover"
+            />
           </button>
         </div>
       </div>
