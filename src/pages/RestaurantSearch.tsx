@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router";
 import useBookMark from "@hooks/useBookmark";
 import { RESTAURANT_CHANNEL_ID } from "@constants/channelId";
+import useInfiniteScroll from "@hooks/useInfiniteScroll";
 
 interface Item {
   addr1: string;
@@ -43,6 +44,8 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
   label,
 }));
 
+const NUM_OF_ROWS = 50;
+
 export default function RestaurantSearch() {
   const { handleLike, handleUnlike, isBookmarked } = useBookMark(RESTAURANT_CHANNEL_ID);
 
@@ -50,6 +53,8 @@ export default function RestaurantSearch() {
   const [filteredRestaurants, setFilteredRestaurants] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [isPageEnd, setIsPageEnd] = useState<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
@@ -60,55 +65,66 @@ export default function RestaurantSearch() {
 
   const navigate = useNavigate();
 
-  const fetchRestaurantsData = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+  const fetchRestaurantsData = useCallback(
+    async (page: number) => {
+      if (isPageEnd) return; // 마지막 페이지면 요청하지 않음
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const endpoint = keyword ? "/searchKeyword1" : "/areaBasedList1";
-      const params = keyword
-        ? {
-            params: {
-              numOfRows: "30",
-              pageNo: "",
-              listYN: "Y",
-              arrange: "O",
-              contentTypeId: 39,
-              areaCode: "",
-              sigunguCode: "",
-              cat1: "",
-              cat2: "",
-              cat3: "",
-              keyword: keyword,
-            },
-          }
-        : {
-            params: {
-              numOfRows: 50,
-              pageNo: "",
-              listYN: "Y",
-              arrange: "O",
-              contentTypeId: 39,
-              areaCode: "",
-              sigunguCode: "",
-              cat1: "",
-              cat2: "",
-              cat3: "",
-            },
-          };
+      try {
+        const endpoint = keyword ? "/searchKeyword1" : "/areaBasedList1";
+        const params = keyword
+          ? {
+              params: {
+                numOfRows: NUM_OF_ROWS,
+                pageNo: page,
+                listYN: "Y",
+                arrange: "O",
+                contentTypeId: 39,
+                areaCode: "",
+                sigunguCode: "",
+                cat1: "",
+                cat2: "",
+                cat3: "",
+                keyword: keyword,
+              },
+            }
+          : {
+              params: {
+                numOfRows: NUM_OF_ROWS,
+                pageNo: page,
+                listYN: "Y",
+                arrange: "O",
+                contentTypeId: 39,
+                areaCode: "",
+                sigunguCode: "",
+                cat1: "",
+                cat2: "",
+                cat3: "",
+              },
+            };
 
-      const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
+        const response = await tourApiInstance.get<ApiResponse>(endpoint, params);
 
-      const items = response.data.response.body.items.item || [];
+        const items = response.data.response.body.items.item || [];
 
-      setRestaurants(items);
-    } catch (error) {
-      console.log(error);
-      setError("데이터를 불러오는 중 오류가 발생했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [keyword]);
+        if (items.length < NUM_OF_ROWS) {
+          setIsPageEnd(true);
+        }
+        if (page === 1) {
+          setRestaurants(items);
+        } else {
+          setRestaurants((prev) => [...prev, ...items]);
+        }
+      } catch (error) {
+        console.log(error);
+        setError("데이터를 불러오는 중 오류가 발생했습니다.");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isPageEnd, keyword],
+  );
 
   const handleSearch = (searchKeyword: string) => {
     // 기존 파라미터를 복사
@@ -130,13 +146,13 @@ export default function RestaurantSearch() {
   };
 
   const filterRestaurantData = useCallback(() => {
-    if (selectedCategories.length === 0) {
+    if (selectedCategories.length === 0 && pageNumber !== 1) {
       setFilteredRestaurants(restaurants);
     } else {
       const filtered = restaurants.filter((item) => selectedCategories.includes(item.cat3));
       setFilteredRestaurants(filtered);
     }
-  }, [restaurants, selectedCategories]);
+  }, [pageNumber, restaurants, selectedCategories]);
 
   const handleCategoryChange = (updated: string[]) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -146,17 +162,26 @@ export default function RestaurantSearch() {
     } else {
       newParams.delete("cat3");
     }
-
+    setPageNumber(1);
+    setIsPageEnd(false);
     setSearchParams(newParams);
   };
 
   useEffect(() => {
-    fetchRestaurantsData();
-  }, [fetchRestaurantsData]);
+    fetchRestaurantsData(pageNumber);
+  }, [fetchRestaurantsData, pageNumber]);
 
   useEffect(() => {
     filterRestaurantData();
+    console.log("filterRestaurantData()");
   }, [restaurants, selectedCategories, filterRestaurantData]);
+
+  // 무한스크롤
+  const { loadMoreRef } = useInfiniteScroll({
+    isPageEnd,
+    isLoading,
+    setPageNumber,
+  });
 
   return (
     <>
@@ -230,6 +255,8 @@ export default function RestaurantSearch() {
           ) : (
             <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
           )}
+          {/* 무한 스크롤 관련 */}
+          <div ref={loadMoreRef} className="bg-slate-100 h-40" />
         </div>
       </div>
     </>
