@@ -153,12 +153,16 @@ export default function FoodDetail() {
             image1={restaurantImg[0]?.originimgurl}
             image2={restaurantImg[1]?.originimgurl}
             image3={restaurantImg[2]?.originimgurl}
+            mapX={restaurantData.common[0].mapx}
+            mapY={restaurantData.common[0].mapy}
           />
         ) : (
           <DetailLeft
             image1={"/images/food/restaurants/restaurant2.png"}
             image2={"/images/food/restaurants/restaurant3.png"}
             image3={"/images/food/restaurants/restaurant4.png"}
+            mapX={restaurantData.common[0].mapx}
+            mapY={restaurantData.common[0].mapy}
           />
         )}
 
