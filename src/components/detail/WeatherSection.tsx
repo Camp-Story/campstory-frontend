@@ -25,7 +25,7 @@ function getWeatherIcon(sky: string | undefined, pty: string | undefined): strin
       return "/images/weathers/snow.png"; // 눈 아이콘
     }
   }
-  return "/public/images/weathers/sunny.png"; // 기본 아이콘
+  return "/images/weathers/sunny.png"; // 기본 아이콘
 }
 
 export default function WeatherSection({
@@ -53,10 +53,10 @@ export default function WeatherSection({
           </div>
         </div>
         <div className="flex items-center justify-center w-full">
-          <div className="flex items-center font-bold text-3xl">
-            <span className="text-[#DC3644] mr-2">{TMN}</span>
-            <span className="mr-2">/</span>
-            <span className="text-info-500">{TMX}</span>
+          <div className="flex items-center text-3xl">
+            <span className="text-info-500 font-semibold mr-2">{TMN}</span>
+            <span className="font-semibold mr-2">/</span>
+            <span className="text-[#DC3644] font-bold">{TMX}</span>
           </div>
         </div>
       </div>
