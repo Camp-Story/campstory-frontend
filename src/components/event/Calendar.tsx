@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { useNavigate } from "react-router-dom"; // 올바른 임포트 경로
+import { useNavigate } from "react-router";
 import { CalendarEvent } from "./EventCalendarSection";
 import { PATH } from "@constants/path";
 import { EventClickArg } from "@fullcalendar/core"; // EventClickArg 타입 임포트
@@ -27,6 +27,12 @@ export default function Calendar({ events }: CalendarProps) {
 
   return (
     <FullCalendar
+      headerToolbar={{
+        start: "prev",
+        center: "title",
+        end: "next",
+      }}
+      locale={"ko"}
       plugins={[dayGridPlugin]}
       initialView="dayGridMonth"
       height="100%"
