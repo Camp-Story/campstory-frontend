@@ -11,6 +11,7 @@ import { apiInstance } from "@utils/axiosInstance";
 
 import getRelativeTime from "@utils/getRelativeTime";
 import TagList from "@components/community/TagList";
+import useLike from "@hooks/useLike";
 
 interface Author {
   _id: string;
@@ -44,10 +45,13 @@ interface PostDetail {
 export default function CommunityDefault() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
+  const [postDetail, setPostDetail] = useState<PostDetail>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const currentUserId = localStorage.getItem("id");
+  const postId = postDetail && postDetail._id;
+
+  const { isLiked, likeCount, toggleLike } = useLike(postId ?? "");
 
   useEffect(() => {
     if (!id) return;
@@ -197,12 +201,12 @@ export default function CommunityDefault() {
 
           <AdditionalInfo
             bookmarked={false}
-            isLiked={false}
-            likeCount={postDetail.likes.length}
+            isLiked={isLiked}
+            likeCount={likeCount}
             viewCount={115}
             time={getRelativeTime(postDetail.createdAt)}
             handleClickBookmark={() => alert("click bookmark")}
-            handleClickLike={() => alert("click like")}
+            handleClickLike={toggleLike}
           />
         </div>
       </div>

@@ -3,11 +3,12 @@ import AdditionalInfo from "../AdditionalInfo";
 import QuestionTag from "@components/community/QuestionTag";
 import { Tag } from "../QuestionTag";
 import getRelativeTime from "@utils/getRelativeTime";
+import useLike from "@hooks/useLike";
 
 export default function QuestionCard({ data }: { data: PostResponse }) {
   const { nickName } = JSON.parse(data.author.fullName);
   const { title, tag, content } = JSON.parse(data.title);
-  const { likes } = data;
+  const { isLiked, likeCount, toggleLike } = useLike(data._id);
   console.log(tag);
   return (
     <>
@@ -45,12 +46,12 @@ export default function QuestionCard({ data }: { data: PostResponse }) {
           </div>
           <AdditionalInfo
             bookmarked
-            isLiked={false}
-            likeCount={likes.length}
+            isLiked={isLiked}
+            likeCount={likeCount}
             viewCount={115}
             time=""
             handleClickBookmark={() => alert("click bookmark")}
-            handleClickLike={() => alert("click like")}
+            handleClickLike={toggleLike}
           />
         </div>
       </div>

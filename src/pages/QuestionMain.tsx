@@ -15,6 +15,7 @@ const TAGS: Tag[] = ["reservation", "payment", "member", "campingGear", "campsit
 export default function QuestionMain() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [sortOrder, setSortOrder] = useState<"recent" | "popular">("recent");
   const [questionData, setQuestionData] = useState<PostResponse[]>([]);
   const [filteredData, setFilteredData] = useState<PostResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,6 +64,15 @@ export default function QuestionMain() {
     [questionData],
   );
 
+  const sortedQuestion = [...filteredData].sort((a, b) => {
+    if (sortOrder === "recent") {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    } else if (sortOrder === "popular") {
+      return Number(b.likes.length) - Number(a.likes.length);
+    }
+    return 0;
+  });
+
   const fetchQuestionData = async () => {
     setIsLoading(true);
     setError(null);
@@ -99,8 +109,13 @@ export default function QuestionMain() {
       <div className="flex gap-[50px] justify-between items-center mb-[30px]">
         {/* OrderRadio */}
         <div className="flex gap-5 text-sub-title">
-          <OrderRadio label="최신순" value="recent" defaultChecked />
-          <OrderRadio label="인기순" value="popular" />
+          <OrderRadio
+            label="최신순"
+            value="recent"
+            defaultChecked
+            onChange={() => setSortOrder("recent")}
+          />
+          <OrderRadio label="인기순" value="popular" onChange={() => setSortOrder("popular")} />
         </div>
 
         {/* Tags */}
@@ -131,7 +146,7 @@ export default function QuestionMain() {
       {isLoading && <p>로딩중...</p>}
       {error}
       <div className="grid grid-cols-2 gap-x-7 gap-y-10 justify-between">
-        {filteredData.map((question) => (
+        {sortedQuestion.map((question) => (
           <QuestionCard
             key={question._id}
             questionId={question._id}
