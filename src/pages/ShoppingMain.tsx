@@ -322,9 +322,13 @@ export default function ShoppingMain() {
           {NewProductData.map((product) => (
             <ProductCard
               key={product.productId}
-              product={product}
+              product={{
+                ...product,
+                image: product.image.replace("https://shopping-phinf.pstatic.net", "/pstatic"),
+              }}
               bookmarked={false}
               handleClickBookmark={() => alert("bookmark")}
+              useNativeImage={true}
             />
           ))}
         </div>
@@ -343,9 +347,13 @@ export default function ShoppingMain() {
           {DiscountProductData.map((product) => (
             <ProductCard
               key={product.productId}
-              product={product}
+              product={{
+                ...product,
+                image: product.image.replace("https://shopping-phinf.pstatic.net", "/pstatic"),
+              }}
               bookmarked={false}
               handleClickBookmark={() => alert("bookmark")}
+              useNativeImage={true}
             />
           ))}
         </div>

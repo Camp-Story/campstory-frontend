@@ -34,7 +34,7 @@ export default function WokerImage({ imageUrl, alt, className }: WorkerImageProp
   }, [imageUrl]);
 
   if (error) return <div className="text-gray-scale-200 text-2xl">Error: {error}</div>;
-  if (!dataUrl) return <div className="text-gray-scale-200 text-2xl">Loading image.. {error}</div>;
+  if (!dataUrl) return;
 
   return <img src={dataUrl} alt={alt} className={className} />;
 }
