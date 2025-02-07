@@ -7,6 +7,7 @@ import getRelativeTime from "@utils/getRelativeTime";
 export default function QuestionCard({ data }: { data: PostResponse }) {
   const { nickName } = JSON.parse(data.author.fullName);
   const { title, tag, content } = JSON.parse(data.title);
+  const { likes } = data;
   console.log(tag);
   return (
     <>
@@ -45,7 +46,7 @@ export default function QuestionCard({ data }: { data: PostResponse }) {
           <AdditionalInfo
             bookmarked
             isLiked={false}
-            likeCount={10}
+            likeCount={likes.length}
             viewCount={115}
             time=""
             handleClickBookmark={() => alert("click bookmark")}

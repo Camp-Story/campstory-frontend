@@ -1,12 +1,16 @@
 import AdditionalInfo from "../AdditionalInfo";
 import UserProfile from "../UserProfile";
+import { useState, useEffect } from "react";
+import { apiInstance } from "@utils/axiosInstance";
 
 interface QuestionCardProps extends React.HtmlHTMLAttributes<HTMLInputElement> {
-  handleClick: () => void;
+  handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   userName: string;
   coverImage: string;
   title: string;
   timeStamp: string;
+  questionId: string;
+  likes: number;
 }
 
 export default function QuestionCard({
@@ -15,7 +19,75 @@ export default function QuestionCard({
   coverImage,
   title,
   timeStamp,
+  likes,
+  questionId,
 }: QuestionCardProps) {
+  const initialLikeCount = likes;
+
+  const token = localStorage.getItem("token");
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likeId, setLikeId] = useState<string>("");
+  const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
+
+  useEffect(() => {
+    setLikeCount(likes);
+  }, [likes]);
+
+  async function handleLike(
+    e: React.MouseEvent<HTMLDivElement>,
+    questionId: string,
+  ): Promise<void> {
+    e.stopPropagation();
+    try {
+      const response = await apiInstance.post(
+        "/likes/create",
+        { postId: questionId },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        },
+      );
+      console.log("좋아요 성공", response.data);
+      const createdLikeId = response.data._id;
+      setLikeId(createdLikeId);
+      setIsLiked(true);
+      setLikeCount((prev) => prev + 1);
+    } catch (err) {
+      console.error("좋아요 실패:", err);
+    }
+  }
+
+  async function handleUnlike(e: React.MouseEvent<HTMLDivElement>, likeId: string): Promise<void> {
+    e.stopPropagation();
+    try {
+      const response = await apiInstance.delete("/likes/delete", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+        data: { id: likeId },
+      });
+      console.log("좋아요 취소 성공", response.data);
+      setIsLiked(false);
+      setLikeCount((prev) => prev - 1);
+    } catch (err) {
+      console.error("좋아요 취소 실패:", err);
+    }
+  }
+
+  const toggleLike = (e: React.MouseEvent<HTMLDivElement>, questionId: string, likeId: string) => {
+    if (isLiked) {
+      if (questionId) {
+        handleUnlike(e, likeId);
+      }
+    } else {
+      handleLike(e, questionId);
+    }
+  };
+  const boundToggleLike = (e: React.MouseEvent<HTMLDivElement>) => {
+    toggleLike(e, questionId, likeId);
+  };
+
   return (
     <>
       <div onClick={handleClick} className="flex flex-col gap-3 hover:cursor-pointer">
@@ -28,12 +100,12 @@ export default function QuestionCard({
           </div>
           <AdditionalInfo
             bookmarked
-            isLiked={false}
-            likeCount={10}
+            isLiked={isLiked}
+            likeCount={likeCount}
             viewCount={115}
             time={timeStamp}
             handleClickBookmark={() => alert("click bookmark")}
-            handleClickLike={() => alert("click like")}
+            handleClickLike={boundToggleLike}
           />
         </div>
       </div>

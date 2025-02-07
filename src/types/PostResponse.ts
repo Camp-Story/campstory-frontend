@@ -56,7 +56,7 @@ interface PostResponse {
   author: User;
   createdAt: string;
   updatedAt: string;
-  likes: Like[];
+  likes: string[];
   comments: CommentData[];
   image?: string;
 }
