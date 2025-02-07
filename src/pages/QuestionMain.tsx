@@ -134,6 +134,8 @@ export default function QuestionMain() {
         {filteredData.map((question) => (
           <QuestionCard
             key={question._id}
+            questionId={question._id}
+            likes={question.likes.length}
             handleClick={() => navigate(PATH.questionPost(question._id))}
             userName={JSON.parse(question.author.fullName).fullName}
             coverImage={question.author.image || "https://placehold.co/30x30?text=CAMP+STORY"}
