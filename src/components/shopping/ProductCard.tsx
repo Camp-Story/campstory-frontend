@@ -2,6 +2,7 @@ import { PATH } from "@constants/path";
 import { useNavigate } from "react-router";
 import calculateDiscountRate from "@utils/calculateDiscountRate";
 import { ProductCardProps } from "types/NaverShoppingResponse";
+import WokerImage from "@components/common/WorkerImage";
 
 export default function ProductCard({
   product,
@@ -25,9 +26,9 @@ export default function ProductCard({
         onClick={() => handleNavigateToDetail(productId)}
         className="block w-full h-56 rounded overflow-hidden border"
       >
-        <img
+        <WokerImage
+          imageUrl={image || "https://placehold.co/230x230?text=CAMP+STORY"}
           className="w-full h-full"
-          src={image || "https://placehold.co/230x230?text=CAMP+STORY"}
           alt="Product Image"
         />
       </div>
