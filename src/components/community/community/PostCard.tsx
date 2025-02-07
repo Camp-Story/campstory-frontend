@@ -5,8 +5,7 @@ import UserProfile from "../UserProfile";
 import TagList from "../TagList";
 import AdditionalInfo from "../AdditionalInfo";
 import { Tag as TagType } from "../Tag";
-import { apiInstance } from "@utils/axiosInstance";
-import { useState, useEffect } from "react";
+import useLike from "@hooks/useLike";
 
 interface PostCardProps {
   postId: string;
@@ -33,72 +32,14 @@ export default function PostCard({
   time,
   tags,
   userImage,
-  likes,
 }: PostCardProps) {
   const navigate = useNavigate();
   const handleClickCard = () => {
     navigate(PATH.communityPost(postId || "1"));
   };
-  const initialLikeCount = likes;
-
-  const token = localStorage.getItem("token");
   const defaultImage = "/images/community/communityPostItem.png";
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [likeId, setLikeId] = useState<string>("");
-  const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
 
-  useEffect(() => {
-    setLikeCount(likes);
-  }, [likes]);
-
-  async function handleLike(e: React.MouseEvent<HTMLDivElement>, postId: string): Promise<void> {
-    e.stopPropagation();
-    try {
-      const response = await apiInstance.post(
-        "/likes/create",
-        { postId },
-        {
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
-        },
-      );
-      console.log("좋아요 성공", response.data);
-      const createdLikeId = response.data._id;
-      setLikeId(createdLikeId);
-      setIsLiked(true);
-      setLikeCount((prev) => prev + 1);
-    } catch (err) {
-      console.error("좋아요 실패:", err);
-    }
-  }
-
-  async function handleUnlike(e: React.MouseEvent<HTMLDivElement>, likeId: string): Promise<void> {
-    e.stopPropagation();
-    try {
-      const response = await apiInstance.delete("/likes/delete", {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-        data: { id: likeId },
-      });
-      console.log("좋아요 취소 성공", response.data);
-      setIsLiked(false);
-      setLikeCount((prev) => prev - 1);
-    } catch (err) {
-      console.error("좋아요 취소 실패:", err);
-    }
-  }
-
-  const toggleLike = (e: React.MouseEvent<HTMLDivElement>, postId: string, likeId: string) => {
-    if (isLiked) {
-      if (postId) {
-        handleUnlike(e, likeId);
-      }
-    } else {
-      handleLike(e, postId);
-    }
-  };
+  const { isLiked, likeCount, toggleLike } = useLike(postId);
 
   return (
     <div onClick={handleClickCard} className="cursor-pointer">
@@ -124,7 +65,7 @@ export default function PostCard({
         viewCount={120}
         time={time}
         handleClickBookmark={() => alert("click bookmark")}
-        handleClickLike={(e) => toggleLike(e, postId, likeId)}
+        handleClickLike={toggleLike}
       />
     </div>
   );
