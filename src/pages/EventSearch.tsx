@@ -239,7 +239,9 @@ export default function EventSearch() {
           </div>
         </div>
         <div className="flex flex-col gap-[30px]">
-          <h2 className="text-[26px] font-bold text-gray-scale-400">검색 결과 {totalCount}개</h2>
+          <h2 className="text-[26px] font-bold text-gray-scale-400">
+            {keyword ? `' ${keyword} '` : "전체"} 검색 결과 {totalCount}개
+          </h2>
 
           {isLoading && <p>데이터를 불러오는 중입니다...</p>}
 
