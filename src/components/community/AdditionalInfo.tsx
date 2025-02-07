@@ -1,8 +1,7 @@
 import Badge from "./Badge";
 import LikeIcon from "./icons/LikeIcon";
 import ViewIcon from "./icons/ViewIcon";
-// import BookmarkIcon from "./icons/BookmarkIcon";
-// import ShareIcon from "./icons/ShareIcon";
+import { useMemo } from "react";
 
 interface AdditionalInfoProps {
   viewCount: number;
@@ -19,20 +18,17 @@ export default function AdditionalInfo({
   likeCount,
   time,
   handleClickLike,
-  // handleClickBookmark,
-  // bookmarked,
 }: AdditionalInfoProps) {
+  const randomViewCount = useMemo(() => Math.floor(Math.random() * 25) + 10, []);
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-[5px]">
-        <Badge icon={<ViewIcon />} count={Math.floor(Math.random() * 30) + 10} />
+        <Badge icon={<ViewIcon />} count={randomViewCount} />
         <Badge
           icon={<LikeIcon isLiked={isLiked} />}
           count={likeCount}
           handleClick={handleClickLike}
         />
-        {/* <Badge icon={<BookmarkIcon bookmarked={bookmarked} />} handleClick={handleClickBookmark} /> */}
-        {/* <Badge icon={<ShareIcon />} handleClick={() => alert("click share")} /> */}
       </div>
 
       <span className="text-[13px] text-gray-scale-300">{time}</span>
