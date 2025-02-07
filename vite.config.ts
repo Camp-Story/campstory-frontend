@@ -13,6 +13,24 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
+      "/upload": {
+        target: "https://gocamping.or.kr",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/upload/, ""),
+      },
+      "/pstatic": {
+        target: "https://shopping-phinf.pstatic.net",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/pstatic/, ""),
+      },
+      "/visitkorea": {
+        target: "http://tong.visitkorea.or.kr",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/visitkorea/, ""),
+      },
     },
   },
 });

@@ -25,7 +25,10 @@ export default function ProductCardList({
       {products.map((product) => (
         <ProductCard
           key={product.productId}
-          product={product}
+          product={{
+            ...product,
+            image: product.image.replace("https://shopping-phinf.pstatic.net", "/pstatic"),
+          }}
           bookmarked={false}
           handleClickBookmark={() => alert("bookmark")}
         />

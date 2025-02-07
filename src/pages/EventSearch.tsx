@@ -255,7 +255,10 @@ export default function EventSearch() {
                 return (
                   <SearchCard
                     key={event.contentid}
-                    img={event.firstimage}
+                    img={event.firstimage.replace(
+                      /^https?:\/\/tong\.visitkorea\.or\.kr/,
+                      "/visitkorea",
+                    )}
                     bookmarked={!!bookmarked}
                     category={category}
                     handleClick={() =>

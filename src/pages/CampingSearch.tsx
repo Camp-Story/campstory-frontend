@@ -199,7 +199,7 @@ export default function CampingSearch() {
                 return (
                   <SearchCard
                     key={item.contentId}
-                    img={item.firstImageUrl}
+                    img={item.firstImageUrl.replace("https://gocamping.or.kr", "/upload")}
                     bookmarked={!!bookmarked}
                     category={item.induty}
                     location={item.addr1}

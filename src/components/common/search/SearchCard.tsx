@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import WokerImage from "../WorkerImage";
 
 interface SearchCardProps {
   img: string;
@@ -22,8 +23,8 @@ export default function SearchCard({
   return (
     <article className="w-[450px] flex flex-col rounded-xl bg-white overflow-hidden drop-shadow hover:brightness-95">
       <div className="h-[250px] overflow-hidden">
-        <img
-          src={img || "https://placehold.co/450x250?text=CAMP+STORY"}
+        <WokerImage
+          imageUrl={img || "https://placehold.co/450x250?text=CAMP+STORY"}
           alt="thumbanil"
           className="size-full object-cover"
         />

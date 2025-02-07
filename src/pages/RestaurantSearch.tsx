@@ -14,6 +14,7 @@ import { RESTAURANT_CHANNEL_ID } from "@constants/channelId";
 import useInfiniteScroll from "@hooks/useInfiniteScroll";
 
 interface Item {
+  id: string;
   addr1: string;
   addr2: string;
   cat1: string;
@@ -229,8 +230,11 @@ export default function RestaurantSearch() {
                 const bookmarked = isBookmarked(restaurant.contentid);
                 return (
                   <SearchCard
-                    key={restaurant.contentid}
-                    img={restaurant.firstimage}
+                    key={restaurant.id}
+                    img={restaurant.firstimage.replace(
+                      /^https?:\/\/tong\.visitkorea\.or\.kr/,
+                      "/visitkorea",
+                    )}
                     bookmarked={!!bookmarked}
                     category={CategoryMap[restaurant.cat3] || "카테고리 없음"}
                     handleClick={() =>
