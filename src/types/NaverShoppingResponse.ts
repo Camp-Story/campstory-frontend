@@ -23,4 +23,5 @@ export interface ProductCardProps {
   product: NaverProductResponse;
   bookmarked?: boolean;
   handleClickBookmark?: () => void;
+  useNativeImage?: boolean;
 }

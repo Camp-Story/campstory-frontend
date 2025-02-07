@@ -8,6 +8,7 @@ export default function ProductCard({
   product,
   bookmarked,
   handleClickBookmark,
+  useNativeImage = false,
 }: ProductCardProps) {
   const { brand, productId, title, mallName, image, hprice, lprice } = product;
 
@@ -26,11 +27,19 @@ export default function ProductCard({
         onClick={() => handleNavigateToDetail(productId)}
         className="block w-full h-56 rounded overflow-hidden border"
       >
-        <WokerImage
-          imageUrl={image || "https://placehold.co/230x230?text=CAMP+STORY"}
-          className="w-full h-full"
-          alt="Product Image"
-        />
+        {useNativeImage ? (
+          <img
+            src={image || "https://placehold.co/230x230?text=CAMP+STORY"}
+            alt="Product Image"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <WokerImage
+            imageUrl={image || "https://placehold.co/230x230?text=CAMP+STORY"}
+            className="w-full h-full"
+            alt="Product Image"
+          />
+        )}
       </div>
       <div className="mt-3 flex justify-between text-gray-scale-400 text-body2 mb-2">
         {/* 브랜드 및 이름 */}
