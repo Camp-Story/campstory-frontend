@@ -45,7 +45,7 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
   label,
 }));
 
-const NUM_OF_ROWS = 50;
+const NUM_OF_ROWS = 100;
 
 export default function RestaurantSearch() {
   const { handleLike, handleUnlike, isBookmarked } = useBookMark(RESTAURANT_CHANNEL_ID);
