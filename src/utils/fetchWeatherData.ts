@@ -42,9 +42,6 @@ const fetchWeatherData = async (mapX: string, mapY: string) => {
       throw new Error("해당 위치의 날씨 데이터를 가져오는데 실패했습니다. 다시 시도해주세요.");
     }
 
-    console.log(response);
-    console.dir(response.data.response.body.items.item);
-
     return response.data.response.body.items.item;
   } catch (error) {
     console.log(error);

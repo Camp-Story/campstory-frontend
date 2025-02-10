@@ -51,8 +51,8 @@ export default function QuestionCreate() {
         <InputContainer title="제목">
           <input
             name="title"
-            placeholder="이곳에 제목을 입력해주세요 (최대 20자 작성)"
-            maxLength={20}
+            placeholder="이곳에 제목을 입력해주세요 (최대 30자 작성)"
+            maxLength={30}
             onChange={handleChange}
             className="p-3.5 px-[25px] text-[15px] border border-gray-scale-200 rounded-sm focus:outline-none"
           />

@@ -10,8 +10,6 @@ interface WeatherDataType {
 }
 
 function getWeatherIcon(sky: string | undefined, pty: string | undefined): string {
-  console.log(`getWeatherIcon - SKY: ${sky}, PTY: ${pty}`);
-
   if (sky === "맑음") {
     return "/images/weathers/sunny.png"; // 맑음 아이콘
   } else if (sky === "구름많음") {
