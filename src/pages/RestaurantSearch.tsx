@@ -45,7 +45,7 @@ const CATEGORY_OPTIONS = Object.entries(CategoryMap).map(([code, label]) => ({
   label,
 }));
 
-const NUM_OF_ROWS = 50;
+const NUM_OF_ROWS = 100;
 
 export default function RestaurantSearch() {
   const { handleLike, handleUnlike, isBookmarked } = useBookMark(RESTAURANT_CHANNEL_ID);
@@ -260,7 +260,7 @@ export default function RestaurantSearch() {
             <p className="text-2xl text-gray-scale-200">검색 결과가 없습니다.</p>
           )}
           {/* 무한 스크롤 관련 */}
-          <div ref={loadMoreRef} className="bg-slate-100 h-40" />
+          <div ref={loadMoreRef} className="h-40" />
         </div>
       </div>
     </>
