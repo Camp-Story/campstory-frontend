@@ -21,6 +21,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     loader: tokenLoader,
     shouldRevalidate: () => true, // 항상 재검증
+    errorElement: <p style={{ textAlign: "center" }}>404</p>,
     children: [
       {
         path: "",

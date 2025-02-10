@@ -20,7 +20,7 @@ function SearchForm() {
       console.log(inputRef.current.value, category, area);
       navigate({
         pathname: PATH.campingSearch,
-        search: `?keyword=${inputRef.current.value}&category=${category}&area=${area}`,
+        search: `?keyword=${inputRef.current.value ?? ""}&category=${category ?? ""}&area=${area ?? ""}`,
       });
     }
   };

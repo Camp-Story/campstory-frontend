@@ -27,6 +27,7 @@ export default function RelatedProducts({ title, category }: { title: string; ca
               product={product}
               bookmarked={false}
               handleClickBookmark={() => alert("bookmark")}
+              useNativeImage={true}
             />
           ))}
       </div>
